@@ -1,34 +1,64 @@
-// ignore_for_file: prefer_const_constructors, unused_import
-
 import 'package:flutter/material.dart';
-import 'package:saturn/Serviceneed.dart';
-
-import 'package:saturn/createacc_page/createacc1.dart';
-import 'package:saturn/findroomates/ROOMOWNER/saturnroomowner/saturnhomeroomowner.dart';
-import 'package:saturn/findroomates/ROOMSEKER/saturnroomseeker/shortlisted/saturnroomseeker.dart';
-import 'package:saturn/general/dropdown.dart';
-import 'package:saturn/findroomates/ROOMOWNER/saturnroomowner/profileowner.dart';
-import 'package:saturn/findroomates/ROOMOWNER/saturnroomowner/shortlisted/shortlistedowner.dart';
-import 'package:saturn/homesforrent/common/viewdetails.dart';
-import 'package:saturn/homesforrent/homecall.dart';
-import 'package:saturn/homesforrent/homesfeed.dart';
-import 'package:saturn/homesforrent/pricestructor/pricestructorcommon.dart';
-import 'package:saturn/login/phonenumber.dart';
-import 'package:saturn/login/registration.dart';
-import 'package:saturn/menu/home.dart';
-import 'package:saturn/need2.dart';
-import 'package:saturn/saturnhomeforrent.dart';
-
-import 'package:saturn/findroomates/ROOMSEKER/note.dart';
-
-import 'package:saturn/login/verifyemail.dart';
+import 'package:provider/provider.dart';
+import 'package:saturn/providers/customer_info_provider.dart';
+import 'package:saturn/providers/list_tile_provider.dart';
+import 'package:saturn/providers/menu_provider.dart';
+import 'package:saturn/providers/owner_home_provider.dart';
+import 'package:saturn/helper_widgets/colors.dart';
+import 'package:saturn/preview.dart';
 
 void main() {
-  runApp(
-      // ignore: prefer _const_constructors
-      MaterialApp(
-    debugShowCheckedModeBanner: false,
-    home: SaturnHomeseeker(),
-    // home: Create_Account(),
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (context) => CustomerInfoProvider()),
+      ChangeNotifierProvider(create: (context) => OwnerHomeProvider()),
+      ChangeNotifierProvider(create: (context) => ListTileProvider()),
+      ChangeNotifierProvider(create: (context) => MenuProvider()),
+    ],
+    child: MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: const PreviewScreen(),
+      theme: ThemeData.light().copyWith(primaryColor: purple),
+    ),
   ));
 }
+
+// class SplashScreen extends StatefulWidget {
+//   const SplashScreen({super.key});
+
+//   @override
+//   _SplashScreenState createState() => _SplashScreenState();
+// }
+
+// class _SplashScreenState extends State<SplashScreen> {
+//   @override
+//   void initState() {
+//     super.initState();
+//     Timer(const Duration(seconds: 3), () {
+//       Navigator.of(context).pushReplacement(
+//           MaterialPageRoute(builder: (_) => const PreviewScreen()));
+//     });
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     Size size = MediaQuery.of(context).size;
+//     return Container(
+//       color: white,
+//       height: size.height,
+//       width: double.infinity,
+//       child: Stack(
+//         alignment: Alignment.center,
+//         children: [
+//           Positioned(
+//             child: Image.asset(
+//               "assets/images/saturn.png",
+//               width: size.width * 0.6,
+//               height: size.height * 0.5,
+//             ),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
