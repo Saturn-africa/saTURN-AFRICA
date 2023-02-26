@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:saturn/custom_widgets/custom_profile_tile.dart';
-import 'package:saturn/custom_widgets/drawer_widget.dart';
-import 'package:saturn/customer_info/find_roommates/filter/filter_screen.dart';
 import 'package:saturn/customer_info/find_roommates/life_style.dart';
 import 'package:saturn/customer_info/find_roommates/personal_info.dart';
 import 'package:saturn/customer_info/find_roommates/room_owner/additional_info.dart';

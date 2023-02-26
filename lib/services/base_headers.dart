@@ -1,12 +1,14 @@
 class BaseHeaders {
-  static const Map<String, String> header = {
+  final Map<String, String> header = {
     "accept": "*/*",
-    "Content-Type": "application/json"
+    "Content-Type": "application/JSON"
   };
 
-  static const Map<String, String> authHeader = {
-    "accept": "*/*",
-    "Content-Type": "application/json",
-    "Authorization": "Bearer ",
-  };
+  Map<String, String> authHeader(auth) {
+    return {
+      "accept": "*/*",
+      "Content-Type": "application/JSON",
+      "Authorization": "Bearer $auth",
+    };
+  }
 }

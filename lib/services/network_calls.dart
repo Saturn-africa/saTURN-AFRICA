@@ -20,9 +20,9 @@ class NetworkCalls {
   Future postRequest(
       String url, Map<String, String> header, Object body) async {
     try {
-      http.Response response =
-          await http.post(Uri.parse(url), headers: header, body: body);
-      if (response.statusCode == 200) {
+      http.Response response = await http.post(Uri.parse(url),
+          headers: header, body: jsonEncode(body));
+      if (response.statusCode == 201 || response.statusCode == 200) {
         return jsonDecode(response.body);
       } else {
         throw Exception(response.reasonPhrase);

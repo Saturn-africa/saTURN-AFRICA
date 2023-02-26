@@ -16,7 +16,7 @@ TextStyle kHeaderTextStyle = GoogleFonts.ubuntu(
 
 TextStyle appBarTextStyle = GoogleFonts.ubuntu(
     textStyle: const TextStyle(
-        fontSize: 22, fontWeight: FontWeight.w600, color: purple));
+        fontSize: 20, fontWeight: FontWeight.w600, color: purple));
 
 TextStyle registrationHeaderTextStyle = GoogleFonts.ubuntu(
     textStyle: const TextStyle(

@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:saturn/custom_widgets/custom_card_button.dart';
+import 'package:saturn/customer_info/homes_for_rent/physical_tour_page.dart';
 import 'package:saturn/helper_widgets/colors.dart';
 import 'package:saturn/helper_widgets/text_style.dart';
 
@@ -77,7 +78,12 @@ class ApplyForRentPage extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: CustomCardButtonWidget(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (_) => const PhysicalTourPage()));
+                    },
                     child: Text(
                       "Reserve",
                       style: buttonStyle,

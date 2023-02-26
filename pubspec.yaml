@@ -38,6 +38,7 @@ dependencies:
   url_launcher: ^6.1.9
   nigerian_states_and_lga: ^1.0.0
   http: ^0.13.5
+  syncfusion_flutter_datepicker: ^20.4.44
 
 dev_dependencies:
   flutter_test:

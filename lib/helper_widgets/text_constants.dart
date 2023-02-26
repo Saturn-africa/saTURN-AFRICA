@@ -14,6 +14,10 @@ class RegistrationTexts {
   String emailHint = "Enter your Email Address";
   String emailError = "Please Enter your Email Address";
   String inValidEmail = "Please Enter a Valid Email Address";
+  String mobileText = "Phone Number";
+  String mobileHint = "Enter your phone number";
+  String mobileError = "Please enter phone number";
+  String ivalidNumber = "Enter a valid phone number";
   String passwordText = "Password";
   String passwordHint = "••••••••";
   String passwordError = "Please Enter New Password";
