@@ -1,5 +1,5 @@
 class BaseURL {
-  static const String base = "https://saturn-api.fly.dev/api/v1/";
+  static const String base = "https://saturn-api-lr6i.onrender.com/api/v1/";
 
   final String signUp = "${base}auth/signup";
 
