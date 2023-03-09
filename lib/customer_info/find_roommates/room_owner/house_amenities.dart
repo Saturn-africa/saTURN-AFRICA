@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:saturn/helper_widgets/response_snack.dart';
 import 'package:saturn/providers/customer_info_provider.dart';
 import 'package:saturn/custom_widgets/custom_button.dart';
 import 'package:saturn/custom_widgets/custom_white_button.dart';
@@ -154,8 +155,7 @@ class _HouseAmenitiesPageState extends State<HouseAmenitiesPage> {
                         .read<CustomerInfoProvider>()
                         .amenities
                         .isEmpty) {
-                      showSnack(
-                          context, "Please select house amenities", redAccent);
+                      showSnack(context, "02", "Please select house amenities");
                     } else {
                       context.read<CustomerInfoProvider>().houseAmenities();
                       Navigator.push(

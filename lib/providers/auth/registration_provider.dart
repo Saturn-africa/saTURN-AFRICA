@@ -1,17 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:saturn/models/registration_models/signup_payload.dart';
 import 'package:saturn/services/base_headers.dart';
-import 'package:saturn/services/base_url.dart';
+import 'package:saturn/service/network/base_url.dart';
 import 'package:saturn/services/network_calls.dart';
 
 class RegistrationProvider extends ChangeNotifier {
   Map<String, String> data = {};
+  bool _isClicked = false;
+
+  void onClick() {
+    _isClicked = !_isClicked;
+    notifyListeners();
+  }
+
+  bool get isClicked => _isClicked;
 
   void userSignup(SignupModel userData) async {
     String endPoint = BaseURL().signUp;
     Map<String, String> header = BaseHeaders().header;
     var response =
         await NetworkCalls().postRequest(endPoint, header, userData.toJson());
+    onClick();
     print("Output===>> $response");
   }
 

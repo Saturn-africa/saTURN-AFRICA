@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:saturn/helper_widgets/response_snack.dart';
 import 'package:saturn/providers/customer_info_provider.dart';
 import 'package:saturn/custom_widgets/custom_button.dart';
 import 'package:saturn/custom_widgets/custom_dropdown.dart';
@@ -8,7 +9,6 @@ import 'package:saturn/custom_widgets/custom_white_button.dart';
 import 'package:saturn/customer_info/find_roommates/room_owner/home_main.dart';
 import 'package:saturn/customer_info/find_roommates/room_seeker/home_main_seeker.dart';
 import 'package:saturn/helper_widgets/colors.dart';
-import 'package:saturn/helper_widgets/snack_bar.dart';
 import 'package:saturn/helper_widgets/text_constants.dart';
 import 'package:saturn/helper_widgets/text_style.dart';
 
@@ -185,28 +185,9 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
                   },
                 ),
                 SizedBox(height: size.height * 0.07),
-                Container(
-                  child: widget.isProfile
-                      ? null
-                      : CustomWhiteButton(
-                          onPressed: () {
-                            Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => status == "Room Owner"
-                                        ? const OwnerMainHome()
-                                        : const SeekerMainHome()),
-                                ((route) => route.isFirst));
-                          },
-                          child: Text(
-                            texts.skipButton,
-                            style: buttonStyle.copyWith(color: purple),
-                          )),
-                ),
-                SizedBox(height: widget.isProfile ? 0 : 10),
                 CustomButtonWidget(
                   text: Text(
-                    widget.isProfile ? "APPLY" : texts.nextButton,
+                    widget.isProfile ? "SAVE" : texts.nextButton,
                     style: buttonStyle,
                   ),
                   onPressed: () {
@@ -233,8 +214,8 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
                                       : const SeekerMainHome()),
                               ((route) => route.isFirst));
                     } else {
-                      showSnack(context, "Please fill the required fields",
-                          redAccent);
+                      showSnack(
+                          context, "02", "Please fill the required fields");
                       return;
                     }
                   },

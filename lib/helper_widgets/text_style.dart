@@ -106,9 +106,9 @@ TextStyle profileTileStyle = GoogleFonts.ubuntu(
 
 TextStyle tabStyle = GoogleFonts.ubuntu(
     textStyle: const TextStyle(
-        fontSize: 18,
+        fontSize: 14,
         fontStyle: FontStyle.normal,
-        fontWeight: FontWeight.w400));
+        fontWeight: FontWeight.w500));
 
 TextStyle requestCardHeaderStyle = GoogleFonts.ubuntu(
     textStyle: const TextStyle(

@@ -4,7 +4,7 @@ import 'package:saturn/custom_widgets/custom_button.dart';
 import 'package:saturn/customer_info/find_roommates/customer_status.dart';
 import 'package:saturn/customer_info/homes_for_rent/house_search.dart';
 import 'package:saturn/helper_widgets/colors.dart';
-import 'package:saturn/helper_widgets/snack_bar.dart';
+import 'package:saturn/helper_widgets/response_snack.dart';
 import 'package:saturn/helper_widgets/text_constants.dart';
 import 'package:saturn/helper_widgets/text_style.dart';
 import 'package:saturn/providers/customer_info_provider.dart';
@@ -132,7 +132,7 @@ class Service extends StatelessWidget {
                               builder: (context) =>
                                   const PreferredHouseSearchPage()));
                     } else {
-                      showSnack(context, "Please select a service", redAccent);
+                      showSnack(context, "02", "Please select a service");
                       return;
                     }
                   },

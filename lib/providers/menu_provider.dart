@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:saturn/helper_widgets/colors.dart';
-import 'package:saturn/helper_widgets/snack_bar.dart';
+import 'package:saturn/helper_widgets/response_snack.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class MenuProvider extends ChangeNotifier {
@@ -34,8 +33,8 @@ class MenuProvider extends ChangeNotifier {
       await launchUrl(url);
       // print("launching $type");
     } else {
-      showSnack(context, "$type application is not installed on your device",
-          redAccent);
+      showSnack(
+          context, "02", "$type application is not installed on your device");
     }
     notifyListeners();
   }

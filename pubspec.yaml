@@ -39,6 +39,9 @@ dependencies:
   nigerian_states_and_lga: ^1.0.0
   http: ^0.13.5
   syncfusion_flutter_datepicker: ^20.4.44
+  device_info_plus: ^8.1.0
+  shared_preferences: ^2.0.18
+  flutter_secure_storage: ^8.0.0
 
 dev_dependencies:
   flutter_test:

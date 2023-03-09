@@ -73,10 +73,8 @@ class _ShortlistedScreenState extends State<ShortlistedScreen> {
             indicatorSize: TabBarIndicatorSize.tab,
             indicatorColor: Colors.transparent,
             isScrollable: true,
-            labelPadding:
-                EdgeInsets.fromLTRB(size.width * 0.1, 0, size.width * 0.1, 0),
             indicator: BoxDecoration(
-                borderRadius: BorderRadius.circular(10), color: purple),
+                borderRadius: BorderRadius.circular(15), color: purple),
             tabs: shortlistedTitle,
           ),
         ),

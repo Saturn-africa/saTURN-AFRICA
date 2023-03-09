@@ -5,6 +5,7 @@ import 'package:saturn/custom_widgets/custom_button.dart';
 import 'package:saturn/custom_widgets/custom_input.dart';
 import 'package:saturn/custom_widgets/custom_rich_text.dart';
 import 'package:saturn/helper_widgets/email_validator.dart';
+import 'package:saturn/helper_widgets/progress_bar.dart';
 import 'package:saturn/helper_widgets/text_constants.dart';
 import 'package:saturn/helper_widgets/text_style.dart';
 import 'package:saturn/auth/Registration/verify_email.dart';
@@ -162,13 +163,25 @@ class _CreateAccountState extends State<CreateAccount> {
                   SizedBox(
                     height: 60,
                     child: CustomButtonWidget(
-                      text: Text(
-                        texts.continueText,
-                        style: buttonStyle.copyWith(
-                            fontSize: 18, fontWeight: FontWeight.w700),
-                      ),
+                      text: register.isClicked
+                          ? loadingIndicator()
+                          : Text(
+                              texts.continueText,
+                              style: buttonStyle.copyWith(
+                                  fontSize: 18, fontWeight: FontWeight.w700),
+                            ),
                       onPressed: () {
+                        FocusScope.of(context).unfocus();
+                        if (register.isClicked) {
+                          register.onClick();
+                          return;
+                        }
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const VerifyOTP()));
                         if (_formKey.currentState!.validate()) {
+                          register.onClick();
                           SignupModel userData = SignupModel(
                             username: usernameController.text.trim(),
                             phoneNumber: register
@@ -179,11 +192,6 @@ class _CreateAccountState extends State<CreateAccount> {
                             email: emailController.text.trim(),
                           );
                           register.userSignup(userData);
-
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: ((context) => const VerifyOTP())));
                         }
                       },
                     ),

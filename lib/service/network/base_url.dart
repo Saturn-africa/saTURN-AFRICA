@@ -10,4 +10,6 @@ class BaseURL {
   final String logout = "${base}auth/logout";
 
   final String userDetails = "${base}auth/me";
+
+  final String verifyOtp = "${base}sms/check-verification-code";
 }

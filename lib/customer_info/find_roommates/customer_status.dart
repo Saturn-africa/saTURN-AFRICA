@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:saturn/customer_info/find_roommates/terms_page.dart';
 import 'package:saturn/custom_widgets/custom_button.dart';
 import 'package:saturn/helper_widgets/colors.dart';
-import 'package:saturn/helper_widgets/snack_bar.dart';
+import 'package:saturn/helper_widgets/response_snack.dart';
 import 'package:saturn/helper_widgets/text_constants.dart';
 import 'package:saturn/helper_widgets/text_style.dart';
 
@@ -129,7 +129,7 @@ class CustomerStatus extends StatelessWidget {
                         MaterialPageRoute(
                             builder: (context) => const TermsPage()));
                   } else {
-                    showSnack(context, "please select a field", redAccent);
+                    showSnack(context, "02", "please select a field");
                   }
                 },
               )

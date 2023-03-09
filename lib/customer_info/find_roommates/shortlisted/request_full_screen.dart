@@ -160,7 +160,7 @@ class RequestDetailCard extends StatelessWidget {
                   const CustomDetailHeader(title: "House Description"),
                   const SizedBox(height: 15),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Column(
@@ -169,24 +169,15 @@ class RequestDetailCard extends StatelessWidget {
                           ColumnCustomWidget(
                               title: "Budget",
                               text: "NGN ${owner.houseInfo!.amount ?? ''}"),
-                          SizedBox(
-                            width: size.width * 0.6,
-                            child: ColumnCustomWidget(
-                                title: "Location 1",
-                                text: owner.houseInfo!.location1 ?? ""),
-                          ),
-                          SizedBox(
-                            width: size.width * 0.6,
-                            child: ColumnCustomWidget(
-                                title: "Location 2",
-                                text: owner.houseInfo!.location2 ?? ""),
-                          ),
-                          SizedBox(
-                            width: size.width * 0.6,
-                            child: ColumnCustomWidget(
-                                title: "Location 3",
-                                text: owner.houseInfo!.location3 ?? ""),
-                          ),
+                          ColumnCustomWidget(
+                              title: "Location 1",
+                              text: owner.houseInfo!.location1 ?? ""),
+                          ColumnCustomWidget(
+                              title: "Location 2",
+                              text: owner.houseInfo!.location2 ?? ""),
+                          ColumnCustomWidget(
+                              title: "Location 3",
+                              text: owner.houseInfo!.location3 ?? ""),
                           ColumnCustomWidget(
                               title: "Duration for Room Sharing",
                               text:
@@ -199,12 +190,12 @@ class RequestDetailCard extends StatelessWidget {
                           ColumnCustomWidget(
                               title: "Type of House",
                               text: owner.houseInfo!.houseType ?? ""),
-                          // ColumnCustomWidget(
-                          //     title: "No of Restrooms",
-                          //     text: owner.houseInfo!.noOfRestrooms ?? ""),
-                          // ColumnCustomWidget(
-                          //     title: "Type of Restroom",
-                          //     text: owner.houseInfo!.restroomType ?? ""),
+                          ColumnCustomWidget(
+                              title: "No of Restrooms",
+                              text: owner.houseInfo!.noOfRestrooms ?? ""),
+                          ColumnCustomWidget(
+                              title: "Type of Restroom",
+                              text: owner.houseInfo!.restroomType ?? ""),
                         ],
                       )
                     ],

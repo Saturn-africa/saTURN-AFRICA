@@ -6,7 +6,7 @@ import 'package:saturn/custom_widgets/custom_input.dart';
 import 'package:saturn/custom_widgets/custom_white_button.dart';
 import 'package:saturn/customer_info/find_roommates/room_seeker/home_main_seeker.dart';
 import 'package:saturn/helper_widgets/colors.dart';
-import 'package:saturn/helper_widgets/snack_bar.dart';
+import 'package:saturn/helper_widgets/response_snack.dart';
 import 'package:saturn/helper_widgets/text_constants.dart';
 import 'package:saturn/helper_widgets/text_style.dart';
 
@@ -101,7 +101,7 @@ class _AdditionalInfoSeekerPageState extends State<AdditionalInfoSeekerPage> {
                                 builder: ((context) =>
                                     const SeekerMainHome())));
                       } else {
-                        showSnack(context, "Please Add a Note", redAccent);
+                        showSnack(context, "02", "Please Add a Note");
                       }
                     },
                   )

@@ -37,17 +37,17 @@ class ColumnCustomWidget extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         SizedBox(
-          width: size.width * 0.48,
+          width: size.width * 0.46,
           child: AutoSizeText(title,
               maxLines: 1,
               style: ownerCardSubtitleStyle.copyWith(color: titleColor)),
         ),
         const SizedBox(height: 10),
         SizedBox(
-          width: size.width * 0.48,
+          width: size.width * 0.46,
           child: AutoSizeText(
             text,
             overflow: TextOverflow.clip,

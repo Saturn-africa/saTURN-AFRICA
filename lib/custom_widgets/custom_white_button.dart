@@ -19,7 +19,7 @@ class CustomWhiteButton extends StatelessWidget {
             padding: const EdgeInsets.all(15),
             foregroundColor: Colors.white,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(10),
             ),
             side: const BorderSide(color: purple),
             backgroundColor: white,

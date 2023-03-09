@@ -80,7 +80,7 @@ class User {
   });
 
   User.fromJson(Map<String, dynamic> json) {
-    id = json['_id'] as String?;
+    id = json['id'] as String?;
     username = json['username'] as String?;
     password = json['password'] as String?;
     email = json['email'] as String?;
@@ -90,14 +90,13 @@ class User {
     region = json['region'] as String?;
     createdAt = json['createdAt'] as String?;
     updatedAt = json['updatedAt'] as String?;
-    v = json['__v'] as int?;
+    v = json['v'] as int?;
     refreshToken = json['refreshToken'] as String?;
-    id = json['id'] as String?;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> json = <String, dynamic>{};
-    json['_id'] = id;
+    json['id'] = id;
     json['username'] = username;
     json['password'] = password;
     json['email'] = email;
@@ -107,9 +106,8 @@ class User {
     json['region'] = region;
     json['createdAt'] = createdAt;
     json['updatedAt'] = updatedAt;
-    json['__v'] = v;
+    json['v'] = v;
     json['refreshToken'] = refreshToken;
-    json['id'] = id;
     return json;
   }
 }

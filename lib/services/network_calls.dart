@@ -22,6 +22,7 @@ class NetworkCalls {
     try {
       http.Response response = await http.post(Uri.parse(url),
           headers: header, body: jsonEncode(body));
+      print(response.body);
       if (response.statusCode == 201 || response.statusCode == 200) {
         return jsonDecode(response.body);
       } else {

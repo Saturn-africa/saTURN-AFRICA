@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:saturn/Customer_Info/find_roommates/Room_Seeker/additional_info_seeker.dart';
+import 'package:saturn/helper_widgets/response_snack.dart';
 import 'package:saturn/providers/customer_info_provider.dart';
 import 'package:saturn/custom_widgets/custom_button.dart';
 import 'package:saturn/custom_widgets/custom_duration_field.dart';
@@ -250,10 +251,8 @@ class _HouseSeekerInfoPageState extends State<HouseSeekerInfoPage> {
                                           builder: ((context) =>
                                               const AdditionalInfoSeekerPage())));
                                 } else {
-                                  showSnack(
-                                      context,
-                                      "Please fill the required fields",
-                                      redAccent);
+                                  showSnack(context, "02",
+                                      "Please fill the required fields");
                                 }
                               },
                             ),
@@ -273,8 +272,8 @@ class _HouseSeekerInfoPageState extends State<HouseSeekerInfoPage> {
                                     3) {
                               Navigator.pop(context);
                             } else {
-                              showSnack(context,
-                                  "Please fill the required fields", redAccent);
+                              showSnack(context, "02",
+                                  "Please fill the required fields");
                             }
                           },
                         ),

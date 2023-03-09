@@ -5,6 +5,7 @@ import 'package:saturn/custom_widgets/custom_button.dart';
 import 'package:saturn/custom_widgets/custom_input.dart';
 import 'package:saturn/custom_widgets/custom_rich_text.dart';
 import 'package:saturn/helper_widgets/email_validator.dart';
+import 'package:saturn/helper_widgets/progress_bar.dart';
 import 'package:saturn/helper_widgets/text_style.dart';
 import 'package:saturn/models/login_models/sign_in_model.dart';
 import 'package:saturn/providers/auth/login_provider.dart';
@@ -103,19 +104,25 @@ class _LoginPageState extends State<LoginPage> {
                   SizedBox(height: size.height * 0.35),
                   CustomButtonWidget(
                       onPressed: () {
+                        if (login.isClicked) {
+                          login.onClick();
+                          return;
+                        }
                         if (_formKey.currentState!.validate()) {
+                          login.onClick();
                           SignInModel userData = SignInModel(
                               email: emailController.text.trim(),
                               password: passwordController.text.trim(),
                               passwordConfirm: passwordController.text.trim());
-
                           login.userSignIn(userData);
                         }
                       },
-                      text: Text(
-                        "Sign In",
-                        style: buttonStyle,
-                      )),
+                      text: login.isClicked
+                          ? loadingIndicator()
+                          : Text(
+                              "Sign In",
+                              style: buttonStyle,
+                            )),
                   const SizedBox(height: 10),
                   Center(
                     child: CustomRichTextWidget(

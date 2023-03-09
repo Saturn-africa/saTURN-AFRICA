@@ -4,6 +4,7 @@ import 'package:saturn/custom_widgets/custom_dropdown.dart';
 import 'package:saturn/custom_widgets/custom_input.dart';
 import 'package:saturn/customer_info/homes_for_rent/home_page/rent_home_main.dart';
 import 'package:saturn/helper_widgets/colors.dart';
+import 'package:saturn/helper_widgets/response_snack.dart';
 import 'package:saturn/helper_widgets/snack_bar.dart';
 import 'package:saturn/helper_widgets/text_style.dart';
 
@@ -139,8 +140,8 @@ class _PreferredHouseSearchPageState extends State<PreferredHouseSearchPage> {
                       if (selectedHouseType == null ||
                           selectedRegion == null ||
                           selectedState == null) {
-                        showSnack(context, "Please fill the required fields",
-                            redAccent);
+                        showSnack(
+                            context, "02", "Please fill the required fields");
                         return;
                       }
                       if (_formKey.currentState!.validate()) {
