@@ -13,6 +13,7 @@ class ViewDetailCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    print(size.width);
     return SingleChildScrollView(
       child: Padding(
         padding: EdgeInsets.symmetric(
@@ -63,19 +64,19 @@ class ViewDetailCard extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          ColumnCustomWidget(
+                          ColumnCustomOwner(
                               title: "Status", text: owner.status ?? ""),
-                          ColumnCustomWidget(
+                          ColumnCustomOwner(
                               title: "Religious Inclination",
                               text: owner.personalInfo!.religiousInclination ??
                                   ""),
-                          ColumnCustomWidget(
+                          ColumnCustomOwner(
                               title: "Cleaning",
                               text: owner.lifestyleInfo!.cleaning ?? ""),
-                          ColumnCustomWidget(
+                          ColumnCustomOwner(
                               title: "Language",
                               text: owner.personalInfo!.primaryLanguage ?? ""),
-                          ColumnCustomWidget(
+                          ColumnCustomOwner(
                               title: "Alcohol",
                               text: owner.lifestyleInfo!.drinkStatus ?? ""),
                         ],
@@ -83,20 +84,20 @@ class ViewDetailCard extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          ColumnCustomWidget(
+                          ColumnCustomOwner(
                               title: "Gender",
                               text: owner.personalInfo!.gender ?? ""),
-                          ColumnCustomWidget(
+                          ColumnCustomOwner(
                               title: "Sexual Inclination",
                               text:
                                   owner.personalInfo!.sexualInclination ?? ""),
-                          ColumnCustomWidget(
+                          ColumnCustomOwner(
                               title: "Pets",
                               text: owner.lifestyleInfo!.petTolerance ?? ""),
-                          ColumnCustomWidget(
+                          ColumnCustomOwner(
                               title: "Education Level",
                               text: owner.lifestyleInfo!.educationLevel ?? ""),
-                          ColumnCustomWidget(
+                          ColumnCustomOwner(
                               title: "Age Range",
                               text: owner.personalInfo!.ageRange ?? ""),
                         ],
@@ -112,17 +113,17 @@ class ViewDetailCard extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          ColumnCustomWidget(
+                          ColumnCustomOwner(
                               title: "Religious Inclination",
                               text: owner.roommatePref!.religiousInclination ??
                                   ""),
-                          ColumnCustomWidget(
+                          ColumnCustomOwner(
                               title: "Cleaning Habit",
                               text: owner.roommatePref!.cleaning ?? ""),
-                          ColumnCustomWidget(
+                          ColumnCustomOwner(
                               title: "Language",
                               text: owner.roommatePref!.primaryLanguage ?? ""),
-                          ColumnCustomWidget(
+                          ColumnCustomOwner(
                               title: "Alcohol Drinking Habit",
                               text: owner.roommatePref!.drinkStatus ?? ""),
                         ],
@@ -130,20 +131,20 @@ class ViewDetailCard extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          ColumnCustomWidget(
+                          ColumnCustomOwner(
                               title: "Gender",
                               text: owner.roommatePref!.gender ?? ""),
-                          ColumnCustomWidget(
+                          ColumnCustomOwner(
                               title: "Sexual Inclination",
                               text:
                                   owner.roommatePref!.sexualInclination ?? ""),
-                          ColumnCustomWidget(
+                          ColumnCustomOwner(
                               title: "Pets",
                               text: owner.roommatePref!.petTolerance ?? ""),
-                          ColumnCustomWidget(
+                          ColumnCustomOwner(
                               title: "Education Level",
                               text: owner.roommatePref!.educationLevel ?? ""),
-                          ColumnCustomWidget(
+                          ColumnCustomOwner(
                               title: "Age Range",
                               text: owner.roommatePref!.ageRange ?? ""),
                         ],
@@ -159,17 +160,17 @@ class ViewDetailCard extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          ColumnCustomWidget(
+                          ColumnCustomOwner(
                               title: "Current No of Occupants",
                               text: owner.houseInfo!.numberOfPeople ?? ""),
-                          ColumnCustomWidget(
+                          ColumnCustomOwner(
                               title: "Duration for Room Sharing",
                               text:
                                   "${owner.houseInfo!.minimumDuration ?? ''} year to ${owner.houseInfo!.maximumDuration ?? ''} year"),
-                          ColumnCustomWidget(
+                          ColumnCustomOwner(
                               title: "No of Rooms",
                               text: owner.houseInfo!.numberOfPeople ?? ""),
-                          ColumnCustomWidget(
+                          ColumnCustomOwner(
                               title: "Type of Kitchen",
                               text: owner.houseInfo!.kitchenType ?? ""),
                         ],
@@ -177,16 +178,16 @@ class ViewDetailCard extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          ColumnCustomWidget(
+                          ColumnCustomOwner(
                               title: "Amount",
                               text: "NGN ${owner.houseInfo!.amount ?? ''}"),
-                          ColumnCustomWidget(
+                          ColumnCustomOwner(
                               title: "Type of House",
                               text: owner.houseInfo!.houseType ?? ""),
-                          ColumnCustomWidget(
+                          ColumnCustomOwner(
                               title: "No of Restrooms",
                               text: owner.houseInfo!.noOfRestrooms ?? ""),
-                          ColumnCustomWidget(
+                          ColumnCustomOwner(
                               title: "Type of Restroom",
                               text: owner.houseInfo!.restroomType ?? ""),
                         ],
@@ -228,14 +229,10 @@ class ViewDetailCard extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: size.height * 0.1),
-            CustomWhiteButton(
-                onPressed: () {},
-                child:
-                    Text("SKIP", style: buttonStyle.copyWith(color: purple))),
-            const SizedBox(height: 10),
+            const SizedBox(height: 50),
             CustomButtonWidget(
-                onPressed: () {}, text: Text("NEXT", style: buttonStyle))
+                onPressed: () {},
+                text: Text("SEND REQUEST", style: buttonStyle))
           ],
         ),
       ),

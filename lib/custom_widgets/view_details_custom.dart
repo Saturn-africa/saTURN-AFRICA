@@ -101,3 +101,42 @@ class AmenitiesCustom extends StatelessWidget {
     );
   }
 }
+
+class ColumnCustomOwner extends StatelessWidget {
+  const ColumnCustomOwner({
+    Key? key,
+    required this.title,
+    required this.text,
+  }) : super(key: key);
+
+  final String title;
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        SizedBox(
+          width: size.width * 0.45,
+          child: AutoSizeText(title,
+              maxLines: 1,
+              style: ownerCardSubtitleStyle.copyWith(color: titleColor)),
+        ),
+        const SizedBox(height: 10),
+        SizedBox(
+          width: size.width * 0.45,
+          child: AutoSizeText(
+            text,
+            overflow: TextOverflow.clip,
+            maxLines: 1,
+            style: ownerCardSubtitleStyle.copyWith(color: deepBlack),
+          ),
+        ),
+        const SizedBox(height: 10),
+      ],
+    );
+  }
+}

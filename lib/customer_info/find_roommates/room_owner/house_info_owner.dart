@@ -298,24 +298,6 @@ class _OwnerHouseInfoPageState extends State<OwnerHouseInfoPage> {
                   ],
                 ),
                 SizedBox(height: size.height * 0.07),
-                Container(
-                  child: widget.isProfile
-                      ? null
-                      : CustomWhiteButton(
-                          onPressed: () {
-                            FocusScope.of(context).unfocus();
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const HouseAmenitiesPage()));
-                          },
-                          child: Text(
-                            texts.skipButton,
-                            style: buttonStyle.copyWith(color: purple),
-                          )),
-                ),
-                const SizedBox(height: 10),
                 CustomButtonWidget(
                     onPressed: () {
                       FocusScope.of(context).unfocus();
@@ -349,7 +331,7 @@ class _OwnerHouseInfoPageState extends State<OwnerHouseInfoPage> {
                       }
                     },
                     text: Text(
-                      widget.isProfile ? "APPLY" : texts.nextButton,
+                      widget.isProfile ? "SAVE" : texts.nextButton,
                       style: buttonStyle,
                     ))
               ],

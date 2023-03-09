@@ -136,19 +136,6 @@ class _HouseAmenitiesPageState extends State<HouseAmenitiesPage> {
               SizedBox(
                 height: size.height * 0.2,
               ),
-              CustomWhiteButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                const OwnerAdditionalInformationPage()));
-                  },
-                  child: Text(
-                    "SKIP",
-                    style: buttonStyle.copyWith(color: deepBlack),
-                  )),
-              const SizedBox(height: 10),
               CustomButtonWidget(
                   onPressed: () {
                     if (context
@@ -166,7 +153,7 @@ class _HouseAmenitiesPageState extends State<HouseAmenitiesPage> {
                     }
                   },
                   text: Text(
-                    "NEXT",
+                    "SAVE",
                     style: buttonStyle,
                   ))
             ],

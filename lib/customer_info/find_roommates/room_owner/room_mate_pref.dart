@@ -277,26 +277,9 @@ class _RoommatePreferencePageState extends State<RoommatePreferencePage> {
                 text: textss.cleanText,
               ),
               SizedBox(height: size.height * 0.07),
-              Container(
-                child: widget.isProfile
-                    ? null
-                    : CustomWhiteButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const OwnerHouseInfoPage()));
-                        },
-                        child: Text(
-                          texts.skipButton,
-                          style: buttonStyle.copyWith(color: purple),
-                        )),
-              ),
-              SizedBox(height: widget.isProfile ? 0 : 15),
               CustomButtonWidget(
                 text: Text(
-                  widget.isProfile ? "APPLY" : texts.nextButton,
+                  widget.isProfile ? "SAVE" : texts.nextButton,
                   style: buttonStyle,
                 ),
                 onPressed: () {

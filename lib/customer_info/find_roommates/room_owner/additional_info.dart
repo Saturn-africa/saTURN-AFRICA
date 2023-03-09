@@ -114,25 +114,6 @@ class _OwnerAdditionalInformationPageState
                       })),
                   // images
                   const SizedBox(height: 20),
-                  Container(
-                    child: widget.isProfile
-                        ? null
-                        : CustomWhiteButton(
-                            onPressed: () {
-                              FocusScope.of(context).unfocus();
-                              Navigator.pushAndRemoveUntil(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const OwnerMainHome()),
-                                  ((route) => route.isFirst));
-                            },
-                            child: Text(
-                              texts.skipButton,
-                              style: buttonStyle.copyWith(color: deepBlack),
-                            )),
-                  ),
-                  SizedBox(height: widget.isProfile ? 0 : 10),
                   CustomButtonWidget(
                       onPressed: () {
                         FocusScope.of(context).unfocus();
@@ -154,7 +135,7 @@ class _OwnerAdditionalInformationPageState
                         }
                       },
                       text: Text(
-                        texts.nextButton,
+                        "SAVE",
                         style: buttonStyle,
                       ))
                 ],
