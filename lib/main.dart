@@ -10,6 +10,7 @@ import 'package:saturn/preview.dart';
 import 'package:saturn/providers/auth/registration_provider.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (context) => CustomerInfoProvider()),

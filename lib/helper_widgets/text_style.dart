@@ -34,6 +34,10 @@ TextStyle verifyOTPLabelStyle = GoogleFonts.ubuntu(
     textStyle: const TextStyle(
         fontSize: 15, fontWeight: FontWeight.w400, color: lightBlack));
 
+TextStyle hintStyle = GoogleFonts.ubuntu(
+    textStyle: const TextStyle(
+        fontSize: 18, fontWeight: FontWeight.w400, color: titleColor));
+
 TextStyle verifyOTPFooterStyle = GoogleFonts.ubuntu(
     textStyle: const TextStyle(
         fontSize: 15, fontWeight: FontWeight.w400, color: lightBlack));
