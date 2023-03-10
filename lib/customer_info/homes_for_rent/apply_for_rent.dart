@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:saturn/custom_widgets/custom_card_button.dart';
 import 'package:saturn/customer_info/homes_for_rent/physical_tour_page.dart';
+import 'package:saturn/customer_info/menu_screens/payment/payment_mode.dart';
 import 'package:saturn/helper_widgets/colors.dart';
 import 'package:saturn/helper_widgets/text_style.dart';
 
@@ -82,7 +83,7 @@ class ApplyForRentPage extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (_) => const PhysicalTourPage()));
+                              builder: (_) => const PaymentMethodPage()));
                     },
                     child: Text(
                       "Reserve",
