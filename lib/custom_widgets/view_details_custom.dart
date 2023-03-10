@@ -16,7 +16,7 @@ class CustomDetailHeader extends StatelessWidget {
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
           color: purple,
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(5),
         ),
         child: Text(title, style: detailTitleStyle.copyWith(color: white)));
   }

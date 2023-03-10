@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:saturn/custom_widgets/custom_button.dart';
-import 'package:saturn/custom_widgets/custom_white_button.dart';
 import 'package:saturn/custom_widgets/view_details_custom.dart';
 import 'package:saturn/helper_widgets/colors.dart';
 import 'package:saturn/helper_widgets/text_style.dart';
@@ -13,7 +12,6 @@ class ViewDetailCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    print(size.width);
     return SingleChildScrollView(
       child: Padding(
         padding: EdgeInsets.symmetric(

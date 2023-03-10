@@ -191,7 +191,7 @@ class _CreateAccountState extends State<CreateAccount> {
                                 confirmPasswordController.text.trim(),
                             email: emailController.text.trim(),
                           );
-                          register.userSignup(userData);
+                          register.userSignup(userData, context);
                         }
                       },
                     ),

@@ -114,7 +114,7 @@ class _LoginPageState extends State<LoginPage> {
                               email: emailController.text.trim(),
                               password: passwordController.text.trim(),
                               passwordConfirm: passwordController.text.trim());
-                          login.userSignIn(userData);
+                          login.userSignIn(userData, context);
                         }
                       },
                       text: login.isClicked
