@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:saturn/custom_widgets/custom_button.dart';
 import 'package:saturn/custom_widgets/view_details_custom.dart';
 import 'package:saturn/helper_widgets/colors.dart';

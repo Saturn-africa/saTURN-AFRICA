@@ -4,8 +4,6 @@ import 'package:saturn/customer_info/find_roommates/room_owner/house_info_owner.
 import 'package:saturn/providers/customer_info_provider.dart';
 import 'package:saturn/custom_widgets/custom_button.dart';
 import 'package:saturn/custom_widgets/custom_dropdown.dart';
-import 'package:saturn/custom_widgets/custom_white_button.dart';
-import 'package:saturn/helper_widgets/colors.dart';
 import 'package:saturn/helper_widgets/text_constants.dart';
 import 'package:saturn/helper_widgets/text_style.dart';
 

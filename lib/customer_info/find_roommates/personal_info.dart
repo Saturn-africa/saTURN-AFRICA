@@ -5,10 +5,8 @@ import 'package:saturn/providers/customer_info_provider.dart';
 import 'package:saturn/custom_widgets/custom_button.dart';
 import 'package:saturn/custom_widgets/custom_dropdown.dart';
 import 'package:saturn/custom_widgets/custom_input.dart';
-import 'package:saturn/custom_widgets/custom_white_button.dart';
 import 'package:saturn/customer_info/find_roommates/room_owner/home_main.dart';
 import 'package:saturn/customer_info/find_roommates/room_seeker/home_main_seeker.dart';
-import 'package:saturn/helper_widgets/colors.dart';
 import 'package:saturn/helper_widgets/text_constants.dart';
 import 'package:saturn/helper_widgets/text_style.dart';
 
