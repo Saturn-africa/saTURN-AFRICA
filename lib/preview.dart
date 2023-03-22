@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:saturn/auth/registration/create_details.dart';
 import 'package:saturn/config/routing/routing.dart';
 import 'package:saturn/custom_widgets/custom_button.dart';
+import 'package:saturn/customer_info/find_roommates/room_seeker/home_main_seeker.dart';
 import 'package:saturn/helper_widgets/colors.dart';
 import 'package:saturn/helper_widgets/text_constants.dart';
 import 'package:saturn/helper_widgets/text_style.dart';
@@ -50,7 +51,9 @@ class PreviewScreen extends StatelessWidget {
                     style: buttonStyle.copyWith(fontSize: 20)),
                 onPressed: () {
                   RoutingService.pushReplacementRouting(
-                      context, const CreateAccount());
+                      context, const SeekerMainHome());
+                  // RoutingService.pushReplacementRouting(
+                  //     context, const CreateAccount());
                 },
               ),
             ),

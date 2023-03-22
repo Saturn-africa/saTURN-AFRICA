@@ -1,10 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
-import 'package:saturn/customer_info/find_roommates/account/account_screen.dart';
-import 'package:saturn/customer_info/find_roommates/room_seeker/explore/seeker_explore.dart';
-import 'package:saturn/customer_info/find_roommates/shortlisted/shortlisted_owner.dart';
 import 'package:saturn/helper_widgets/colors.dart';
 import 'package:saturn/helper_widgets/home/app_bar.dart';
 import 'package:saturn/helper_widgets/home/bottom_item.dart';
@@ -102,7 +97,7 @@ import '../../../providers/home_provider.dart';
 //             return CupertinoTabView(
 //               builder: (context) {
 //                 return const CupertinoPageScaffold(
-//                   child: SeekerExplorePage(),
+//                   child:,
 //                 );
 //               },
 //             );
@@ -127,10 +122,8 @@ class SeekerHomePage extends StatelessWidget {
           currentIndex: home.selectedIndex,
           showSelectedLabels: true,
           showUnselectedLabels: true,
-          onTap: (index) {
-            home.updateIndex = index;
-          },
-          elevation: 1,
+          onTap: (index) => home.updateIndex(index),
+          elevation: 5,
           items: bottomNavItem(),
           selectedItemColor: black,
           unselectedItemColor: black,

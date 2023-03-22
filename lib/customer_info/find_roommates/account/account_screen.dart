@@ -13,7 +13,6 @@ import 'package:saturn/customer_info/find_roommates/room_owner/house_info_owner.
 import 'package:saturn/customer_info/find_roommates/room_owner/room_mate_pref.dart';
 import 'package:saturn/customer_info/find_roommates/room_seeker/additional_info_seeker.dart';
 import 'package:saturn/customer_info/find_roommates/room_seeker/house_info_seeker.dart';
-import 'package:saturn/helper_widgets/home/app_bar.dart';
 import 'package:saturn/helper_widgets/colors.dart';
 import 'package:saturn/helper_widgets/leading_arrow.dart';
 import 'package:saturn/helper_widgets/text_style.dart';
@@ -44,7 +43,7 @@ class _ProfileState extends State<Profile> {
               backgroundColor: white,
               elevation: 0,
             )
-          : appBar(context, size),
+          : null,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
