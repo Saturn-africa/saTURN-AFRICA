@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:saturn/auth/registration/create_details.dart';
+import 'package:saturn/config/routing/routing.dart';
 import 'package:saturn/custom_widgets/custom_button.dart';
 import 'package:saturn/helper_widgets/colors.dart';
 import 'package:saturn/helper_widgets/text_constants.dart';
@@ -48,10 +49,8 @@ class PreviewScreen extends StatelessWidget {
                 text: Text(texts.startedText,
                     style: buttonStyle.copyWith(fontSize: 20)),
                 onPressed: () {
-                  Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const CreateAccount()));
+                  RoutingService.pushReplacementRouting(
+                      context, const CreateAccount());
                 },
               ),
             ),

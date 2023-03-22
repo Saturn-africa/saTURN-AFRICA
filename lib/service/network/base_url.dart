@@ -11,5 +11,7 @@ class BaseURL {
 
   final String userDetails = "${base}auth/me";
 
-  final String verifyOtp = "${base}sms/check-verification-code";
+  String verifyOtp(String id) {
+    return "${base}auth/$id/verify-otp";
+  }
 }

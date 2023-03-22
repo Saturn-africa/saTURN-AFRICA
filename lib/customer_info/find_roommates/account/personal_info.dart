@@ -5,23 +5,17 @@ import 'package:saturn/providers/customer_info_provider.dart';
 import 'package:saturn/custom_widgets/custom_button.dart';
 import 'package:saturn/custom_widgets/custom_dropdown.dart';
 import 'package:saturn/custom_widgets/custom_input.dart';
-import 'package:saturn/customer_info/find_roommates/room_owner/home_main.dart';
-import 'package:saturn/customer_info/find_roommates/room_seeker/home_main_seeker.dart';
 import 'package:saturn/helper_widgets/text_constants.dart';
 import 'package:saturn/helper_widgets/text_style.dart';
 
-class PersonalInfoPage extends StatefulWidget {
-  const PersonalInfoPage({
-    this.isProfile = false,
-    super.key,
-  });
-  final bool isProfile;
+class UserPersonalInfo extends StatefulWidget {
+  const UserPersonalInfo({super.key});
 
   @override
-  State<PersonalInfoPage> createState() => _PersonalInfoPageState();
+  State<UserPersonalInfo> createState() => _UserPersonalInfoState();
 }
 
-class _PersonalInfoPageState extends State<PersonalInfoPage> {
+class _UserPersonalInfoState extends State<UserPersonalInfo> {
   final _formKey = GlobalKey<FormState>();
   PersonalInfoTexts texts = PersonalInfoTexts();
   TextEditingController usernameController = TextEditingController();
@@ -42,8 +36,6 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    dynamic status =
-        context.read<CustomerInfoProvider>().customerInfo["status"];
     return Scaffold(
       appBar: AppBar(
         title: Text(texts.appBarText, style: appBarTextStyle),
@@ -185,7 +177,7 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
                 const SizedBox(height: 50),
                 CustomButtonWidget(
                   text: Text(
-                    widget.isProfile ? "SAVE" : texts.nextButton,
+                    "SAVE",
                     style: buttonStyle,
                   ),
                   onPressed: () {
@@ -202,13 +194,6 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
                           selectedReligion,
                           selectedSex,
                           selectedLang);
-                      Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => status == "Room Owner"
-                                  ? const OwnerMainHome()
-                                  : const SeekerMainHome()),
-                          ((route) => route.isFirst));
                     } else {
                       showSnack(
                           context, "02", "Please fill the required fields");

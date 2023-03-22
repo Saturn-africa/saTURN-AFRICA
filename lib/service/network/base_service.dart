@@ -27,6 +27,7 @@ class NetworkService {
       http.Response response = await http
           .post(Uri.parse(url), headers: header, body: jsonEncode(body))
           .timeout(const Duration(seconds: 20));
+      print(url);
       print(jsonEncode(body));
       print(response.body);
       responseJson = returnResponse(response, context);
@@ -47,7 +48,7 @@ class NetworkService {
         dynamic responseJson = jsonDecode(response.body);
         return responseJson;
       case 400:
-        showSnack(context, "08", responseData["responseMessage"]);
+        showSnack(context, "08", responseData["msg"]);
         throw BadRequestException(response.body.toString());
       case 401:
       case 403:

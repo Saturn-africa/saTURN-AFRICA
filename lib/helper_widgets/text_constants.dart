@@ -70,9 +70,9 @@ class TermsTexts {
 
 class PersonalInfoTexts {
   String appBarText = "Personal Information";
-  String usernameText = "Username";
-  String usernameError = "* Please Enter Username";
-  String usernameHint = "Enter your Username";
+  String usernameText = "Full Name";
+  String usernameError = "* Please Enter Full name";
+  String usernameHint = "Enter your full name";
   String ageText = "Age Range";
   String ageHint = "select age range";
   String genderText = "Gender";

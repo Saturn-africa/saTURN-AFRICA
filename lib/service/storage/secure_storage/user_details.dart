@@ -1,12 +1,13 @@
 import 'dart:convert';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:saturn/models/login_models/sign_in_response.dart';
+import 'package:saturn/models/auth_models/login_models/sign_in_response.dart';
 
 class UserSecureStorage {
   final storage = const FlutterSecureStorage();
 
   final String _tokenKey = "token";
+  final String _refreshToken = "refreshToken";
   final String _passwordKey = "password";
   final String _usernameKey = "username";
   // final String _isCheckKey = "isCheck";
@@ -16,11 +17,15 @@ class UserSecureStorage {
     await storage.write(key: _tokenKey, value: token);
   }
 
+  Future setRefreshToken(String token) async {
+    await storage.write(key: _refreshToken, value: token);
+  }
+
   Future setPassword(String password) async {
     await storage.write(key: _passwordKey, value: password);
   }
 
-  Future setUserData(SignInResponse userData) async {
+  Future setUserData(UserData userData) async {
     await storage.write(key: _userDataKey, value: jsonEncode(userData));
   }
 
@@ -32,8 +37,13 @@ class UserSecureStorage {
     return await storage.read(key: _tokenKey);
   }
 
-  Future<String?> getPassword() async {
-    return await storage.read(key: _passwordKey);
+  Future<String?> getRefreshToken() async {
+    return await storage.read(key: _refreshToken);
+  }
+
+  Future<String> getPassword() async {
+    String? password = await storage.read(key: _passwordKey);
+    return password ?? "";
   }
 
   Future<String?> getUsername() async {
