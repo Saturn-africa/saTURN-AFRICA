@@ -173,7 +173,7 @@ class MenuScreen extends StatelessWidget {
                     "LOG OUT",
                     "CANCEL", () {
                   Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
-                      MaterialPageRoute(builder: (contex) => const LoginPage()),
+                      MaterialPageRoute(builder: (context) => const LoginPage()),
                       (route) => false);
                 }, () {
                   Navigator.of(context).pop();
