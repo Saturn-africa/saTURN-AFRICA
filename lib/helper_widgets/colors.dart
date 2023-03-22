@@ -14,3 +14,4 @@ const amenityBg = Color(0xFFF2EAEA);
 const titleColor = Color.fromRGBO(51, 51, 51, 0.4);
 const inviteTextColor = Color.fromRGBO(51, 51, 51, 0.7);
 const seekerCardBgColor = Color.fromRGBO(0, 220, 220, 0.05);
+const chatBgColor = Color(0XFFF6F6F6);

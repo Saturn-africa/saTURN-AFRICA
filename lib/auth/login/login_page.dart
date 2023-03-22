@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:saturn/auth/Registration/create_details.dart';
+import 'package:saturn/auth/registration/create_details.dart';
 import 'package:saturn/custom_widgets/custom_button.dart';
 import 'package:saturn/custom_widgets/custom_input.dart';
 import 'package:saturn/custom_widgets/custom_rich_text.dart';
@@ -114,7 +114,7 @@ class _LoginPageState extends State<LoginPage> {
                               email: emailController.text.trim(),
                               password: passwordController.text.trim(),
                               passwordConfirm: passwordController.text.trim());
-                          login.userSignIn(userData);
+                          login.userSignIn(userData, context);
                         }
                       },
                       text: login.isClicked

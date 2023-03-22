@@ -102,13 +102,13 @@ class OwnerExploreCards extends StatelessWidget {
                             ColumnCustomWidget(
                                 title: "Age Range",
                                 text: owner.personalInfo!.ageRange ?? ""),
-                            SizedBox(width: size.width * 0.1),
+                            const SizedBox(width: 20),
                             ColumnCustomWidget(
                                 title: "Religion",
                                 text:
                                     owner.personalInfo!.religiousInclination ??
                                         ""),
-                            SizedBox(width: size.width * 0.1),
+                            const SizedBox(width: 20),
                             ColumnCustomWidget(
                                 title: "Gender",
                                 text: owner.personalInfo!.gender ?? ""),

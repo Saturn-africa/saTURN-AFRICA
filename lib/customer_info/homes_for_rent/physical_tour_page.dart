@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:saturn/custom_widgets/custom_card_button.dart';
+import 'package:saturn/customer_info/homes_for_rent/apply_for_rent.dart';
 import 'package:saturn/helper_widgets/colors.dart';
 import 'package:saturn/helper_widgets/text_style.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
@@ -47,10 +48,13 @@ class PhysicalTourPage extends StatelessWidget {
             const SizedBox(height: 30),
             SfDateRangePicker(
               selectionMode: DateRangePickerSelectionMode.multiple,
-              showTodayButton: true,
+              showTodayButton: false,
+              headerStyle:
+                  const DateRangePickerHeaderStyle(textAlign: TextAlign.center),
               monthViewSettings: const DateRangePickerMonthViewSettings(
                   firstDayOfWeek: 1,
                   showWeekNumber: true,
+                  showTrailingAndLeadingDates: true,
                   weekNumberStyle: DateRangePickerWeekNumberStyle(
                       backgroundColor: cardBorderColor),
                   weekendDays: <int>[DateTime.saturday, DateTime.sunday]),
@@ -63,13 +67,12 @@ class PhysicalTourPage extends StatelessWidget {
               width: double.infinity,
               child: CustomCardButtonWidget(
                   onPressed: () {
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    // builder: (_) => const "()));
+                    Navigator.of(context, rootNavigator: true).push(
+                        MaterialPageRoute(
+                            builder: (context) => const ApplyForRentPage()));
                   },
                   child: Text(
-                    "Pay #10000 for the tour",
+                    "Pay #1000 for the tour",
                     style: buttonStyle,
                   )),
             )

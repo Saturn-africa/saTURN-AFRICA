@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:saturn/custom_widgets/custom_card_button.dart';
 import 'package:saturn/custom_widgets/view_details_custom.dart';
-import 'package:saturn/customer_info/homes_for_rent/apply_for_rent.dart';
 import 'package:saturn/customer_info/homes_for_rent/explore/view_details/price_structure.dart';
+import 'package:saturn/customer_info/homes_for_rent/physical_tour_page.dart';
 import 'package:saturn/helper_widgets/colors.dart';
 import 'package:saturn/helper_widgets/text_style.dart';
 import 'package:saturn/models/owner_details.dart';
@@ -17,7 +17,7 @@ class HomesViewDetailsCard extends StatelessWidget {
     return SingleChildScrollView(
       child: Padding(
         padding: EdgeInsets.symmetric(
-            horizontal: size.width * 0.02, vertical: size.height * 0.02),
+            horizontal: size.width * 0.04, vertical: size.height * 0.02),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -165,7 +165,7 @@ class HomesViewDetailsCard extends StatelessWidget {
                     onPressed: () {
                       Navigator.of(context, rootNavigator: true).push(
                           MaterialPageRoute(
-                              builder: (context) => const ApplyForRentPage()));
+                              builder: (context) => const PhysicalTourPage()));
                     },
                     child: Text(
                       "Proceed to Tour",

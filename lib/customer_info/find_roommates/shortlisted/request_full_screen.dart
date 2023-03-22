@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:saturn/custom_widgets/custom_button.dart';
 import 'package:saturn/custom_widgets/custom_white_button.dart';
 import 'package:saturn/custom_widgets/view_details_custom.dart';
+import 'package:saturn/customer_info/find_roommates/shortlisted/chat_screen/chat.dart';
 import 'package:saturn/helper_widgets/colors.dart';
 import 'package:saturn/helper_widgets/text_style.dart';
 import 'package:saturn/models/owner_details.dart';
@@ -223,7 +224,12 @@ class RequestDetailCard extends StatelessWidget {
                   SizedBox(
                     width: size.width * 0.4,
                     child: CustomButtonWidget(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const ChatScreen()));
+                        },
                         text: Text("ACCEPT", style: buttonStyle)),
                   )
                 ],

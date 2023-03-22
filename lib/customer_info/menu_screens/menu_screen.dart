@@ -4,6 +4,7 @@ import 'package:saturn/auth/login/login_page.dart';
 import 'package:saturn/custom_widgets/alert_dialog.dart';
 import 'package:saturn/custom_widgets/custom_menu_widget.dart';
 import 'package:saturn/customer_info/find_roommates/account/account_screen.dart';
+import 'package:saturn/customer_info/menu_screens/payment/activate_account.dart';
 import 'package:saturn/customer_info/menu_screens/billing_history.dart';
 import 'package:saturn/customer_info/menu_screens/help_screen.dart';
 import 'package:saturn/customer_info/menu_screens/invite_friends.dart';
@@ -30,6 +31,9 @@ class MenuScreen extends StatelessWidget {
             InkWell(
               onTap: () {
                 color.switchColor("activate");
+                Navigator.of(context, rootNavigator: true).push(
+                    MaterialPageRoute(
+                        builder: (context) => const ActivatePaymentPage()));
               },
               child: CustomMenuWidget(
                 textColor: color.activateText,
@@ -169,7 +173,7 @@ class MenuScreen extends StatelessWidget {
                     "LOG OUT",
                     "CANCEL", () {
                   Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
-                      MaterialPageRoute(builder: (contex) => const LoginPage()),
+                      MaterialPageRoute(builder: (context) => const LoginPage()),
                       (route) => false);
                 }, () {
                   Navigator.of(context).pop();

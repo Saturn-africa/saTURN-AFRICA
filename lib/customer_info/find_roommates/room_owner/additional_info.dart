@@ -5,11 +5,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:saturn/custom_widgets/image_picker.dart';
 import 'package:saturn/customer_info/find_roommates/room_owner/home_main.dart';
-import 'package:saturn/Providers/customer_info_provider.dart';
+import 'package:saturn/providers/customer_info_provider.dart';
 import 'package:saturn/custom_widgets/custom_button.dart';
 import 'package:saturn/custom_widgets/custom_input.dart';
-import 'package:saturn/custom_widgets/custom_white_button.dart';
-import 'package:saturn/helper_widgets/colors.dart';
 import 'package:saturn/helper_widgets/response_snack.dart';
 import 'package:saturn/helper_widgets/text_constants.dart';
 import 'package:saturn/helper_widgets/text_style.dart';
@@ -114,25 +112,6 @@ class _OwnerAdditionalInformationPageState
                       })),
                   // images
                   const SizedBox(height: 20),
-                  Container(
-                    child: widget.isProfile
-                        ? null
-                        : CustomWhiteButton(
-                            onPressed: () {
-                              FocusScope.of(context).unfocus();
-                              Navigator.pushAndRemoveUntil(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const OwnerMainHome()),
-                                  ((route) => route.isFirst));
-                            },
-                            child: Text(
-                              texts.skipButton,
-                              style: buttonStyle.copyWith(color: deepBlack),
-                            )),
-                  ),
-                  SizedBox(height: widget.isProfile ? 0 : 10),
                   CustomButtonWidget(
                       onPressed: () {
                         FocusScope.of(context).unfocus();
@@ -154,7 +133,7 @@ class _OwnerAdditionalInformationPageState
                         }
                       },
                       text: Text(
-                        texts.nextButton,
+                        "SAVE",
                         style: buttonStyle,
                       ))
                 ],

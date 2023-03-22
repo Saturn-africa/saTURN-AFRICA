@@ -34,6 +34,10 @@ TextStyle verifyOTPLabelStyle = GoogleFonts.ubuntu(
     textStyle: const TextStyle(
         fontSize: 15, fontWeight: FontWeight.w400, color: lightBlack));
 
+TextStyle hintStyle = GoogleFonts.ubuntu(
+    textStyle: const TextStyle(
+        fontSize: 18, fontWeight: FontWeight.w400, color: titleColor));
+
 TextStyle verifyOTPFooterStyle = GoogleFonts.ubuntu(
     textStyle: const TextStyle(
         fontSize: 15, fontWeight: FontWeight.w400, color: lightBlack));
@@ -151,3 +155,11 @@ TextStyle tableTextStyle = GoogleFonts.ubuntu(
 TextStyle applyTitleStyle = GoogleFonts.ubuntu(
     textStyle: const TextStyle(
         fontSize: 14, color: purple, fontWeight: FontWeight.w500));
+
+TextStyle paymentTextStyle = GoogleFonts.ubuntu(
+    textStyle: const TextStyle(
+        fontSize: 16, fontWeight: FontWeight.w400, color: lightBlack));
+
+TextStyle paymentHintStyle = GoogleFonts.ubuntu(
+    textStyle: const TextStyle(
+        fontSize: 12, fontWeight: FontWeight.w400, color: lightBlack));

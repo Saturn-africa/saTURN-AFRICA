@@ -3,7 +3,7 @@ import 'package:saturn/custom_widgets/custom_button.dart';
 import 'package:saturn/custom_widgets/custom_container.dart';
 import 'package:saturn/custom_widgets/custom_white_button.dart';
 import 'package:saturn/custom_widgets/view_details_custom.dart';
-import 'package:saturn/customer_info/find_roommates/room_owner/explore/view_details/view_detail.dart';
+import 'package:saturn/customer_info/find_roommates/room_seeker/explore/view_detail/view_detail.dart';
 import 'package:saturn/helper_widgets/colors.dart';
 import 'package:saturn/helper_widgets/text_style.dart';
 import 'package:saturn/models/owner_details.dart';
@@ -206,7 +206,7 @@ class SeekerExploreCards extends StatelessWidget {
                                   MaterialPageRoute(
                                       fullscreenDialog: true,
                                       builder: ((context) =>
-                                          const ViewDetailPage())));
+                                          const ViewDetailSeekerPage())));
                             },
                             child: Text(
                               "View Details",

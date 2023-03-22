@@ -10,7 +10,6 @@ import 'package:saturn/custom_widgets/custom_list_tile.dart';
 import 'package:saturn/custom_widgets/custom_text.dart';
 import 'package:saturn/custom_widgets/custom_white_button.dart';
 import 'package:saturn/helper_widgets/colors.dart';
-import 'package:saturn/helper_widgets/snack_bar.dart';
 import 'package:saturn/helper_widgets/text_constants.dart';
 import 'package:saturn/helper_widgets/text_style.dart';
 

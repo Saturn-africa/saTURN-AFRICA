@@ -4,8 +4,6 @@ import 'package:saturn/customer_info/find_roommates/room_owner/house_info_owner.
 import 'package:saturn/providers/customer_info_provider.dart';
 import 'package:saturn/custom_widgets/custom_button.dart';
 import 'package:saturn/custom_widgets/custom_dropdown.dart';
-import 'package:saturn/custom_widgets/custom_white_button.dart';
-import 'package:saturn/helper_widgets/colors.dart';
 import 'package:saturn/helper_widgets/text_constants.dart';
 import 'package:saturn/helper_widgets/text_style.dart';
 
@@ -277,26 +275,9 @@ class _RoommatePreferencePageState extends State<RoommatePreferencePage> {
                 text: textss.cleanText,
               ),
               SizedBox(height: size.height * 0.07),
-              Container(
-                child: widget.isProfile
-                    ? null
-                    : CustomWhiteButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const OwnerHouseInfoPage()));
-                        },
-                        child: Text(
-                          texts.skipButton,
-                          style: buttonStyle.copyWith(color: purple),
-                        )),
-              ),
-              SizedBox(height: widget.isProfile ? 0 : 15),
               CustomButtonWidget(
                 text: Text(
-                  widget.isProfile ? "APPLY" : texts.nextButton,
+                  widget.isProfile ? "SAVE" : texts.nextButton,
                   style: buttonStyle,
                 ),
                 onPressed: () {

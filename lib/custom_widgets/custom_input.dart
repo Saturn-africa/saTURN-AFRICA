@@ -22,6 +22,7 @@ class CustomInputField extends StatelessWidget {
       this.textInputAction = TextInputAction.done,
       this.maxLines,
       this.minLines = 1,
+      this.isFieldOnly = false,
       super.key});
   final Size size;
   final TextStyle? style;
@@ -40,23 +41,28 @@ class CustomInputField extends StatelessWidget {
   final String hintText;
   final bool isCompulsory;
   final FormFieldValidator<String>? validator;
+  final bool isFieldOnly;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        RichText(
-          text: TextSpan(text: text, style: regTextStyle, children: [
-            TextSpan(
-                text: isCompulsory ? " *" : "",
-                style: const TextStyle(
-                    color: Colors.redAccent,
-                    fontSize: 15,
-                    fontWeight: FontWeight.w400))
-          ]),
+        Container(
+          child: isFieldOnly
+              ? null
+              : RichText(
+                  text: TextSpan(text: text, style: regTextStyle, children: [
+                    TextSpan(
+                        text: isCompulsory ? " *" : "",
+                        style: const TextStyle(
+                            color: Colors.redAccent,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w400))
+                  ]),
+                ),
         ),
-        const SizedBox(height: 10),
+        SizedBox(height: isFieldOnly ? 0 : 10),
         TextFormField(
           autovalidateMode: autovalidateMode,
           validator: validator,
@@ -76,6 +82,7 @@ class CustomInputField extends StatelessWidget {
             filled: true,
             suffixIcon: suffixIcon,
             hintText: hintText,
+            hintStyle: hintStyle,
             fillColor: white,
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8.0),

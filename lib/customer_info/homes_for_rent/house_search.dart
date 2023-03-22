@@ -5,7 +5,6 @@ import 'package:saturn/custom_widgets/custom_input.dart';
 import 'package:saturn/customer_info/homes_for_rent/home_page/rent_home_main.dart';
 import 'package:saturn/helper_widgets/colors.dart';
 import 'package:saturn/helper_widgets/response_snack.dart';
-import 'package:saturn/helper_widgets/snack_bar.dart';
 import 'package:saturn/helper_widgets/text_style.dart';
 
 class PreferredHouseSearchPage extends StatefulWidget {
@@ -36,8 +35,8 @@ class _PreferredHouseSearchPageState extends State<PreferredHouseSearchPage> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
-        title: Text("Search for your Preferred House", style: appBarTextStyle),
+        title: Text("Search for your Preferred House",
+            style: appBarTextStyle.copyWith(fontSize: 17)),
         leading: IconButton(
             icon: const Icon(
               Icons.arrow_back,

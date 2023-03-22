@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:saturn/auth/Registration/verify_email.dart';
 import 'package:saturn/auth/login/login_page.dart';
 import 'package:saturn/custom_widgets/custom_button.dart';
 import 'package:saturn/custom_widgets/custom_input.dart';
@@ -8,7 +9,6 @@ import 'package:saturn/helper_widgets/email_validator.dart';
 import 'package:saturn/helper_widgets/progress_bar.dart';
 import 'package:saturn/helper_widgets/text_constants.dart';
 import 'package:saturn/helper_widgets/text_style.dart';
-import 'package:saturn/auth/Registration/verify_email.dart';
 import 'package:saturn/models/registration_models/signup_payload.dart';
 import 'package:saturn/providers/auth/registration_provider.dart';
 
@@ -191,7 +191,7 @@ class _CreateAccountState extends State<CreateAccount> {
                                 confirmPasswordController.text.trim(),
                             email: emailController.text.trim(),
                           );
-                          register.userSignup(userData);
+                          register.userSignup(userData, context);
                         }
                       },
                     ),

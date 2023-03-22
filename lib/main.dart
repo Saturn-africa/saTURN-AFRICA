@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:saturn/providers/auth/login_provider.dart';
 import 'package:saturn/providers/customer_info_provider.dart';
@@ -9,7 +10,9 @@ import 'package:saturn/helper_widgets/colors.dart';
 import 'package:saturn/preview.dart';
 import 'package:saturn/providers/auth/registration_provider.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (context) => CustomerInfoProvider()),

@@ -85,31 +85,39 @@ class HomesExploreCard extends StatelessWidget {
                         child: Row(
                           children: [
                             SizedBox(
-                              width: size.width * 0.3,
-                              child: AutoSizeText(
-                                "N1000,000",
+                              width: size.width * 0.45,
+                              child: AutoSizeText.rich(
+                                TextSpan(
+                                    text: "N1,000,000",
+                                    style: amountTextStyle,
+                                    children: [
+                                      TextSpan(
+                                        text: "/year",
+                                        style: ownerCardTextStyle,
+                                      )
+                                    ]),
                                 maxLines: 1,
-                                style: amountTextStyle,
                               ),
                             ),
-                            const SizedBox(width: 5),
-                            Text("/year", style: ownerCardTextStyle)
                           ],
                         ),
                       ),
-                      SizedBox(
-                        width: 125,
-                        child: CustomCardWhiteButton(
-                            onPressed: () {
-                              Navigator.of(context, rootNavigator: true).push(
-                                  MaterialPageRoute(
-                                      builder: (_) =>
-                                          const HomesViewDetailPage()));
-                            },
-                            child: Text(
-                              "View Details",
-                              style: cardButtonStyle.copyWith(color: purple),
-                            )),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: SizedBox(
+                          width: 125,
+                          child: CustomCardWhiteButton(
+                              onPressed: () {
+                                Navigator.of(context, rootNavigator: true).push(
+                                    MaterialPageRoute(
+                                        builder: (_) =>
+                                            const HomesViewDetailPage()));
+                              },
+                              child: Text(
+                                "View Details",
+                                style: cardButtonStyle.copyWith(color: purple),
+                              )),
+                        ),
                       )
                     ],
                   )

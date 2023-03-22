@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:saturn/Providers/customer_info_provider.dart';
+import 'package:saturn/providers/customer_info_provider.dart';
 import 'package:saturn/custom_widgets/custom_button.dart';
 import 'package:saturn/custom_widgets/custom_dropdown.dart';
 import 'package:saturn/custom_widgets/custom_input.dart';
 import 'package:saturn/custom_widgets/custom_text.dart';
-import 'package:saturn/custom_widgets/custom_white_button.dart';
 import 'package:saturn/customer_info/find_roommates/room_owner/house_amenities.dart';
 import 'package:saturn/helper_widgets/colors.dart';
 import 'package:saturn/helper_widgets/response_snack.dart';
-import 'package:saturn/helper_widgets/snack_bar.dart';
 import 'package:saturn/helper_widgets/text_constants.dart';
 import 'package:saturn/helper_widgets/text_style.dart';
 
@@ -298,24 +296,6 @@ class _OwnerHouseInfoPageState extends State<OwnerHouseInfoPage> {
                   ],
                 ),
                 SizedBox(height: size.height * 0.07),
-                Container(
-                  child: widget.isProfile
-                      ? null
-                      : CustomWhiteButton(
-                          onPressed: () {
-                            FocusScope.of(context).unfocus();
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const HouseAmenitiesPage()));
-                          },
-                          child: Text(
-                            texts.skipButton,
-                            style: buttonStyle.copyWith(color: purple),
-                          )),
-                ),
-                const SizedBox(height: 10),
                 CustomButtonWidget(
                     onPressed: () {
                       FocusScope.of(context).unfocus();
@@ -349,7 +329,7 @@ class _OwnerHouseInfoPageState extends State<OwnerHouseInfoPage> {
                       }
                     },
                     text: Text(
-                      widget.isProfile ? "APPLY" : texts.nextButton,
+                      widget.isProfile ? "SAVE" : texts.nextButton,
                       style: buttonStyle,
                     ))
               ],
