@@ -17,7 +17,6 @@ class _OwnerExploreState extends State<OwnerExplore> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: appBar(context, size),
       body: CarouselSlider.builder(
         itemCount: details.length,
         itemBuilder: ((context, index, realIndex) {
