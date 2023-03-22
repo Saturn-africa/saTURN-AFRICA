@@ -1,7 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:saturn/customer_info/find_roommates/room_seeker/explore/seeker_explore_card.dart';
-import 'package:saturn/helper_widgets/app_bar.dart';
+import 'package:saturn/helper_widgets/home/app_bar.dart';
 import 'package:saturn/models/owner_details.dart';
 
 class SeekerExplorePage extends StatefulWidget {

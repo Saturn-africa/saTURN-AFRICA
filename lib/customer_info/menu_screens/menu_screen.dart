@@ -9,7 +9,7 @@ import 'package:saturn/customer_info/menu_screens/billing_history.dart';
 import 'package:saturn/customer_info/menu_screens/help_screen.dart';
 import 'package:saturn/customer_info/menu_screens/invite_friends.dart';
 import 'package:saturn/helper_widgets/colors.dart';
-import 'package:saturn/providers/list_tile_provider.dart';
+import 'package:saturn/providers/custom_provider/list_tile_provider.dart';
 
 class MenuScreen extends StatelessWidget {
   const MenuScreen({
@@ -173,7 +173,8 @@ class MenuScreen extends StatelessWidget {
                     "LOG OUT",
                     "CANCEL", () {
                   Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
-                      MaterialPageRoute(builder: (context) => const LoginPage()),
+                      MaterialPageRoute(
+                          builder: (context) => const LoginPage()),
                       (route) => false);
                 }, () {
                   Navigator.of(context).pop();
