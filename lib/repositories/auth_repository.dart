@@ -1,7 +1,8 @@
 import 'dart:async';
 import 'package:saturn/models/auth_models/login_models/sign_in_model.dart';
 import 'package:saturn/models/auth_models/login_models/sign_in_response.dart';
-import 'package:saturn/models/auth_models/otp_response.dart';
+import 'package:saturn/models/auth_models/otp_models/otp_response.dart';
+import 'package:saturn/models/auth_models/otp_models/resend_otp_response.dart';
 import 'package:saturn/models/auth_models/registration_models/signup_payload.dart';
 import 'package:saturn/models/auth_models/registration_models/signup_response.dart';
 import 'package:saturn/service/network/base_header.dart';
@@ -42,6 +43,18 @@ class AuthRepositories extends NetworkService with BaseURL, BaseHeaders {
       return responseData;
     } catch (e) {
       throw Exception(e);
+    }
+  }
+
+  Future resendOtpResponse(context) async {
+    String id = await UserPreferences.getUserId();
+    String resendUrl = resendOtp(id);
+    try {
+      var json = await getRequest(resendUrl, header, context);
+      ResendOtpResponse response = ResendOtpResponse.fromJson(json);
+      return response;
+    } catch (e) {
+      return Exception(e);
     }
   }
 }

@@ -5,7 +5,8 @@ import 'package:saturn/customer_info/service_need.dart';
 import 'package:saturn/helper_widgets/response_snack.dart';
 import 'package:saturn/models/auth_models/login_models/sign_in_model.dart';
 import 'package:saturn/models/auth_models/login_models/sign_in_response.dart';
-import 'package:saturn/models/auth_models/otp_response.dart';
+import 'package:saturn/models/auth_models/otp_models/otp_response.dart';
+import 'package:saturn/models/auth_models/otp_models/resend_otp_response.dart';
 import 'package:saturn/models/auth_models/registration_models/signup_payload.dart';
 import 'package:saturn/models/auth_models/registration_models/signup_response.dart';
 import 'package:saturn/repositories/auth_repository.dart';
@@ -81,6 +82,19 @@ class RegistrationProvider extends ChangeNotifier {
     } catch (e) {
       _verified ? onVerify() : null;
       throw Exception(e);
+    }
+  }
+
+  Future resendOtp(context) async {
+    try {
+      ResendOtpResponse response = await network.resendOtpResponse(context);
+      if (response.message == "success") {
+        showSnack(context, "00", "Otp successfully sent!");
+      } else {
+        showSnack(context, "03", response.message!);
+      }
+    } catch (e) {
+      return Exception(e);
     }
   }
 

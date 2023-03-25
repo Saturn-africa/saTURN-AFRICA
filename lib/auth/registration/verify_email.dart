@@ -135,7 +135,9 @@ class VerifyOTP extends StatelessWidget {
                                             texts.resendText,
                                             style: verifyOTPResendStyle,
                                           ),
-                                          onTap: () {},
+                                          onTap: () async {
+                                            await verify.resendOtp(context);
+                                          },
                                         ))
                                   ],
                                 ),

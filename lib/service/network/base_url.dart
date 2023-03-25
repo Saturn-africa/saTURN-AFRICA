@@ -14,4 +14,8 @@ class BaseURL {
   String verifyOtp(String id) {
     return "${base}auth/$id/verify-otp";
   }
+
+  String resendOtp(String id) {
+    return "${base}auth/$id/resendOtp";
+  }
 }
