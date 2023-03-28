@@ -1,6 +1,13 @@
 import 'package:flutter/cupertino.dart';
+import 'package:saturn/customer_info/find_roommates/terms_page.dart';
+import 'package:saturn/helper_widgets/response_snack.dart';
+import 'package:saturn/repositories/onboarding_repository.dart';
+
+import '../config/routing/routing.dart';
 
 class CustomerInfoProvider extends ChangeNotifier {
+  OnboardingRepository repo = OnboardingRepository();
+  bool isNextClicked = false;
   bool _homesForRentSelected = false;
   bool _findRoommateSelected = false;
   bool _roomOwner = false;
@@ -38,6 +45,42 @@ class CustomerInfoProvider extends ChangeNotifier {
       _roomOwner = false;
     }
     notifyListeners();
+  }
+
+  void onNextClick() {
+    isNextClicked = !isNextClicked;
+    notifyListeners();
+  }
+
+  Future setOwnerStatus(context) async {
+    try {
+      onNextClick();
+      var response = await repo.ownerGetRequest(context);
+      if (response == true) {
+        RoutingService.pushRouting(context, const TermsPage());
+      } else {
+        showSnack(context, "02", "Unable to save status");
+      }
+      isNextClicked ? onNextClick() : null;
+    } catch (e) {
+      isNextClicked ? onNextClick() : null;
+      throw Exception(e);
+    }
+  }
+
+  Future setSeekerStatus(context) async {
+    try {
+      onNextClick();
+      var response = await repo.seekerGetRequest(context);
+      if (response == true) {
+      } else {
+        showSnack(context, "02", "Unable to save status");
+      }
+      isNextClicked ? onNextClick() : null;
+    } catch (e) {
+      isNextClicked ? onNextClick() : null;
+      throw Exception(e);
+    }
   }
 
   void personalInfo(username, age, gender, religion, sex, lang) {

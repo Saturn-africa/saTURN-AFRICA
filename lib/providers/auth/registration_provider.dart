@@ -88,7 +88,7 @@ class RegistrationProvider extends ChangeNotifier {
   Future resendOtp(context) async {
     try {
       ResendOtpResponse response = await network.resendOtpResponse(context);
-      if (response.message == "success") {
+      if (response.status == "success") {
         showSnack(context, "00", "Otp successfully sent!");
       } else {
         showSnack(context, "03", response.message!);

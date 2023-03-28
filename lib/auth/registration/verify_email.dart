@@ -110,7 +110,7 @@ class VerifyOTP extends StatelessWidget {
                             height: size.height * 0.2,
                             child: verify.isVerifying
                                 ? Center(
-                                    child: loadingIndicator(),
+                                    child: loadingIndicator(color: black),
                                   )
                                 : null,
                           ),

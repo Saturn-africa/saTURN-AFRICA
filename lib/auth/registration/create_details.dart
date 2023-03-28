@@ -116,6 +116,7 @@ class _CreateAccountState extends State<CreateAccount> {
                               value, passwordController),
                         ),
                         const Spacer(),
+                        const SizedBox(height: 20),
                         SizedBox(
                           height: 60,
                           child: CustomButtonWidget(

@@ -1,7 +1,9 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:saturn/models/auth_models/login_models/sign_in_response.dart';
+import 'package:saturn/service/storage/shared_preferences/user_details.dart';
 
 class UserSecureStorage {
   final storage = const FlutterSecureStorage();
@@ -14,11 +16,14 @@ class UserSecureStorage {
   final String _userDataKey = "userData";
 
   Future setToken(String token) async {
+    print("token ====>>> $token");
     await storage.write(key: _tokenKey, value: token);
+    await deleteToken(15, _tokenKey);
   }
 
   Future setRefreshToken(String token) async {
     await storage.write(key: _refreshToken, value: token);
+    await deleteToken(10080, _refreshToken);
   }
 
   Future setPassword(String password) async {
@@ -35,6 +40,16 @@ class UserSecureStorage {
 
   Future<String?> getToken() async {
     return await storage.read(key: _tokenKey);
+  }
+
+  Future deleteToken(int minutes, String key) async {
+    Duration deleteAfter = Duration(minutes: minutes);
+    Timer(deleteAfter, () async {
+      await storage.delete(key: key);
+      if (key == _refreshToken) {
+        await UserPreferences.setLoginStatus(false);
+      }
+    });
   }
 
   Future<String?> getRefreshToken() async {

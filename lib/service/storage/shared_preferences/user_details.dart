@@ -3,6 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class UserPreferences {
   static Future<bool> setLoginStatus(bool value) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    await setFirstTimeStatus(false);
     return await prefs.setBool("status", value);
   }
 
@@ -10,6 +11,17 @@ class UserPreferences {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool? status = prefs.getBool("status");
     return status ?? false;
+  }
+
+  static Future<bool> setFirstTimeStatus(bool value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return await prefs.setBool("firstTime", value);
+  }
+
+  static Future<bool> getFirstTimeStatus() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool? status = prefs.getBool("firstTime");
+    return status ?? true;
   }
 
   static Future<bool> setUserId(String id) async {

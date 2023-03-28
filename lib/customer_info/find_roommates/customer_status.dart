@@ -5,6 +5,7 @@ import 'package:saturn/customer_info/find_roommates/terms_page.dart';
 import 'package:saturn/custom_widgets/custom_button.dart';
 import 'package:saturn/helper_widgets/colors.dart';
 import 'package:saturn/helper_widgets/leading_arrow.dart';
+import 'package:saturn/helper_widgets/progress_bar.dart';
 import 'package:saturn/helper_widgets/response_snack.dart';
 import 'package:saturn/helper_widgets/text_constants.dart';
 import 'package:saturn/helper_widgets/text_style.dart';
@@ -112,24 +113,28 @@ class CustomerStatus extends StatelessWidget {
                           ),
                           const Spacer(),
                           CustomButtonWidget(
-                            text: Text(
-                              texts.nextText,
-                              style: buttonStyle,
-                            ),
+                            text: status.isNextClicked
+                                ? loadingIndicator()
+                                : Text(
+                                    texts.nextText,
+                                    style: buttonStyle,
+                                  ),
                             onPressed: () async {
+                              if (status.isNextClicked) {
+                                status.onNextClick();
+                                return;
+                              }
                               if (status.roomOwner) {
                                 await UserPreferences.setUserStatus(
                                     "Room Owner");
                                 if (context.mounted) {
-                                  RoutingService.pushRouting(
-                                      context, const TermsPage());
+                                  await status.setOwnerStatus(context);
                                 }
                               } else if (status.roomSeeker) {
                                 await UserPreferences.setUserStatus(
                                     "Room Seeker");
                                 if (context.mounted) {
-                                  RoutingService.pushRouting(
-                                      context, const TermsPage());
+                                  await status.setSeekerStatus(context);
                                 }
                               } else {
                                 showSnack(

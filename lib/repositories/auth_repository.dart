@@ -5,6 +5,7 @@ import 'package:saturn/models/auth_models/otp_models/otp_response.dart';
 import 'package:saturn/models/auth_models/otp_models/resend_otp_response.dart';
 import 'package:saturn/models/auth_models/registration_models/signup_payload.dart';
 import 'package:saturn/models/auth_models/registration_models/signup_response.dart';
+import 'package:saturn/service/apis/app_exception.dart';
 import 'package:saturn/service/network/base_header.dart';
 import 'package:saturn/service/network/base_service.dart';
 import 'package:saturn/service/network/base_url.dart';
@@ -47,12 +48,28 @@ class AuthRepositories extends NetworkService with BaseURL, BaseHeaders {
   }
 
   Future resendOtpResponse(context) async {
-    String id = await UserPreferences.getUserId();
-    String resendUrl = resendOtp(id);
     try {
+      String id = await UserPreferences.getUserId();
+      String resendUrl = resendOtp(id);
       var json = await getRequest(resendUrl, header, context);
       ResendOtpResponse response = ResendOtpResponse.fromJson(json);
       return response;
+    } catch (e) {
+      return Exception(e);
+    }
+  }
+
+  Future logoutResponse(context) async {
+    try {
+      String? auth = await getAuthToken(context);
+      if (auth != null) {
+        Map<String, String> header_ = authHeader(auth);
+        var json = await getRequest(logout, header_, context);
+        print("output=====>>> $json");
+        await UserPreferences.setLoginStatus(false);
+      }
+    } on UnauthorisedException {
+      print("what's wrong");
     } catch (e) {
       return Exception(e);
     }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:saturn/auth/login/login_page.dart';
+import 'package:saturn/config/routing/routing.dart';
 import 'package:saturn/custom_widgets/alert_dialog.dart';
 import 'package:saturn/custom_widgets/custom_menu_widget.dart';
 import 'package:saturn/customer_info/find_roommates/account/account_screen.dart';
@@ -10,6 +11,8 @@ import 'package:saturn/customer_info/menu_screens/help_screen.dart';
 import 'package:saturn/customer_info/menu_screens/invite_friends.dart';
 import 'package:saturn/helper_widgets/colors.dart';
 import 'package:saturn/providers/custom_provider/list_tile_provider.dart';
+import 'package:saturn/repositories/auth_repository.dart';
+import 'package:saturn/service/storage/shared_preferences/user_details.dart';
 
 class MenuScreen extends StatelessWidget {
   const MenuScreen({
@@ -171,11 +174,13 @@ class MenuScreen extends StatelessWidget {
                     "LOG OUT",
                     "Are you Sure you want to Log out",
                     "LOG OUT",
-                    "CANCEL", () {
-                  Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
-                      MaterialPageRoute(
-                          builder: (context) => const LoginPage()),
-                      (route) => false);
+                    "CANCEL", () async {
+                  await AuthRepositories().logoutResponse(context);
+                  await UserPreferences.setLoginStatus(false);
+                  if (context.mounted) {
+                    RoutingService.pushAndRemoveAllRoute(
+                        context, const LoginPage());
+                  }
                 }, () {
                   Navigator.of(context).pop();
                 });
