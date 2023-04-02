@@ -1,6 +1,10 @@
 import 'package:flutter/cupertino.dart';
+import 'package:saturn/customer_info/find_roommates/room_owner/home_main.dart';
+import 'package:saturn/customer_info/find_roommates/room_seeker/home_main_seeker.dart';
 import 'package:saturn/customer_info/find_roommates/terms_page.dart';
 import 'package:saturn/helper_widgets/response_snack.dart';
+import 'package:saturn/models/onboarding_models/request_model/owner_info.dart';
+import 'package:saturn/models/onboarding_models/response_model/owner_info.dart';
 import 'package:saturn/repositories/onboarding_repository.dart';
 
 import '../config/routing/routing.dart';
@@ -14,6 +18,15 @@ class CustomerInfoProvider extends ChangeNotifier {
   bool _roomSeeker = false;
   Map customerInfo = {};
   List<String> amenities = [];
+
+  bool _nextClicked = false;
+
+  bool get nextClicked => _nextClicked;
+
+  void onNextButtonClick() {
+    _nextClicked = !_nextClicked;
+    notifyListeners();
+  }
 
   void rentSelected() {
     _homesForRentSelected = !_homesForRentSelected;
@@ -79,6 +92,40 @@ class CustomerInfoProvider extends ChangeNotifier {
       isNextClicked ? onNextClick() : null;
     } catch (e) {
       isNextClicked ? onNextClick() : null;
+      throw Exception(e);
+    }
+  }
+
+  Future saveOwnerInfo(context, OwnerPersonalInfoRequest data) async {
+    try {
+      OwnerPersonalInfoResponse response =
+          await repo.saveOwnerPersonalInfo(context, data);
+      _nextClicked ? onNextButtonClick() : null;
+      if (response.message == "success") {
+        RoutingService.pushAndRemoveAllRoute(context, const OwnerMainHome());
+      } else {
+        showSnack(context, "03", "Unable to save personal Info");
+      }
+    } catch (e) {
+      _nextClicked ? onNextButtonClick() : null;
+      showSnack(context, "03", "Unable to save personal Info");
+      throw Exception(e);
+    }
+  }
+
+  Future saveSeekerInfo(context, OwnerPersonalInfoRequest data) async {
+    try {
+      OwnerPersonalInfoResponse response =
+          await repo.saveSeekerPersonalInfo(context, data);
+      _nextClicked ? onNextButtonClick() : null;
+      if (response.message == "success") {
+        RoutingService.pushAndRemoveAllRoute(context, const SeekerMainHome());
+      } else {
+        showSnack(context, "03", "Unable to save personal Info");
+      }
+    } catch (e) {
+      _nextClicked ? onNextButtonClick() : null;
+      showSnack(context, "03", "Unable to save personal Info");
       throw Exception(e);
     }
   }

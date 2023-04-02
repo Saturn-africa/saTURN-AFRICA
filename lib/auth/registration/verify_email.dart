@@ -9,8 +9,8 @@ import 'package:saturn/helper_widgets/text_style.dart';
 import 'package:saturn/providers/auth/registration_provider.dart';
 
 class VerifyOTP extends StatelessWidget {
-  const VerifyOTP({Key? key, required this.email}) : super(key: key);
-  final String email;
+  const VerifyOTP({Key? key, required this.phone}) : super(key: key);
+  final String phone;
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +53,7 @@ class VerifyOTP extends StatelessWidget {
                               ),
                               Center(
                                 child: Text(
-                                  "Enter code sent to ",
+                                  "Enter code sent to $phone",
                                   style: verifyOTPLabelStyle,
                                 ),
                               ),

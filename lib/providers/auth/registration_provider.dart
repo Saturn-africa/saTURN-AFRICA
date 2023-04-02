@@ -44,7 +44,7 @@ class RegistrationProvider extends ChangeNotifier {
         RoutingService.pushAndRemoveAllRoute(
             context,
             VerifyOTP(
-              email: userData.email!,
+              phone: userData.phoneNumber!,
             ));
       } else {
         showSnack(context, "02", response.message!);

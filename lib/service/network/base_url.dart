@@ -1,5 +1,5 @@
 class BaseURL {
-  static const String base = "https://saturn-api-lr6i.onrender.com/api/v1/";
+  static const String base = "https://saturn-api-2.onrender.com/api/v1/";
 
   //    ======= AUTH ======
 
@@ -25,5 +25,12 @@ class BaseURL {
 
   final String userOwner = "${base}users/room-owner";
 
-  final String userSeeker = "{base}users/room-seeker";
+  final String userSeeker = "${base}users/room-seeker";
+
+  //  ======= Room Owner =====
+  final String ownerPersonalInfo = "${base}room-owner-cards/personal-info";
+
+  //  ======= Room Seeker =====
+
+  final String seekerPersonalInfo = "${base}room-seeker-cards/personal-info";
 }

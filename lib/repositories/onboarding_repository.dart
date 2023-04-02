@@ -1,3 +1,5 @@
+import 'package:saturn/models/onboarding_models/request_model/owner_info.dart';
+import 'package:saturn/models/onboarding_models/response_model/owner_info.dart';
 import 'package:saturn/service/network/base_header.dart';
 import 'package:saturn/service/network/base_service.dart';
 import 'package:saturn/service/network/base_url.dart';
@@ -7,9 +9,8 @@ class OnboardingRepository extends NetworkService with BaseURL, BaseHeaders {
     try {
       String auth = await getAuthToken(context);
       Map<String, String> header_ = authHeader(auth);
-      print(header_);
+      print(userOwner);
       var json = await getNoResponseRequest(userOwner, header_, context);
-      print(json);
       if (json == 200 || json == 201) {
         return true;
       } else {
@@ -24,12 +25,41 @@ class OnboardingRepository extends NetworkService with BaseURL, BaseHeaders {
     try {
       String auth = await getAuthToken(context);
       Map<String, String> header_ = authHeader(auth);
-      String json = await getNoResponseRequest(userSeeker, header_, context);
+      print(userSeeker);
+      var json = await getNoResponseRequest(userSeeker, header_, context);
       if (json == "200" || json == "201") {
         return true;
       } else {
         return false;
       }
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  Future saveOwnerPersonalInfo(context, OwnerPersonalInfoRequest data) async {
+    try {
+      String auth = await getAuthToken(context);
+      Map<String, String> header_ = authHeader(auth);
+      var json =
+          await postRequest(ownerPersonalInfo, header_, data.toJson(), context);
+      OwnerPersonalInfoResponse response =
+          OwnerPersonalInfoResponse.fromJson(json);
+      return response;
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  Future saveSeekerPersonalInfo(context, OwnerPersonalInfoRequest data) async {
+    try {
+      String auth = await getAuthToken(context);
+      Map<String, String> header_ = authHeader(auth);
+      var json = await postRequest(
+          seekerPersonalInfo, header_, data.toJson(), context);
+      OwnerPersonalInfoResponse response =
+          OwnerPersonalInfoResponse.fromJson(json);
+      return response;
     } catch (e) {
       throw Exception(e);
     }

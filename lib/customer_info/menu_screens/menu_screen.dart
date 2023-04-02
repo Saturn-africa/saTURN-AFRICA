@@ -10,6 +10,7 @@ import 'package:saturn/customer_info/menu_screens/billing_history.dart';
 import 'package:saturn/customer_info/menu_screens/help_screen.dart';
 import 'package:saturn/customer_info/menu_screens/invite_friends.dart';
 import 'package:saturn/helper_widgets/colors.dart';
+import 'package:saturn/providers/auth/login_provider.dart';
 import 'package:saturn/providers/custom_provider/list_tile_provider.dart';
 import 'package:saturn/repositories/auth_repository.dart';
 import 'package:saturn/service/storage/shared_preferences/user_details.dart';
@@ -25,6 +26,7 @@ class MenuScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ListTileProvider color = context.watch<ListTileProvider>();
+    LoginProvider logout = Provider.of<LoginProvider>(context, listen: false);
     return SingleChildScrollView(
       child: Padding(
         padding: EdgeInsets.only(top: size.height * 0.12),
@@ -170,20 +172,29 @@ class MenuScreen extends StatelessWidget {
               onTap: () {
                 color.switchColor("logout");
                 myAlertDialog2(
-                    context,
-                    "LOG OUT",
-                    "Are you Sure you want to Log out",
-                    "LOG OUT",
-                    "CANCEL", () async {
-                  await AuthRepositories().logoutResponse(context);
-                  await UserPreferences.setLoginStatus(false);
-                  if (context.mounted) {
-                    RoutingService.pushAndRemoveAllRoute(
-                        context, const LoginPage());
-                  }
-                }, () {
-                  Navigator.of(context).pop();
-                });
+                  context,
+                  "LOG OUT",
+                  "Are you Sure you want to Log out",
+                  "LOG OUT",
+                  "CANCEL",
+                  () async {
+                    if (logout.logoutClicked) {
+                      logout.onLogoutCick();
+                      return;
+                    }
+                    logout.onLogoutCick();
+                    await AuthRepositories().logoutResponse(context);
+                    await UserPreferences.setLoginStatus(false);
+                    logout.logoutClicked ? logout.onLogoutCick() : null;
+                    if (context.mounted) {
+                      RoutingService.pushAndRemoveAllRoute(
+                          context, const LoginPage());
+                    }
+                  },
+                  () {
+                    Navigator.of(context).pop();
+                  },
+                );
               },
               child: CustomMenuWidget(
                 textColor: color.logoutText,
