@@ -1,13 +1,13 @@
-class OwnerPersonalInfoResponse {
+class RoommatePrefResponse {
   String? message;
   Data? data;
 
-  OwnerPersonalInfoResponse({
+  RoommatePrefResponse({
     this.message,
     this.data,
   });
 
-  OwnerPersonalInfoResponse.fromJson(Map<String, dynamic> json) {
+  RoommatePrefResponse.fromJson(Map<String, dynamic> json) {
     message = json['message'] as String?;
     data = (json['data'] as Map<String, dynamic>?) != null
         ? Data.fromJson(json['data'] as Map<String, dynamic>)

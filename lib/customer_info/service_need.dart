@@ -126,8 +126,9 @@ class ServiceNeed extends StatelessWidget {
                               RoutingService.pushRouting(
                                   context, const CustomerStatus());
                             } else if (service.homeSelected) {
+                              String id = await UserPreferences.getUserId();
                               await UserPreferences.setUserStatus(
-                                  "Homes For Rent");
+                                  id, "Homes For Rent");
                               if (context.mounted) {
                                 RoutingService.pushRouting(
                                     context, const PreferredHouseSearchPage());

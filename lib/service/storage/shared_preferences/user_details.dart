@@ -13,6 +13,32 @@ class UserPreferences {
     return status ?? false;
   }
 
+  static Future<bool> setAccessTokenTime() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final expirationTime =
+        DateTime.now().add(const Duration(minutes: 15)).millisecondsSinceEpoch;
+    return await prefs.setInt("accessTokenExpirationTime", expirationTime);
+  }
+
+  static Future<bool> setRefreshTokenTime() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final expirationTime =
+        DateTime.now().add(const Duration(days: 7)).millisecondsSinceEpoch;
+    return await prefs.setInt("refreshTokenExpirationTime", expirationTime);
+  }
+
+  static Future<int> getAccessTokenTime() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int? expirationTime = prefs.getInt("accessTokenExpirationTime");
+    return expirationTime ?? 0;
+  }
+
+  static Future<int> getRefreshTokenTime() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int? expirationTime = prefs.getInt("refreshTokenExpirationTime");
+    return expirationTime ?? 0;
+  }
+
   static Future<bool> setFirstTimeStatus(bool value) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return await prefs.setBool("firstTime", value);
@@ -35,26 +61,42 @@ class UserPreferences {
     return id ?? "";
   }
 
-  static Future<bool> setUserStatus(String status) async {
+  static Future<bool> setUserStatus(String id, String status) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return await prefs.setString("userStatus", status);
+    return await prefs.setString("$id status", status);
   }
 
-  static Future<String> getUserStatus() async {
+  static Future<String> getUserStatus(String id) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? status = prefs.getString("userStatus");
+    String? status = prefs.getString("$id status");
+    print(status);
     return status ?? "";
   }
 
-  static Future<bool> setUserFirstName(String name) async {
+  static Future setCardId(String id, String cardId) async {
+    // print(cardId);
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return await prefs.setString("firstName", name);
+    bool he = await prefs.setString("$id card", cardId);
+    print("card id ===>> $id card ====>>>> $cardId");
+    print(he);
   }
 
-  static Future<String> getUserFirstName() async {
+  static Future<String> getCardId(String id) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? name = prefs.getString("firstName");
-    return name ?? "There";
+    String? cardId = prefs.getString("$id card");
+    print("card id ===>> $id card ======> $cardId");
+    return cardId ?? "";
+  }
+
+  static Future<bool> setUsername(String username) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return await prefs.setString("username", username);
+  }
+
+  static Future<String> getUsername() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? name = prefs.getString("username");
+    return name ?? "iRunStreet";
   }
 
   static Future<bool> setRememberUser(bool isCheck) async {
@@ -65,5 +107,21 @@ class UserPreferences {
   static Future<bool> getRememberUser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getBool("isCheck") ?? false;
+  }
+
+  static Future removePref(String key) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove(key);
+  }
+
+  static Future<bool> setUserImage(String url) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return await prefs.setString("userImage", url);
+  }
+
+  static Future<String?> getUserImage() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? name = prefs.getString("userImage");
+    return name;
   }
 }

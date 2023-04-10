@@ -3,6 +3,7 @@ import 'package:saturn/config/routing/routing.dart';
 import 'package:saturn/customer_info/find_roommates/room_owner/home_main.dart';
 import 'package:saturn/customer_info/find_roommates/room_seeker/home_main_seeker.dart';
 import 'package:saturn/customer_info/homes_for_rent/home_page/rent_home_main.dart';
+import 'package:saturn/customer_info/service_need.dart';
 import 'package:saturn/helper_widgets/response_snack.dart';
 import 'package:saturn/models/auth_models/login_models/sign_in_model.dart';
 import 'package:saturn/models/auth_models/login_models/sign_in_response.dart';
@@ -42,14 +43,16 @@ class LoginProvider extends ChangeNotifier {
         await storage.setToken(response.data!.accessToken ?? "");
         await storage.setRefreshToken(response.data!.refreshToken ?? "");
         await storage.setUserData(response.data!.user!);
-        String userStatus = await UserPreferences.getUserStatus();
+        await UserPreferences.setUsername(response.data!.user!.username!);
+        String userStatus =
+            await UserPreferences.getUserStatus(response.data!.user!.id!);
         _isClicked ? onClick() : null;
-        switch (userStatus) {
-          case "room_owner":
+        switch (userStatus.toLowerCase()) {
+          case "room owner":
             RoutingService.pushAndRemoveAllRoute(
                 context, const OwnerMainHome());
             break;
-          case "room_seeker":
+          case "room seeker":
             RoutingService.pushAndRemoveAllRoute(
                 context, const SeekerMainHome());
             break;

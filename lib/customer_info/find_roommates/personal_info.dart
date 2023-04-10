@@ -7,8 +7,6 @@ import 'package:saturn/providers/customer_info_provider.dart';
 import 'package:saturn/custom_widgets/custom_button.dart';
 import 'package:saturn/custom_widgets/custom_dropdown.dart';
 import 'package:saturn/custom_widgets/custom_input.dart';
-import 'package:saturn/customer_info/find_roommates/room_owner/home_main.dart';
-import 'package:saturn/customer_info/find_roommates/room_seeker/home_main_seeker.dart';
 import 'package:saturn/helper_widgets/text_constants.dart';
 import 'package:saturn/helper_widgets/text_style.dart';
 import 'package:saturn/service/storage/shared_preferences/user_details.dart';
@@ -210,7 +208,8 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
                           selectedSex != null &&
                           selectedLang != null &&
                           _formKey.currentState!.validate()) {
-                        String status = await UserPreferences.getUserStatus();
+                        String id = await UserPreferences.getUserId();
+                        String status = await UserPreferences.getUserStatus(id);
 
                         OwnerPersonalInfoRequest data =
                             OwnerPersonalInfoRequest(
@@ -223,9 +222,9 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
                                 language: selectedLang,
                                 state: selectedState);
                         if (context.mounted) {
-                          status == "Room Owner"
+                          status.toLowerCase() == "room owner"
                               ? await info.saveOwnerInfo(context, data)
-                              : status == "Room Seeker"
+                              : status.toLowerCase() == "room seeker"
                                   ? await info.saveSeekerInfo(context, data)
                                   : null;
                         }

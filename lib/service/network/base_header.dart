@@ -22,18 +22,27 @@ class BaseHeaders {
     };
   }
 
+  Map<String, String> imageHeader(auth) {
+    return {
+      "accept": "*/*",
+      "Content-Type": "multipart/form-data",
+      "Authorization": "Bearer $auth",
+    };
+  }
+
   Future getAuthToken(context) async {
     String? token = await storage.getToken();
     String? refreshToken = await storage.getRefreshToken();
     if (token != null) {
-      print(token);
+      print("access token ===== >>> $token");
       return token;
     } else if (token == null && refreshToken != null) {
+      print("hereee for the tokennnn=====>>>>");
       var json = await NetworkService()
           .getRequest(BaseURL().refresh, authHeader(refreshToken), context);
       RefreshTokenResponse response = RefreshTokenResponse.fromJson(json);
       await storage.setToken(response.data!.data!.accessToken ?? "");
-      print(response.data!.data!.accessToken);
+      print("refreshed token ===>>> ${response.data!.data!.accessToken}");
       return response.data!.data!.accessToken;
     } else {
       await UserPreferences.setLoginStatus(false);

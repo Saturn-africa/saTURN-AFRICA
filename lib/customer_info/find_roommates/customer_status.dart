@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:saturn/config/routing/routing.dart';
-import 'package:saturn/customer_info/find_roommates/terms_page.dart';
 import 'package:saturn/custom_widgets/custom_button.dart';
 import 'package:saturn/helper_widgets/colors.dart';
 import 'package:saturn/helper_widgets/leading_arrow.dart';
@@ -124,21 +122,24 @@ class CustomerStatus extends StatelessWidget {
                                 status.onNextClick();
                                 return;
                               }
+                              String id = await UserPreferences.getUserId();
                               if (status.roomOwner) {
                                 await UserPreferences.setUserStatus(
-                                    "Room Owner");
+                                    id, "Room Owner");
                                 if (context.mounted) {
                                   await status.setOwnerStatus(context);
                                 }
                               } else if (status.roomSeeker) {
                                 await UserPreferences.setUserStatus(
-                                    "Room Seeker");
+                                    id, "Room Seeker");
                                 if (context.mounted) {
                                   await status.setSeekerStatus(context);
                                 }
                               } else {
-                                showSnack(
-                                    context, "02", "please select a field");
+                                if (context.mounted) {
+                                  showSnack(
+                                      context, "02", "please select a field");
+                                }
                               }
                             },
                           )

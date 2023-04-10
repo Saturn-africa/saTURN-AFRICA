@@ -6,6 +6,7 @@ import 'package:saturn/helper_widgets/response_snack.dart';
 import 'package:saturn/models/onboarding_models/request_model/owner_info.dart';
 import 'package:saturn/models/onboarding_models/response_model/owner_info.dart';
 import 'package:saturn/repositories/onboarding_repository.dart';
+import 'package:saturn/service/storage/shared_preferences/user_details.dart';
 
 import '../config/routing/routing.dart';
 
@@ -86,6 +87,7 @@ class CustomerInfoProvider extends ChangeNotifier {
       onNextClick();
       var response = await repo.seekerGetRequest(context);
       if (response == true) {
+        RoutingService.pushRouting(context, const TermsPage());
       } else {
         showSnack(context, "02", "Unable to save status");
       }
@@ -102,6 +104,8 @@ class CustomerInfoProvider extends ChangeNotifier {
           await repo.saveOwnerPersonalInfo(context, data);
       _nextClicked ? onNextButtonClick() : null;
       if (response.message == "success") {
+        String id = await UserPreferences.getUserId();
+        await UserPreferences.setCardId(id, response.data!.id);
         RoutingService.pushAndRemoveAllRoute(context, const OwnerMainHome());
       } else {
         showSnack(context, "03", "Unable to save personal Info");
@@ -119,6 +123,8 @@ class CustomerInfoProvider extends ChangeNotifier {
           await repo.saveSeekerPersonalInfo(context, data);
       _nextClicked ? onNextButtonClick() : null;
       if (response.message == "success") {
+        String id = await UserPreferences.getUserId();
+        await UserPreferences.setCardId(id, response.data!.id);
         RoutingService.pushAndRemoveAllRoute(context, const SeekerMainHome());
       } else {
         showSnack(context, "03", "Unable to save personal Info");

@@ -1,24 +1,17 @@
-class OwnerPersonalInfoResponse {
+class LifestyleInfoResponse {
   String? message;
   Data? data;
 
-  OwnerPersonalInfoResponse({
+  LifestyleInfoResponse({
     this.message,
     this.data,
   });
 
-  OwnerPersonalInfoResponse.fromJson(Map<String, dynamic> json) {
+  LifestyleInfoResponse.fromJson(Map<String, dynamic> json) {
     message = json['message'] as String?;
     data = (json['data'] as Map<String, dynamic>?) != null
         ? Data.fromJson(json['data'] as Map<String, dynamic>)
         : null;
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> json = <String, dynamic>{};
-    json['message'] = message;
-    json['data'] = data?.toJson();
-    return json;
   }
 }
 
@@ -133,42 +126,5 @@ class Data {
         (json['photos'] as List?)?.map((dynamic e) => e as String).toList();
     user = json['user'] as dynamic;
   }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> json = <String, dynamic>{};
-    json['_id'] = id?.toJson();
-    json['fullName'] = fullName;
-    json['ageRange'] = ageRange;
-    json['gender'] = gender;
-    json['religion'] = religion;
-    json['sexualInclination'] = sexualInclination;
-    json['language'] = language;
-    json['region'] = region;
-    json['state'] = state;
-    json['ageRangeOfRoommate'] = ageRangeOfRoommate;
-    json['genderOfRoommate'] = genderOfRoommate;
-    json['religionOfRoommate'] = religionOfRoommate;
-    json['sexualInclinationOfRoommate'] = sexualInclinationOfRoommate;
-    json['languageOfRoommate'] = languageOfRoommate;
-    json['educationalLevelOfRoommate'] = educationalLevelOfRoommate;
-    json['smokingLevelOfRoommate'] = smokingLevelOfRoommate;
-    json['petToleranceLevelOfRoommate'] = petToleranceLevelOfRoommate;
-    json['drinkingLevelOfRoommate'] = drinkingLevelOfRoommate;
-    json['cleaningLevelOfRoommate'] = cleaningLevelOfRoommate;
-    json['apartmentPrice'] = apartmentPrice;
-    json['apartmentLocation'] = apartmentLocation;
-    json['houseType'] = houseType;
-    json['houseOccupants'] = houseOccupants;
-    json['mininumSharingDuration'] = mininumSharingDuration;
-    json['maximumSharingDuration'] = maximumSharingDuration;
-    json['numberOfRooms'] = numberOfRooms;
-    json['kitchenType'] = kitchenType;
-    json['numberOfRestrooms'] = numberOfRestrooms;
-    json['restRoomType'] = restRoomType;
-    json['homeAmenities'] = homeAmenities;
-    json['additionalInformation'] = additionalInformation;
-    json['photos'] = photos;
-    json['user'] = user?.toJson();
-    return json;
-  }
 }
+// 643042e6c055f15a3751b877
