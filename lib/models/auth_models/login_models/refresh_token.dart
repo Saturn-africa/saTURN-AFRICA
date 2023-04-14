@@ -13,70 +13,29 @@ class RefreshTokenResponse {
         ? Data.fromJson(json['data'] as Map<String, dynamic>)
         : null;
   }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> json = <String, dynamic>{};
-    json['message'] = message;
-    json['data'] = data?.toJson();
-    return json;
-  }
 }
 
 class Data {
-  String? message;
-  DataToken? data;
-
-  Data({
-    this.message,
-    this.data,
-  });
-
-  Data.fromJson(Map<String, dynamic> json) {
-    message = json['message'] as String?;
-    data = (json['data'] as Map<String, dynamic>?) != null
-        ? DataToken.fromJson(json['data'] as Map<String, dynamic>)
-        : null;
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> json = <String, dynamic>{};
-    json['message'] = message;
-    json['data'] = data?.toJson();
-    return json;
-  }
-}
-
-class DataToken {
   String? accessToken;
   String? refreshToken;
   User? user;
 
-  DataToken({
+  Data({
     this.accessToken,
     this.refreshToken,
     this.user,
   });
 
-  DataToken.fromJson(Map<String, dynamic> json) {
+  Data.fromJson(Map<String, dynamic> json) {
     accessToken = json['accessToken'] as String?;
     refreshToken = json['refreshToken'] as String?;
     user = (json['user'] as Map<String, dynamic>?) != null
         ? User.fromJson(json['user'] as Map<String, dynamic>)
         : null;
   }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> json = <String, dynamic>{};
-    json['accessToken'] = accessToken;
-    json['refreshToken'] = refreshToken;
-    json['user'] = user?.toJson();
-    return json;
-  }
 }
 
 class User {
-  List<dynamic>? roomOwnerCards;
-  List<dynamic>? roomSeekerCards;
   String? id;
   String? username;
   String? password;
@@ -84,6 +43,8 @@ class User {
   bool? isVerified;
   bool? activated;
   String? phoneNumber;
+  List<String>? roomOwnerCards;
+  List<dynamic>? roomSeekerCards;
   String? createdAt;
   String? updatedAt;
   int? v;
@@ -92,8 +53,6 @@ class User {
   String? refreshToken;
 
   User({
-    this.roomOwnerCards,
-    this.roomSeekerCards,
     this.id,
     this.username,
     this.password,
@@ -101,6 +60,8 @@ class User {
     this.isVerified,
     this.activated,
     this.phoneNumber,
+    this.roomOwnerCards,
+    this.roomSeekerCards,
     this.createdAt,
     this.updatedAt,
     this.v,
@@ -110,41 +71,22 @@ class User {
   });
 
   User.fromJson(Map<String, dynamic> json) {
-    roomOwnerCards = json['roomOwnerCards'] as List?;
-    roomSeekerCards = json['roomSeekerCards'] as List?;
+    id = json['_id'] as String?;
     username = json['username'] as String?;
     password = json['password'] as String?;
     email = json['email'] as String?;
     isVerified = json['isVerified'] as bool?;
     activated = json['activated'] as bool?;
     phoneNumber = json['phoneNumber'] as String?;
+    roomOwnerCards = (json['roomOwnerCards'] as List?)
+        ?.map((dynamic e) => e as String)
+        .toList();
+    roomSeekerCards = json['roomSeekerCards'] as List?;
     createdAt = json['createdAt'] as String?;
     updatedAt = json['updatedAt'] as String?;
     v = json['__v'] as int?;
     otpCode = json['otpCode'] as String?;
     otpReference = json['otpReference'] as String?;
     refreshToken = json['refreshToken'] as String?;
-    id = json['id'] as String?;
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> json = <String, dynamic>{};
-    json['roomOwnerCards'] = roomOwnerCards;
-    json['roomSeekerCards'] = roomSeekerCards;
-    json['_id'] = id;
-    json['username'] = username;
-    json['password'] = password;
-    json['email'] = email;
-    json['isVerified'] = isVerified;
-    json['activated'] = activated;
-    json['phoneNumber'] = phoneNumber;
-    json['createdAt'] = createdAt;
-    json['updatedAt'] = updatedAt;
-    json['__v'] = v;
-    json['otpCode'] = otpCode;
-    json['otpReference'] = otpReference;
-    json['refreshToken'] = refreshToken;
-    json['id'] = id;
-    return json;
   }
 }

@@ -83,11 +83,14 @@ class AccountProvider extends ChangeNotifier {
       if (response != null) {
         imageUrl = response;
         notifyListeners();
+        print("imageUrl ====>> $imageUrl");
         await UserPreferences.setUserImage(response);
       } else {
+        print("else erriiiirrr=====>>");
         showSnack(context, "02", "Unable to upload image");
       }
     } catch (e) {
+      print("error here===>>>");
       showSnack(context, "02", "Unable to upload image");
     }
   }

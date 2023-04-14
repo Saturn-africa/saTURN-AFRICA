@@ -3,7 +3,6 @@ import 'package:saturn/config/routing/routing.dart';
 import 'package:saturn/customer_info/find_roommates/room_owner/home_main.dart';
 import 'package:saturn/customer_info/find_roommates/room_seeker/home_main_seeker.dart';
 import 'package:saturn/customer_info/homes_for_rent/home_page/rent_home_main.dart';
-import 'package:saturn/customer_info/service_need.dart';
 import 'package:saturn/helper_widgets/response_snack.dart';
 import 'package:saturn/models/auth_models/login_models/sign_in_model.dart';
 import 'package:saturn/models/auth_models/login_models/sign_in_response.dart';

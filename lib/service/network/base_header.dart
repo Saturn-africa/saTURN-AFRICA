@@ -37,13 +37,14 @@ class BaseHeaders {
       print("access token ===== >>> $token");
       return token;
     } else if (token == null && refreshToken != null) {
-      print("hereee for the tokennnn=====>>>>");
       var json = await NetworkService()
           .getRequest(BaseURL().refresh, authHeader(refreshToken), context);
       RefreshTokenResponse response = RefreshTokenResponse.fromJson(json);
-      await storage.setToken(response.data!.data!.accessToken ?? "");
-      print("refreshed token ===>>> ${response.data!.data!.accessToken}");
-      return response.data!.data!.accessToken;
+      await storage.setToken(response.data!.accessToken ?? "");
+      await storage.setRefreshToken(response.data!.refreshToken ?? "",
+          isFirst: false);
+      print("refreshed token ===>>> ${response.data!.accessToken}");
+      return response.data!.accessToken;
     } else {
       await UserPreferences.setLoginStatus(false);
       RoutingService.pushAndRemoveAllRoute(context, const LoginPage());

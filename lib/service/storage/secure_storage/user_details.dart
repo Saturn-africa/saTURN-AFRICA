@@ -23,9 +23,10 @@ class UserSecureStorage {
     await UserPreferences.setAccessTokenTime();
   }
 
-  Future setRefreshToken(String token) async {
+  Future setRefreshToken(String token, {bool isFirst = true}) async {
     await storage.write(key: _refreshToken, value: token);
-    await UserPreferences.setRefreshTokenTime();
+    print("hereee token ====>>>");
+    isFirst ? await UserPreferences.setRefreshTokenTime() : null;
   }
 
   Future setPassword(String password) async {

@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:image_picker/image_picker.dart';
@@ -28,7 +26,6 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-  XFile? _pickedImg;
   final ImagePicker _picker = ImagePicker();
   String? image;
 

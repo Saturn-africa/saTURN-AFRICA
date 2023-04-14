@@ -69,7 +69,6 @@ class UserPreferences {
   static Future<String> getUserStatus(String id) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? status = prefs.getString("$id status");
-    print(status);
     return status ?? "";
   }
 
