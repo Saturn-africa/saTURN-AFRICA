@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 import 'package:saturn/customer_info/find_roommates/room_owner/explore/view_details/view_detail_card.dart';
 import 'package:saturn/helper_widgets/colors.dart';
 import 'package:saturn/models/owner_details.dart';
+import 'package:saturn/models/room_owner_model/owner_cards.dart';
+import 'package:saturn/providers/room_owner_provider/owner_card.dart';
 
 class ViewDetailPage extends StatelessWidget {
-  const ViewDetailPage({super.key});
+  const ViewDetailPage({super.key, required this.data});
+  final Data data;
 
   @override
   Widget build(BuildContext context) {
@@ -28,23 +32,10 @@ class ViewDetailPage extends StatelessWidget {
         backgroundColor: Colors.white,
         elevation: 0,
       ),
-      body: ViewDetailCard(
-        owner: OwnerDetails(
-            status: "Verified",
-            personalInfo: PersonalInfo(username: "John Igwe", gender: "Male"),
-            houseInfo: HouseInfo(
-                location1: "12, Abudu street, abule-oja, yaba, Lagos"),
-            houseAmenities: [
-              "Fan",
-              "A.C",
-              "TV",
-              "Elevator",
-              "Wi-Fi",
-              "Security"
-            ],
-            additionalInfo: "The room is good",
-            roommatePref: RoommatePref(),
-            lifestyleInfo: LifestyleInfo()),
+      body: Consumer<OwnerCardProvider>(
+        builder: (_, card, __) => ViewDetailCard(
+          owner: data,
+        ),
       ),
     );
   }

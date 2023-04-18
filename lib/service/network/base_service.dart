@@ -24,6 +24,8 @@ class NetworkService {
       {int seconds = 100}) async {
     dynamic responseJson;
     try {
+      print("url ===>> $url");
+      print("header ===>> $header");
       http.Response response = await http
           .get(Uri.parse(url), headers: header)
           .timeout(Duration(seconds: seconds));
