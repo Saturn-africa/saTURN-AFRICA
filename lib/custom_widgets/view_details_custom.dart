@@ -30,7 +30,7 @@ class ColumnCustomWidget extends StatelessWidget {
   }) : super(key: key);
 
   final String title;
-  final String text;
+  final dynamic text;
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +49,7 @@ class ColumnCustomWidget extends StatelessWidget {
         SizedBox(
           width: size.width * 0.46,
           child: AutoSizeText(
-            text,
+            text.toString(),
             overflow: TextOverflow.clip,
             maxLines: 1,
             style: ownerCardSubtitleStyle.copyWith(color: deepBlack),

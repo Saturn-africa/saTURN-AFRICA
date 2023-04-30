@@ -8,59 +8,56 @@ class ExploreCardShimmer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Scaffold(
-      body: Shimmer.fromColors(
-        highlightColor: Colors.white.withOpacity(0.2),
-        baseColor: Colors.grey.withOpacity(0.5),
-        child: Container(
-          height: size.height * 0.75,
-          width: size.width * 0.9,
-          margin: const EdgeInsets.all(10),
-          padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              border: Border.all(width: 1, color: cardBorderColor)),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Container(
-                      height: size.height * 0.2,
-                      width: size.width * 0.4,
-                      decoration: BoxDecoration(
-                          color: white,
-                          borderRadius: BorderRadius.circular(20)),
-                    ),
-                    const SizedBox(width: 10),
-                    Column(
-                      children: [
-                        Container(
-                          height: 20,
-                          width: size.width * 0.25,
-                          color: black,
-                        ),
-                        const SizedBox(height: 20),
-                        Container(
-                          height: 20,
-                          width: size.width * 0.25,
-                          color: purple,
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-                const SizedBox(height: 20),
-                ColumnShimmer(size: size),
-                const SizedBox(height: 20),
-                ColumnShimmer(size: size),
-                const SizedBox(height: 20),
-                ColumnShimmer(size: size),
-                const SizedBox(height: 20),
-                ColumnShimmer(size: size),
-              ],
-            ),
+    return Shimmer.fromColors(
+      highlightColor: Colors.white.withOpacity(0.2),
+      baseColor: Colors.grey.withOpacity(0.5),
+      child: Container(
+        height: size.height * 0.75,
+        width: size.width * 0.9,
+        margin: const EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15),
+            border: Border.all(width: 1, color: cardBorderColor)),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Container(
+                    height: size.height * 0.2,
+                    width: size.width * 0.4,
+                    decoration: BoxDecoration(
+                        color: white, borderRadius: BorderRadius.circular(20)),
+                  ),
+                  const SizedBox(width: 10),
+                  Column(
+                    children: [
+                      Container(
+                        height: 20,
+                        width: size.width * 0.25,
+                        color: black,
+                      ),
+                      const SizedBox(height: 20),
+                      Container(
+                        height: 20,
+                        width: size.width * 0.25,
+                        color: purple,
+                      ),
+                    ],
+                  )
+                ],
+              ),
+              const SizedBox(height: 20),
+              ColumnShimmer(size: size),
+              const SizedBox(height: 20),
+              ColumnShimmer(size: size),
+              const SizedBox(height: 20),
+              ColumnShimmer(size: size),
+              const SizedBox(height: 20),
+              ColumnShimmer(size: size),
+            ],
           ),
         ),
       ),

@@ -52,9 +52,11 @@ class BaseURL {
       "${base}room-owner-cards?page=$page&pageSize=10";
 
   String ownerCardById(String id) => "${base}room-owner-cards/$id";
+
   //  ======= Room Seeker =====
 
   final String seekerPersonalInfo = "${base}room-seeker-cards/personal-info";
+
   String seekerPersonalInfoUpdate(String id) =>
       "${base}room-seeker-cards/$id/personal-info";
 

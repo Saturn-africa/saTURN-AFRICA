@@ -3,7 +3,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:saturn/customer_info/find_roommates/room_owner/explore/view_details/view_detail_card.dart';
 import 'package:saturn/helper_widgets/colors.dart';
-import 'package:saturn/models/owner_details.dart';
 import 'package:saturn/models/room_owner_model/owner_cards.dart';
 import 'package:saturn/providers/room_owner_provider/owner_card.dart';
 

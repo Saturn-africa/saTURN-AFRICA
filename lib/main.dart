@@ -13,6 +13,7 @@ import 'package:saturn/helper_widgets/colors.dart';
 import 'package:saturn/preview.dart';
 import 'package:saturn/providers/auth/registration_provider.dart';
 import 'package:saturn/providers/room_owner_provider/owner_card.dart';
+import 'package:saturn/providers/room_seeker_provider/seeker_card.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,6 +30,7 @@ void main() async {
       ChangeNotifierProvider(create: (context) => AccountProvider()),
       ChangeNotifierProvider(create: (context) => HouseDataProvider()),
       ChangeNotifierProvider(create: (context) => OwnerCardProvider()),
+      ChangeNotifierProvider(create: (context) => SeekerCardProvider()),
     ],
     child: MaterialApp(
       debugShowCheckedModeBanner: false,
