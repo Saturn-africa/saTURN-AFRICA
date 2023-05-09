@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:saturn/service/network/base_header.dart';
 import 'package:saturn/service/network/base_service.dart';
 import 'package:saturn/service/network/base_url.dart';
@@ -22,6 +24,18 @@ abstract class RoomOwnerRepository extends NetworkService
       String auth = await getAuthToken(context);
       Map<String, String> header_ = authHeader(auth);
       var response = await getRequest(ownerCardById(id), header_, context);
+      return response;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future sendOwnerRequestRepo(context, String id) async {
+    try {
+      String auth = await getAuthToken(context);
+      Map<String, String> header_ = authHeader(auth);
+      var response =
+          await putRequest(ownerSendRequest(id), header_, jsonEncode(null), context);
       return response;
     } catch (e) {
       return null;

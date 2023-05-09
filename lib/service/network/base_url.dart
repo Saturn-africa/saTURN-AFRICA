@@ -53,6 +53,8 @@ class BaseURL {
 
   String ownerCardById(String id) => "${base}room-owner-cards/$id";
 
+  String ownerSendRequest(String id) => "${base}requests/roomOwner/$id";
+
   //  ======= Room Seeker =====
 
   final String seekerPersonalInfo = "${base}room-seeker-cards/personal-info";
