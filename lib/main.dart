@@ -15,6 +15,7 @@ import 'package:saturn/providers/auth/registration_provider.dart';
 import 'package:saturn/providers/room_owner_provider/owner_card.dart';
 import 'package:saturn/providers/room_owner_provider/owner_request.dart';
 import 'package:saturn/providers/room_seeker_provider/seeker_card.dart';
+import 'package:saturn/providers/room_seeker_provider/send_request.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,6 +34,7 @@ void main() async {
       ChangeNotifierProvider(create: (context) => OwnerCardProvider()),
       ChangeNotifierProvider(create: (context) => SeekerCardProvider()),
       ChangeNotifierProvider(create: (context) => OwnerRequestProvider()),
+      ChangeNotifierProvider(create: (context) => SeekerRequestProvider()),
     ],
     child: MaterialApp(
       debugShowCheckedModeBanner: false,

@@ -66,14 +66,16 @@ class PreviewScreen extends StatelessWidget {
                     RoutingService.pushReplacementRouting(
                         context, const CreateAccount());
                   } else if (status && context.mounted) {
-                    UserDetailsModel user =
+                    UserDetailsModel? user =
                         await UserSecureStorage().getUpdatedUserData();
                     if (context.mounted) {
                       RoutingService.pushReplacementRouting(
                           context,
-                          user.data!.role!.toLowerCase() == "room owner"
-                              ? const OwnerMainHome()
-                              : const SeekerMainHome());
+                          user == null
+                              ? const LoginPage()
+                              : user.data!.role!.toLowerCase() == "room owner"
+                                  ? const OwnerMainHome()
+                                  : const SeekerMainHome());
                     }
                   } else if (!status && context.mounted) {
                     RoutingService.pushReplacementRouting(

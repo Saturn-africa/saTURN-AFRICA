@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:saturn/config/routing/routing.dart';
 import 'package:saturn/customer_info/find_roommates/room_seeker/explore/view_detail/view_detail.dart';
 import 'package:saturn/helper_widgets/response_snack.dart';
+import 'package:saturn/models/room_owner_model/owner_cards.dart';
 import 'package:saturn/models/room_seeker_model/seeker_cards.dart';
+import 'package:saturn/repositories/room_owner_repository.dart';
 import 'package:saturn/repositories/room_seeker_repository.dart';
 
 class SeekerCardProvider extends RoomSeekerRepository with ChangeNotifier {
-  List<Data> seekerCardsList = [];
+  RoomOwnerRepository repo = RoomOwnerRepository();
+  List seekerCardsList = [];
   bool _isLoading = false;
   bool _isViewClicked = false;
   int activeIndex = 0;
@@ -45,21 +48,29 @@ class SeekerCardProvider extends RoomSeekerRepository with ChangeNotifier {
           ? null
           : await getSeekerCards(context, page.toString());
       print("listtt +===>>> $seekerCardsList");
-      _isLoading ? false : null;
+      _isLoading = false;
       print("isLoading +===>>> $isLoading");
       notifyListeners();
       if (json != null) {
         SeekerCardsResponse response = SeekerCardsResponse.fromJson(json);
         seekerCardsList.addAll(response.data!.data!);
+        var json1 = page == prevPage
+            ? null
+            : await repo.getOwnerCards(context, page.toString());
+        if (json1 != null) {
+          OwnerCardsResponse ownerResponse = OwnerCardsResponse.fromJson(json1);
+          seekerCardsList.addAll(ownerResponse.data!.data!);
+        }
         prevPage = page;
-        print("user ====>>> ${seekerCardsList[0].user}");
-        print("card list ===>> ${seekerCardsList.length}");
+        // print("user ====>>> ${seekerCardsList[0].user}");
+        // print("user ====>>> ${seekerCardsList[seekerCardsList.length - 1]}");
+        // print("card list ===>> ${seekerCardsList.length}");
       }
       notifyListeners();
     } catch (e) {
-      _isLoading ? false : null;
+      _isLoading = false;
       notifyListeners();
-      showSnack(context, "02", "unable to get user cards");
+      // showSnack(context, "02", "unable to get user cards");
     }
   }
 
@@ -69,7 +80,7 @@ class SeekerCardProvider extends RoomSeekerRepository with ChangeNotifier {
       var json = await getSeekerCardById(context, id);
       _isViewClicked ? onViewClick() : null;
       if (json != null) {
-        Data response = Data.fromJson(json["data"]);
+        SeekerData response = SeekerData.fromJson(json["data"]);
         RoutingService.pushRouting(
             context, ViewDetailSeekerPage(data: response));
       } else {

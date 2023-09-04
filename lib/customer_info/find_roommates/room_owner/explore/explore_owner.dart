@@ -5,7 +5,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:saturn/custom_widgets/custom_shimmers/explore_card_shimmer.dart';
 import 'package:saturn/customer_info/find_roommates/room_owner/explore/owner_expore_card.dart';
+import 'package:saturn/customer_info/find_roommates/room_seeker/explore/seeker_explore_card.dart';
 import 'package:saturn/helper_widgets/colors.dart';
+import 'package:saturn/models/room_seeker_model/seeker_cards.dart';
+import 'package:saturn/providers/account/account_provider.dart';
 import 'package:saturn/providers/room_owner_provider/owner_card.dart';
 
 class OwnerExplore extends StatefulWidget {
@@ -19,6 +22,7 @@ class _OwnerExploreState extends State<OwnerExplore> {
   @override
   void initState() {
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) async {
+      Provider.of<AccountProvider>(context, listen: false).getUserInfo(context);
       Provider.of<OwnerCardProvider>(context, listen: false).refreshData();
       await Provider.of<OwnerCardProvider>(context, listen: false)
           .getRoomOwnerCard(context);
@@ -34,22 +38,29 @@ class _OwnerExploreState extends State<OwnerExplore> {
         builder: (_, card, __) => card.isLoading && card.ownerCardsList.isEmpty
             ? const ExploreCardShimmer()
             : (!card.isLoading && card.ownerCardsList.isEmpty)
-                ? Center(
-                    child: Text(
-                      "No available room owners",
-                      style: GoogleFonts.ubuntu(
-                          textStyle: const TextStyle(
-                              fontSize: 15,
-                              color: purple,
-                              fontWeight: FontWeight.w500)),
+                ? Padding(
+                    padding: EdgeInsets.symmetric(vertical: size.height * 0.3),
+                    child: Center(
+                      child: Text(
+                        "No available room owners",
+                        style: GoogleFonts.ubuntu(
+                            textStyle: const TextStyle(
+                                fontSize: 15,
+                                color: purple,
+                                fontWeight: FontWeight.w500)),
+                      ),
                     ),
                   )
                 : CarouselSlider.builder(
                     itemCount: card.ownerCardsList.length,
                     itemBuilder: ((context, index, realIndex) {
-                      return OwnerExploreCards(
-                        owner: card.ownerCardsList[index],
-                      );
+                      return card.ownerCardsList[index].runtimeType ==
+                              SeekerData
+                          ? SeekerExploreCards(
+                              seeker: card.ownerCardsList[index],
+                            )
+                          : OwnerExploreCards(
+                              owner: card.ownerCardsList[index]);
                     }),
                     options: CarouselOptions(
                       height: size.height * 0.85,
