@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:saturn/helper_widgets/colors.dart';
 import 'package:saturn/helper_widgets/text_style.dart';
-import 'package:saturn/providers/menu_provider.dart';
+import 'package:saturn/providers/custom_provider/menu_provider.dart';
 
 class HelpScreen extends StatelessWidget {
   const HelpScreen({super.key});

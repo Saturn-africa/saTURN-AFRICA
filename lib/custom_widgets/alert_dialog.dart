@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:saturn/helper_widgets/colors.dart';
+import 'package:saturn/helper_widgets/progress_bar.dart';
+import 'package:saturn/providers/auth/login_provider.dart';
 
 void myAlertDialog2(
-    context,
-    String titleText,
-    String contentText,
-    String actionText1,
-    String actionText2,
-    Function()? onpressed1,
-    Function()? onpressed2) async {
+  context,
+  String titleText,
+  String contentText,
+  String actionText1,
+  String actionText2,
+  Function()? onpressed1,
+  Function()? onpressed2,
+) async {
   return showDialog<void>(
     context: context,
     barrierDismissible: false, // user must tap button!
@@ -37,10 +41,13 @@ void myAlertDialog2(
                         borderRadius: BorderRadius.circular(15),
                       ),
                       backgroundColor: purple),
-                  child: Text(
-                    actionText1,
-                    style: const TextStyle(color: Colors.white, fontSize: 15),
-                  )),
+                  child: Provider.of<LoginProvider>(context).logoutClicked
+                      ? loadingIndicator()
+                      : Text(
+                          actionText1,
+                          style: const TextStyle(
+                              color: Colors.white, fontSize: 15),
+                        )),
             ),
             Padding(
               padding: const EdgeInsets.only(right: 17),

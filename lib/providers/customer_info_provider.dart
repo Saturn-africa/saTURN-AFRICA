@@ -1,12 +1,32 @@
 import 'package:flutter/cupertino.dart';
+import 'package:saturn/customer_info/find_roommates/room_owner/home_main.dart';
+import 'package:saturn/customer_info/find_roommates/room_seeker/home_main_seeker.dart';
+import 'package:saturn/customer_info/find_roommates/terms_page.dart';
+import 'package:saturn/helper_widgets/response_snack.dart';
+import 'package:saturn/models/onboarding_models/request_model/owner_info.dart';
+import 'package:saturn/models/onboarding_models/response_model/owner_info.dart';
+import 'package:saturn/repositories/onboarding_repository.dart';
+
+import '../config/routing/routing.dart';
 
 class CustomerInfoProvider extends ChangeNotifier {
+  OnboardingRepository repo = OnboardingRepository();
+  bool isNextClicked = false;
   bool _homesForRentSelected = false;
   bool _findRoommateSelected = false;
   bool _roomOwner = false;
   bool _roomSeeker = false;
   Map customerInfo = {};
   List<String> amenities = [];
+
+  bool _nextClicked = false;
+
+  bool get nextClicked => _nextClicked;
+
+  void onNextButtonClick() {
+    _nextClicked = !_nextClicked;
+    notifyListeners();
+  }
 
   void rentSelected() {
     _homesForRentSelected = !_homesForRentSelected;
@@ -38,6 +58,76 @@ class CustomerInfoProvider extends ChangeNotifier {
       _roomOwner = false;
     }
     notifyListeners();
+  }
+
+  void onNextClick() {
+    isNextClicked = !isNextClicked;
+    notifyListeners();
+  }
+
+  Future setOwnerStatus(context) async {
+    try {
+      onNextClick();
+      var response = await repo.ownerGetRequest(context);
+      if (response == true) {
+        RoutingService.pushRouting(context, const TermsPage());
+      } else {
+        showSnack(context, "02", "Unable to save status");
+      }
+      isNextClicked ? onNextClick() : null;
+    } catch (e) {
+      isNextClicked ? onNextClick() : null;
+      throw Exception(e);
+    }
+  }
+
+  Future setSeekerStatus(context) async {
+    try {
+      onNextClick();
+      var response = await repo.seekerGetRequest(context);
+      if (response == true) {
+      } else {
+        showSnack(context, "02", "Unable to save status");
+      }
+      isNextClicked ? onNextClick() : null;
+    } catch (e) {
+      isNextClicked ? onNextClick() : null;
+      throw Exception(e);
+    }
+  }
+
+  Future saveOwnerInfo(context, OwnerPersonalInfoRequest data) async {
+    try {
+      OwnerPersonalInfoResponse response =
+          await repo.saveOwnerPersonalInfo(context, data);
+      _nextClicked ? onNextButtonClick() : null;
+      if (response.message == "success") {
+        RoutingService.pushAndRemoveAllRoute(context, const OwnerMainHome());
+      } else {
+        showSnack(context, "03", "Unable to save personal Info");
+      }
+    } catch (e) {
+      _nextClicked ? onNextButtonClick() : null;
+      showSnack(context, "03", "Unable to save personal Info");
+      throw Exception(e);
+    }
+  }
+
+  Future saveSeekerInfo(context, OwnerPersonalInfoRequest data) async {
+    try {
+      OwnerPersonalInfoResponse response =
+          await repo.saveSeekerPersonalInfo(context, data);
+      _nextClicked ? onNextButtonClick() : null;
+      if (response.message == "success") {
+        RoutingService.pushAndRemoveAllRoute(context, const SeekerMainHome());
+      } else {
+        showSnack(context, "03", "Unable to save personal Info");
+      }
+    } catch (e) {
+      _nextClicked ? onNextButtonClick() : null;
+      showSnack(context, "03", "Unable to save personal Info");
+      throw Exception(e);
+    }
   }
 
   void personalInfo(username, age, gender, religion, sex, lang) {

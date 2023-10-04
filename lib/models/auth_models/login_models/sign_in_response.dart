@@ -1,6 +1,6 @@
 class SignInResponse {
   String? message;
-  UserData? data;
+  Data? data;
 
   SignInResponse({
     this.message,
@@ -10,7 +10,7 @@ class SignInResponse {
   SignInResponse.fromJson(Map<String, dynamic> json) {
     message = json['message'] as String?;
     data = (json['data'] as Map<String, dynamic>?) != null
-        ? UserData.fromJson(json['data'] as Map<String, dynamic>)
+        ? Data.fromJson(json['data'] as Map<String, dynamic>)
         : null;
   }
 
@@ -22,22 +22,22 @@ class SignInResponse {
   }
 }
 
-class UserData {
+class Data {
   String? accessToken;
   String? refreshToken;
-  User? user;
+  UserData? user;
 
-  UserData({
+  Data({
     this.accessToken,
     this.refreshToken,
     this.user,
   });
 
-  UserData.fromJson(Map<String, dynamic> json) {
+  Data.fromJson(Map<String, dynamic> json) {
     accessToken = json['accessToken'] as String?;
     refreshToken = json['refreshToken'] as String?;
     user = (json['user'] as Map<String, dynamic>?) != null
-        ? User.fromJson(json['user'] as Map<String, dynamic>)
+        ? UserData.fromJson(json['user'] as Map<String, dynamic>)
         : null;
   }
 
@@ -50,64 +50,64 @@ class UserData {
   }
 }
 
-class User {
+class UserData {
   String? id;
   String? username;
   String? password;
   String? email;
   bool? isVerified;
   bool? activated;
-  String? state;
-  String? region;
+  String? phoneNumber;
   String? createdAt;
   String? updatedAt;
   int? v;
-  String? refreshToken;
+  String? otpCode;
+  String? otpReference;
 
-  User({
+  UserData({
     this.id,
     this.username,
     this.password,
     this.email,
     this.isVerified,
     this.activated,
-    this.state,
-    this.region,
+    this.phoneNumber,
     this.createdAt,
     this.updatedAt,
     this.v,
-    this.refreshToken,
+    this.otpCode,
+    this.otpReference,
   });
 
-  User.fromJson(Map<String, dynamic> json) {
-    id = json['id'] as String?;
+  UserData.fromJson(Map<String, dynamic> json) {
     username = json['username'] as String?;
     password = json['password'] as String?;
     email = json['email'] as String?;
     isVerified = json['isVerified'] as bool?;
     activated = json['activated'] as bool?;
-    state = json['state'] as String?;
-    region = json['region'] as String?;
+    phoneNumber = json['phoneNumber'] as String?;
     createdAt = json['createdAt'] as String?;
     updatedAt = json['updatedAt'] as String?;
-    v = json['v'] as int?;
-    refreshToken = json['refreshToken'] as String?;
+    v = json['__v'] as int?;
+    otpCode = json['otpCode'] as String?;
+    otpReference = json['otpReference'] as String?;
+    id = json['id'] as String?;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> json = <String, dynamic>{};
-    json['id'] = id;
     json['username'] = username;
     json['password'] = password;
     json['email'] = email;
     json['isVerified'] = isVerified;
     json['activated'] = activated;
-    json['state'] = state;
-    json['region'] = region;
+    json['phoneNumber'] = phoneNumber;
     json['createdAt'] = createdAt;
     json['updatedAt'] = updatedAt;
-    json['v'] = v;
-    json['refreshToken'] = refreshToken;
+    json['__v'] = v;
+    json['otpCode'] = otpCode;
+    json['otpReference'] = otpReference;
+    json['id'] = id;
     return json;
   }
 }

@@ -21,37 +21,6 @@ class _HomesExploreState extends State<HomesExplore> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(
-        leading: const DrawerWidget(),
-        centerTitle: true,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SvgPicture.asset(
-              'assets/icons/logo.svg',
-              color: purple,
-            ),
-            SizedBox(width: size.width * 0.05),
-            Text("Saturn", style: appBarTextStyle),
-          ],
-        ),
-        actions: [
-          IconButton(
-            iconSize: 40,
-            icon: SvgPicture.asset(
-              'assets/icons/filter.svg',
-              color: deepBlack,
-            ),
-            onPressed: () {
-              Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(
-                  fullscreenDialog: true,
-                  builder: ((context) => const HomesFilterPage())));
-            },
-          ),
-        ],
-        backgroundColor: Colors.white,
-        elevation: 0.2,
-      ),
       body: CarouselSlider.builder(
         itemCount: details.length,
         itemBuilder: ((context, index, realIndex) {

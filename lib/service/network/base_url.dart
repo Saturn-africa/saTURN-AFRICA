@@ -1,5 +1,7 @@
 class BaseURL {
-  static const String base = "https://saturn-api-lr6i.onrender.com/api/v1/";
+  static const String base = "https://saturn-api-2.onrender.com/api/v1/";
+
+  //    ======= AUTH ======
 
   final String signUp = "${base}auth/signup";
 
@@ -11,5 +13,24 @@ class BaseURL {
 
   final String userDetails = "${base}auth/me";
 
-  final String verifyOtp = "${base}sms/check-verification-code";
+  String verifyOtp(String id) {
+    return "${base}auth/$id/verify-otp";
+  }
+
+  String resendOtp(String id) {
+    return "${base}auth/$id/resendOtp";
+  }
+
+  //      ====== USER ======
+
+  final String userOwner = "${base}users/room-owner";
+
+  final String userSeeker = "${base}users/room-seeker";
+
+  //  ======= Room Owner =====
+  final String ownerPersonalInfo = "${base}room-owner-cards/personal-info";
+
+  //  ======= Room Seeker =====
+
+  final String seekerPersonalInfo = "${base}room-seeker-cards/personal-info";
 }

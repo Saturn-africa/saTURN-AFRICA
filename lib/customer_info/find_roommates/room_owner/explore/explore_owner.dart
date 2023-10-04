@@ -1,7 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:saturn/customer_info/find_roommates/room_owner/explore/owner_expore_card.dart';
-import 'package:saturn/helper_widgets/app_bar.dart';
+import 'package:saturn/helper_widgets/home/app_bar.dart';
 
 class OwnerExplore extends StatefulWidget {
   const OwnerExplore({super.key});
@@ -17,7 +17,6 @@ class _OwnerExploreState extends State<OwnerExplore> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: appBar(context, size),
       body: CarouselSlider.builder(
         itemCount: details.length,
         itemBuilder: ((context, index, realIndex) {

@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:saturn/config/routing/routing.dart';
 import 'package:saturn/customer_info/find_roommates/terms_page.dart';
 import 'package:saturn/custom_widgets/custom_button.dart';
 import 'package:saturn/helper_widgets/colors.dart';
+import 'package:saturn/helper_widgets/leading_arrow.dart';
+import 'package:saturn/helper_widgets/progress_bar.dart';
 import 'package:saturn/helper_widgets/response_snack.dart';
 import 'package:saturn/helper_widgets/text_constants.dart';
 import 'package:saturn/helper_widgets/text_style.dart';
+import 'package:saturn/service/storage/shared_preferences/user_details.dart';
 
 import '../../providers/customer_info_provider.dart';
 
@@ -15,126 +19,135 @@ class CustomerStatus extends StatelessWidget {
   Widget build(BuildContext context) {
     CustomerStatusTexts texts = CustomerStatusTexts();
     Size size = MediaQuery.of(context).size;
-    bool roomOwner = context.watch<CustomerInfoProvider>().roomOwner;
-    bool roomSeeker = context.watch<CustomerInfoProvider>().roomSeeker;
     return Scaffold(
         appBar: AppBar(
-          leading: IconButton(
-              icon: const Icon(
-                Icons.arrow_back,
-                color: Colors.black,
-              ),
-              onPressed: () {
-                Navigator.pop(context, true);
-              }),
+          leading: leadingIcon(context),
           elevation: 0,
           backgroundColor: white,
         ),
-        body: SafeArea(
-            child: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-                vertical: size.height * 0.01, horizontal: size.width * 0.05),
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(texts.statusText, style: serviceHeaderStyle),
-              const SizedBox(height: 15),
-              Text(texts.statusLabelText, style: verifyOTPLabelStyle),
-              SizedBox(height: size.height * 0.05),
-              InkWell(
-                onTap: () {
-                  context.read<CustomerInfoProvider>().roomOwnerSelected();
-                },
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.symmetric(
-                      vertical: 12, horizontal: size.width * 0.05),
-                  decoration: BoxDecoration(
-                      color: white,
-                      border: Border.all(
-                          color: roomOwner ? purple : lightBlack,
-                          width: roomOwner ? 2 : 0.5),
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        texts.statusCard1HeaderText,
-                        style: serviceHeaderStyle,
-                      ),
-                      const SizedBox(height: 10),
-                      Text(
-                        texts.statusCard1LabelText,
-                        style: verifyOTPLabelStyle,
-                      )
-                    ],
+        body: LayoutBuilder(
+          builder: (context, constraint) => SafeArea(
+              child: Consumer<CustomerInfoProvider>(
+            builder: (_, status, __) => SingleChildScrollView(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(minHeight: constraint.maxHeight),
+                child: IntrinsicHeight(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                        vertical: size.height * 0.01,
+                        horizontal: size.width * 0.05),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(texts.statusText, style: serviceHeaderStyle),
+                          const SizedBox(height: 15),
+                          Text(texts.statusLabelText,
+                              style: verifyOTPLabelStyle),
+                          SizedBox(height: size.height * 0.05),
+                          InkWell(
+                            onTap: () {
+                              status.roomOwnerSelected();
+                            },
+                            child: Container(
+                              width: double.infinity,
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 12, horizontal: size.width * 0.05),
+                              decoration: BoxDecoration(
+                                  color: white,
+                                  border: Border.all(
+                                      color: status.roomOwner
+                                          ? purple
+                                          : lightBlack,
+                                      width: status.roomOwner ? 2 : 0.5),
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    texts.statusCard1HeaderText,
+                                    style: serviceHeaderStyle,
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Text(
+                                    texts.statusCard1LabelText,
+                                    style: verifyOTPLabelStyle,
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          InkWell(
+                            onTap: () {
+                              status.roomSeekerSelected();
+                            },
+                            child: Container(
+                              width: double.infinity,
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 12, horizontal: size.width * 0.05),
+                              decoration: BoxDecoration(
+                                  color: white,
+                                  border: Border.all(
+                                      color: status.roomSeeker
+                                          ? purple
+                                          : lightBlack,
+                                      width: status.roomSeeker ? 2 : 0.5),
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    texts.statusCard2HeaderText,
+                                    style: serviceHeaderStyle,
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Text(
+                                    texts.statusCard2LabelText,
+                                    style: verifyOTPLabelStyle,
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                          const Spacer(),
+                          CustomButtonWidget(
+                            text: status.isNextClicked
+                                ? loadingIndicator()
+                                : Text(
+                                    texts.nextText,
+                                    style: buttonStyle,
+                                  ),
+                            onPressed: () async {
+                              if (status.isNextClicked) {
+                                status.onNextClick();
+                                return;
+                              }
+                              if (status.roomOwner) {
+                                await UserPreferences.setUserStatus(
+                                    "Room Owner");
+                                if (context.mounted) {
+                                  await status.setOwnerStatus(context);
+                                }
+                              } else if (status.roomSeeker) {
+                                await UserPreferences.setUserStatus(
+                                    "Room Seeker");
+                                if (context.mounted) {
+                                  await status.setSeekerStatus(context);
+                                }
+                              } else {
+                                showSnack(
+                                    context, "02", "please select a field");
+                              }
+                            },
+                          )
+                        ]),
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 20,
-              ),
-              InkWell(
-                onTap: () {
-                  context.read<CustomerInfoProvider>().roomSeekerSelected();
-                },
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.symmetric(
-                      vertical: 12, horizontal: size.width * 0.05),
-                  decoration: BoxDecoration(
-                      color: white,
-                      border: Border.all(
-                          color: roomSeeker ? purple : lightBlack,
-                          width: roomSeeker ? 2 : 0.5),
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        texts.statusCard2HeaderText,
-                        style: serviceHeaderStyle,
-                      ),
-                      const SizedBox(height: 10),
-                      Text(
-                        texts.statusCard2LabelText,
-                        style: verifyOTPLabelStyle,
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: size.height * 0.25,
-              ),
-              CustomButtonWidget(
-                text: Text(
-                  texts.nextText,
-                  style: buttonStyle,
-                ),
-                onPressed: () {
-                  if (roomSeeker || roomOwner) {
-                    roomSeeker
-                        ? context
-                            .read<CustomerInfoProvider>()
-                            .customerInfo["status"] = "Room Seeker"
-                        : null;
-                    roomOwner
-                        ? context
-                            .read<CustomerInfoProvider>()
-                            .customerInfo["status"] = "Room Owner"
-                        : null;
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const TermsPage()));
-                  } else {
-                    showSnack(context, "02", "please select a field");
-                  }
-                },
-              )
-            ]),
-          ),
-        )));
+            ),
+          )),
+        ));
   }
 }

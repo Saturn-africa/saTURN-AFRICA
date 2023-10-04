@@ -3,17 +3,18 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:saturn/config/routing/routing.dart';
 import 'package:saturn/custom_widgets/custom_profile_tile.dart';
 import 'package:saturn/custom_widgets/image_picker.dart';
+import 'package:saturn/customer_info/find_roommates/account/personal_info.dart';
 import 'package:saturn/customer_info/find_roommates/life_style.dart';
-import 'package:saturn/customer_info/find_roommates/personal_info.dart';
 import 'package:saturn/customer_info/find_roommates/room_owner/additional_info.dart';
 import 'package:saturn/customer_info/find_roommates/room_owner/house_info_owner.dart';
 import 'package:saturn/customer_info/find_roommates/room_owner/room_mate_pref.dart';
 import 'package:saturn/customer_info/find_roommates/room_seeker/additional_info_seeker.dart';
 import 'package:saturn/customer_info/find_roommates/room_seeker/house_info_seeker.dart';
-import 'package:saturn/helper_widgets/app_bar.dart';
 import 'package:saturn/helper_widgets/colors.dart';
+import 'package:saturn/helper_widgets/leading_arrow.dart';
 import 'package:saturn/helper_widgets/text_style.dart';
 import 'package:saturn/providers/customer_info_provider.dart';
 
@@ -38,18 +39,11 @@ class _ProfileState extends State<Profile> {
       appBar: widget.isDrawer
           ? AppBar(
               title: Text("Profile", style: appBarTextStyle),
-              leading: IconButton(
-                  icon: const Icon(
-                    Icons.arrow_back,
-                    color: black,
-                  ),
-                  onPressed: () {
-                    Navigator.pop(context, true);
-                  }),
+              leading: leadingIcon(context),
               backgroundColor: white,
               elevation: 0,
             )
-          : appBar(context, size),
+          : null,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -128,23 +122,16 @@ class _ProfileState extends State<Profile> {
                     CustomProfileTap(
                       text: "Personal Information",
                       onTap: () {
-                        Navigator.of(context, rootNavigator: true)
-                            .push(MaterialPageRoute(
-                                builder: (context) => const PersonalInfoPage(
-                                      isProfile: true,
-                                    )));
+                        RoutingService.pushFullScreenRouting(
+                            context, const UserPersonalInfo());
                       },
                     ),
                     const SizedBox(height: 10),
                     CustomProfileTap(
                       text: "Roommate Preference",
                       onTap: () {
-                        Navigator.of(context, rootNavigator: true).push(
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    const RoommatePreferencePage(
-                                      isProfile: true,
-                                    )));
+                        RoutingService.pushFullScreenRouting(
+                            context, const RoommatePreferencePage());
                       },
                     ),
                     const SizedBox(height: 10),
@@ -152,24 +139,18 @@ class _ProfileState extends State<Profile> {
                       text: "House Information",
                       onTap: () {
                         status == "Room Owner"
-                            ? Navigator.of(context, rootNavigator: true).push(
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const OwnerHouseInfoPage()))
-                            : Navigator.of(context, rootNavigator: true).push(
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const HouseSeekerInfoPage()));
+                            ? RoutingService.pushFullScreenRouting(
+                                context, const OwnerHouseInfoPage())
+                            : RoutingService.pushFullScreenRouting(
+                                context, const HouseSeekerInfoPage());
                       },
                     ),
                     const SizedBox(height: 10),
                     CustomProfileTap(
                       text: "Lifestyle Choices",
                       onTap: () {
-                        Navigator.of(context, rootNavigator: true).push(
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    const LifestyleInfoPage()));
+                        RoutingService.pushFullScreenRouting(
+                            context, const LifestyleInfoPage());
                       },
                       icon: Icons.sports_kabaddi,
                     ),
@@ -178,14 +159,10 @@ class _ProfileState extends State<Profile> {
                       text: "Additional Information",
                       onTap: () {
                         status == "Room Owner"
-                            ? Navigator.of(context, rootNavigator: true).push(
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const OwnerAdditionalInformationPage()))
-                            : Navigator.of(context, rootNavigator: true).push(
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const AdditionalInfoSeekerPage()));
+                            ? RoutingService.pushFullScreenRouting(
+                                context, const OwnerAdditionalInformationPage())
+                            : RoutingService.pushFullScreenRouting(
+                                context, const AdditionalInfoSeekerPage());
                       },
                       icon: Icons.signal_cellular_alt_outlined,
                     ),
