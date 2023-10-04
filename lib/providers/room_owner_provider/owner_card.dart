@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:saturn/config/routing/routing.dart';
 import 'package:saturn/helper_widgets/response_snack.dart';
 import 'package:saturn/models/room_owner_model/owner_cards.dart';
+import 'package:saturn/models/room_seeker_model/seeker_cards.dart';
 import 'package:saturn/repositories/room_owner_repository.dart';
+import 'package:saturn/repositories/room_seeker_repository.dart';
 
 import '../../customer_info/find_roommates/room_owner/explore/view_details/view_detail.dart';
 
 class OwnerCardProvider extends RoomOwnerRepository with ChangeNotifier {
-  List<Data> ownerCardsList = [];
+  RoomSeekerRepository repo = RoomSeekerRepository();
+  List ownerCardsList = [];
   bool _isLoading = false;
   bool _isViewClicked = false;
   int activeIndex = 0;
@@ -49,17 +52,23 @@ class OwnerCardProvider extends RoomOwnerRepository with ChangeNotifier {
       if (json != null) {
         OwnerCardsResponse response = OwnerCardsResponse.fromJson(json);
         ownerCardsList.addAll(response.data!.data!);
+        var json1 = page == prevPage
+            ? null
+            : await repo.getSeekerCards(context, page.toString());
+        if (json1 != null) {
+          SeekerCardsResponse seekerResponse =
+              SeekerCardsResponse.fromJson(json1);
+          ownerCardsList.addAll(seekerResponse.data!.data!);
+        }
         prevPage = page;
         print("user ====>>> ${ownerCardsList[0].user}");
         print("card list ===>> ${ownerCardsList.length}");
-      } else {
-        showSnack(context, "02", "unable to get user cards");
       }
       notifyListeners();
     } catch (e) {
       _isLoading ? false : null;
       notifyListeners();
-      showSnack(context, "02", "unable to get user cards");
+      // showSnack(context, "02", "unable to get user cards");
     }
   }
 
@@ -69,7 +78,7 @@ class OwnerCardProvider extends RoomOwnerRepository with ChangeNotifier {
       var json = await getOwnerCardById(context, id);
       _isViewClicked ? onViewClick() : null;
       if (json != null) {
-        Data response = Data.fromJson(json["data"]);
+        OwnerData response = OwnerData.fromJson(json["data"]);
         RoutingService.pushRouting(context, ViewDetailPage(data: response));
       } else {
         showSnack(context, "02", "unable to get card details");

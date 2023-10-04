@@ -13,7 +13,7 @@ import 'package:saturn/providers/room_owner_provider/owner_request.dart';
 
 class OwnerExploreCards extends StatelessWidget {
   const OwnerExploreCards({super.key, required this.owner});
-  final Data owner;
+  final OwnerData owner;
 
   @override
   Widget build(BuildContext context) {
@@ -218,6 +218,7 @@ class OwnerExploreCards extends StatelessWidget {
                           Expanded(
                             child: CustomButtonWidget(
                                 onPressed: () async {
+                                  // print(owner.id);
                                   if (request.requestClicked) {
                                     request.onRequestClick();
                                     return;

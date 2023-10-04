@@ -8,7 +8,7 @@ import 'package:saturn/providers/room_owner_provider/owner_card.dart';
 
 class ViewDetailPage extends StatelessWidget {
   const ViewDetailPage({super.key, required this.data});
-  final Data data;
+  final OwnerData data;
 
   @override
   Widget build(BuildContext context) {

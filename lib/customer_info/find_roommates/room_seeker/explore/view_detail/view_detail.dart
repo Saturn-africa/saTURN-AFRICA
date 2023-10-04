@@ -6,7 +6,7 @@ import 'package:saturn/models/room_seeker_model/seeker_cards.dart';
 
 class ViewDetailSeekerPage extends StatelessWidget {
   const ViewDetailSeekerPage({super.key, required this.data});
-  final Data data;
+  final SeekerData data;
 
   @override
   Widget build(BuildContext context) {

@@ -7,7 +7,7 @@ import 'package:saturn/models/room_owner_model/owner_cards.dart';
 
 class ViewDetailCard extends StatelessWidget {
   const ViewDetailCard({super.key, required this.owner});
-  final Data owner;
+  final OwnerData owner;
 
   @override
   Widget build(BuildContext context) {

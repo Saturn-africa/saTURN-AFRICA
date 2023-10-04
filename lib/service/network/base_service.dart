@@ -46,8 +46,28 @@ class NetworkService {
     print("body====>> $body");
     dynamic responseJson;
     try {
+      print("herrrrreeeee===>>>");
       http.Response response = await http
           .put(Uri.parse(url), headers: header, body: jsonEncode(body))
+          .timeout(Duration(seconds: seconds));
+      print(response.statusCode);
+      // print(jsonEncode(body));
+      print(response.body);
+      responseJson = returnResponse(response, context);
+    } on SocketException catch (_) {
+      throw FetchDataException("No Internet Connection");
+    }
+    return responseJson;
+  }
+
+  Future noBodyPutRequest(String url, Map<String, String> header, context,
+      {int seconds = 100}) async {
+    print("url ===>> $url");
+    print("header ===>> $header");
+    dynamic responseJson;
+    try {
+      http.Response response = await http
+          .put(Uri.parse(url), headers: header)
           .timeout(Duration(seconds: seconds));
       print(response.statusCode);
       // print(jsonEncode(body));

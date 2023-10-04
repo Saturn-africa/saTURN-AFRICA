@@ -8,7 +8,7 @@ import 'package:saturn/models/room_seeker_model/seeker_cards.dart';
 
 class ViewDetailSeekerCard extends StatelessWidget {
   const ViewDetailSeekerCard({super.key, required this.seeker});
-  final Data seeker;
+  final SeekerData seeker;
 
   @override
   Widget build(BuildContext context) {

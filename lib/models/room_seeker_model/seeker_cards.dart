@@ -22,7 +22,7 @@ class SeekerCardsResponse {
 }
 
 class ResponsData {
-  List<Data>? data;
+  List<SeekerData>? data;
 
   ResponsData({
     this.data,
@@ -30,12 +30,12 @@ class ResponsData {
 
   ResponsData.fromJson(Map<String, dynamic> json) {
     data = (json['data'] as List?)
-        ?.map((dynamic e) => Data.fromJson(e as Map<String, dynamic>))
+        ?.map((dynamic e) => SeekerData.fromJson(e as Map<String, dynamic>))
         .toList();
   }
 }
 
-class Data {
+class SeekerData {
   dynamic id;
   String? fullName;
   String? ageRange;
@@ -70,7 +70,7 @@ class Data {
   List<String>? photos;
   User? user;
 
-  Data({
+  SeekerData({
     this.id,
     this.fullName,
     this.ageRange,
@@ -106,7 +106,7 @@ class Data {
     this.user,
   });
 
-  Data.fromJson(Map<String, dynamic> json) {
+  SeekerData.fromJson(Map<String, dynamic> json) {
     id = json['id'] as dynamic;
     fullName = json['fullName'] as String?;
     ageRange = json['ageRange'] as String?;

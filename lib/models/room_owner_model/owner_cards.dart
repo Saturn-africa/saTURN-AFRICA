@@ -18,7 +18,7 @@ class OwnerCardsResponse {
 class ResponseData {
   dynamic total;
   String? count;
-  List<Data>? data;
+  List<OwnerData>? data;
 
   ResponseData({
     this.total,
@@ -30,12 +30,12 @@ class ResponseData {
     total = json['total'] as dynamic;
     count = json['count'] as String?;
     data = (json['data'] as List?)
-        ?.map((dynamic e) => Data.fromJson(e as Map<String, dynamic>))
+        ?.map((dynamic e) => OwnerData.fromJson(e as Map<String, dynamic>))
         .toList();
   }
 }
 
-class Data {
+class OwnerData {
   String? id;
   String? fullName;
   String? ageRange;
@@ -73,7 +73,7 @@ class Data {
   String? restRoomType;
   String? additionalInformation;
 
-  Data({
+  OwnerData({
     this.id,
     this.fullName,
     this.ageRange,
@@ -112,7 +112,7 @@ class Data {
     this.additionalInformation,
   });
 
-  Data.fromJson(Map<String, dynamic> json) {
+  OwnerData.fromJson(Map<String, dynamic> json) {
     fullName = json['fullName'] as String?;
     ageRange = json['ageRange'] as String?;
     gender = json['gender'] as String?;

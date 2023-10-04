@@ -53,7 +53,7 @@ class BaseURL {
 
   String ownerCardById(String id) => "${base}room-owner-cards/$id";
 
-  String ownerSendRequest(String id) => "${base}requests/roomOwner/$id";
+  String ownerRequestUrl(String id) => "${base}requests/roomOwner/$id";
 
   //  ======= Room Seeker =====
 
@@ -78,4 +78,6 @@ class BaseURL {
       "${base}room-seeker-cards?page=$page&pageSize=10";
 
   String seekerCardById(String id) => "${base}room-seeker-cards/$id";
+
+  String seekerRequestUrl(String id) => "${base}requests/roomSeeker/$id";
 }

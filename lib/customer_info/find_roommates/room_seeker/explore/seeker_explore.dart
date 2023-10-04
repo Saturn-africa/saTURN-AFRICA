@@ -4,9 +4,11 @@ import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:saturn/custom_widgets/custom_shimmers/explore_card_shimmer.dart';
+import 'package:saturn/customer_info/find_roommates/room_owner/explore/owner_expore_card.dart';
 import 'package:saturn/customer_info/find_roommates/room_seeker/explore/seeker_explore_card.dart';
 import 'package:saturn/helper_widgets/colors.dart';
 import 'package:saturn/models/owner_details.dart';
+import 'package:saturn/models/room_seeker_model/seeker_cards.dart';
 import 'package:saturn/providers/room_seeker_provider/seeker_card.dart';
 
 class SeekerExplorePage extends StatefulWidget {
@@ -58,22 +60,30 @@ class _SeekerExplorePageState extends State<SeekerExplorePage> {
           child: card.isLoading && card.seekerCardsList.isEmpty
               ? const ExploreCardShimmer()
               : (!card.isLoading && card.seekerCardsList.isEmpty)
-                  ? Center(
-                      child: Text(
-                        "No available room seeker cards",
-                        style: GoogleFonts.ubuntu(
-                            textStyle: const TextStyle(
-                                fontSize: 15,
-                                color: purple,
-                                fontWeight: FontWeight.w500)),
+                  ? Padding(
+                      padding:
+                          EdgeInsets.symmetric(vertical: size.height * 0.3),
+                      child: Center(
+                        child: Text(
+                          "No available room seeker cards",
+                          style: GoogleFonts.ubuntu(
+                              textStyle: const TextStyle(
+                                  fontSize: 15,
+                                  color: purple,
+                                  fontWeight: FontWeight.w500)),
+                        ),
                       ),
                     )
                   : CarouselSlider.builder(
                       itemCount: card.seekerCardsList.length,
                       itemBuilder: (context, index, realIndex) {
-                        return SeekerExploreCards(
-                          seeker: card.seekerCardsList[index],
-                        );
+                        return card.seekerCardsList[index].runtimeType ==
+                                SeekerData
+                            ? SeekerExploreCards(
+                                seeker: card.seekerCardsList[index],
+                              )
+                            : OwnerExploreCards(
+                                owner: card.seekerCardsList[index]);
                       },
                       options: CarouselOptions(
                         height: size.height * 0.85,

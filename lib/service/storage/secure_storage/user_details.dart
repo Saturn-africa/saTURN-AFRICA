@@ -83,9 +83,10 @@ class UserSecureStorage {
     return response;
   }
 
-  Future<UserDetailsModel> getUpdatedUserData() async {
+  Future getUpdatedUserData() async {
     String? value = await storage.read(key: _userUpdatedDataKey);
-    UserDetailsModel response = UserDetailsModel.fromJson(jsonDecode(value!));
+    var response =
+        value == null ? value : UserDetailsModel.fromJson(jsonDecode(value));
     return response;
   }
 }
