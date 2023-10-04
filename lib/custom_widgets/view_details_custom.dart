@@ -30,7 +30,7 @@ class ColumnCustomWidget extends StatelessWidget {
   }) : super(key: key);
 
   final String title;
-  final String text;
+  final dynamic text;
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +49,7 @@ class ColumnCustomWidget extends StatelessWidget {
         SizedBox(
           width: size.width * 0.46,
           child: AutoSizeText(
-            text,
+            text.toString(),
             overflow: TextOverflow.clip,
             maxLines: 1,
             style: ownerCardSubtitleStyle.copyWith(color: deepBlack),
@@ -110,7 +110,7 @@ class ColumnCustomOwner extends StatelessWidget {
   }) : super(key: key);
 
   final String title;
-  final String text;
+  final dynamic text;
 
   @override
   Widget build(BuildContext context) {
@@ -120,17 +120,17 @@ class ColumnCustomOwner extends StatelessWidget {
       // mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         SizedBox(
-          width: size.width * 0.45,
+          width: size.width * 0.43,
           child: AutoSizeText(title,
               maxLines: 1,
               style: ownerCardSubtitleStyle.copyWith(color: titleColor)),
         ),
         const SizedBox(height: 10),
         SizedBox(
-          width: size.width * 0.45,
+          width: size.width * 0.43,
           child: AutoSizeText(
-            text,
-            overflow: TextOverflow.clip,
+            text.toString(),
+            overflow: TextOverflow.ellipsis,
             maxLines: 1,
             style: ownerCardSubtitleStyle.copyWith(color: deepBlack),
           ),

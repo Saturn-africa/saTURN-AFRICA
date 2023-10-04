@@ -7,7 +7,7 @@ import 'package:saturn/service/apis/app_exception.dart';
 
 class NetworkService {
   Future getNoResponseRequest(String url, Map<String, String> header, context,
-      {int seconds = 50}) async {
+      {int seconds = 100}) async {
     try {
       http.Response response = await http
           .get(Uri.parse(url), headers: header)
@@ -21,14 +21,37 @@ class NetworkService {
   }
 
   Future getRequest(String url, Map<String, String> header, context,
-      {int seconds = 40}) async {
+      {int seconds = 100}) async {
     dynamic responseJson;
     try {
+      print("url ===>> $url");
+      print("header ===>> $header");
       http.Response response = await http
           .get(Uri.parse(url), headers: header)
           .timeout(Duration(seconds: seconds));
       print(response.body);
       // print(header);
+      responseJson = returnResponse(response, context);
+    } on SocketException catch (_) {
+      throw FetchDataException("No Internet Connection");
+    }
+    return responseJson;
+  }
+
+  Future putRequest(
+      String url, Map<String, String> header, Object body, context,
+      {int seconds = 100}) async {
+    print("url ===>> $url");
+    print("header ===>> $header");
+    print("body====>> $body");
+    dynamic responseJson;
+    try {
+      http.Response response = await http
+          .put(Uri.parse(url), headers: header, body: jsonEncode(body))
+          .timeout(Duration(seconds: seconds));
+      print(response.statusCode);
+      // print(jsonEncode(body));
+      print(response.body);
       responseJson = returnResponse(response, context);
     } on SocketException catch (_) {
       throw FetchDataException("No Internet Connection");
@@ -65,7 +88,7 @@ class NetworkService {
         dynamic responseJson = responseData;
         return responseJson;
       case 201:
-        dynamic responseJson = jsonDecode(response.body);
+        dynamic responseJson = responseData;
         return responseJson;
       case 400:
         showSnack(context, "08", responseData["msg"]);

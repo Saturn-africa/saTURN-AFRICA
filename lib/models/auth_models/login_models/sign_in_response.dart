@@ -13,13 +13,6 @@ class SignInResponse {
         ? Data.fromJson(json['data'] as Map<String, dynamic>)
         : null;
   }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> json = <String, dynamic>{};
-    json['message'] = message;
-    json['data'] = data?.toJson();
-    return json;
-  }
 }
 
 class Data {
@@ -39,14 +32,6 @@ class Data {
     user = (json['user'] as Map<String, dynamic>?) != null
         ? UserData.fromJson(json['user'] as Map<String, dynamic>)
         : null;
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> json = <String, dynamic>{};
-    json['accessToken'] = accessToken;
-    json['refreshToken'] = refreshToken;
-    json['user'] = user?.toJson();
-    return json;
   }
 }
 

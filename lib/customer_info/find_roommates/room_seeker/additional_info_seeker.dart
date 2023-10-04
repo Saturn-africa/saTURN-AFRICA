@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:saturn/Providers/customer_info_provider.dart';
 import 'package:saturn/custom_widgets/custom_button.dart';
 import 'package:saturn/custom_widgets/custom_input.dart';
-import 'package:saturn/custom_widgets/custom_white_button.dart';
-import 'package:saturn/customer_info/find_roommates/room_seeker/home_main_seeker.dart';
 import 'package:saturn/helper_widgets/colors.dart';
+import 'package:saturn/helper_widgets/progress_bar.dart';
 import 'package:saturn/helper_widgets/response_snack.dart';
 import 'package:saturn/helper_widgets/text_constants.dart';
 import 'package:saturn/helper_widgets/text_style.dart';
+import 'package:saturn/providers/account/account_provider.dart';
 
 class AdditionalInfoSeekerPage extends StatefulWidget {
   const AdditionalInfoSeekerPage({super.key});
@@ -43,69 +42,71 @@ class _AdditionalInfoSeekerPageState extends State<AdditionalInfoSeekerPage> {
                 Navigator.pop(context, true);
               }),
           backgroundColor: Colors.white,
-          elevation: 0.5,
+          elevation: 0,
         ),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-                vertical: size.height * 0.02, horizontal: size.width * 0.04),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(texts.labelText, style: verifyOTPLabelStyle),
-                  CustomInputField(
-                    size: size,
-                    text: "",
-                    minLines: 6,
-                    maxLines: 6,
-                    obscureText: false,
-                    controller: noteController,
-                    textInputAction: TextInputAction.next,
-                    keyboardType: TextInputType.multiline,
-                    isCompulsory: false,
-                    hintText: texts.hintText,
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return texts.noteError;
-                      }
-                      return null;
-                    },
+        body: Consumer<AccountProvider>(
+          builder: (_, account, __) => LayoutBuilder(
+            builder: (context, constraint) => SingleChildScrollView(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: size.width * 0.04),
+                child: Form(
+                  key: _formKey,
+                  child: ConstrainedBox(
+                    constraints:
+                        BoxConstraints(minHeight: constraint.maxHeight),
+                    child: IntrinsicHeight(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(texts.labelText, style: verifyOTPLabelStyle),
+                          CustomInputField(
+                            size: size,
+                            text: "",
+                            minLines: 6,
+                            maxLines: 6,
+                            obscureText: false,
+                            controller: noteController,
+                            textInputAction: TextInputAction.next,
+                            keyboardType: TextInputType.multiline,
+                            isCompulsory: false,
+                            hintText: texts.hintText,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return texts.noteError;
+                              }
+                              return null;
+                            },
+                          ),
+                          const Spacer(),
+                          const SizedBox(height: 20),
+                          CustomButtonWidget(
+                            text: account.addInfoClicked
+                                ? loadingIndicator()
+                                : Text(texts.nextButton, style: buttonStyle),
+                            onPressed: () async {
+                              FocusScope.of(context).unfocus();
+                              if (account.addInfoClicked) {
+                                account.onAddInfoClick();
+                                return;
+                              }
+                              if (_formKey.currentState!.validate()) {
+                                Map<String, String> body = {
+                                  "additionalInformation":
+                                      noteController.text.trim()
+                                };
+                                account.onAddInfoClick();
+                                await account.additionalInfoUpdate(
+                                    body, context);
+                              } else {
+                                showSnack(context, "02", "Please Add a Note");
+                              }
+                            },
+                          )
+                        ],
+                      ),
+                    ),
                   ),
-                  SizedBox(height: size.height * 0.4),
-                  CustomWhiteButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: ((context) =>
-                                    const SeekerMainHome())));
-                      },
-                      child: Text(
-                        texts.skipButton,
-                        style: buttonStyle.copyWith(color: purple),
-                      )),
-                  const SizedBox(height: 10),
-                  CustomButtonWidget(
-                    text: Text(texts.nextButton, style: buttonStyle),
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        context
-                                .read<CustomerInfoProvider>()
-                                .customerInfo["additionalNote"] =
-                            noteController.text.trim();
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: ((context) =>
-                                    const SeekerMainHome())));
-                      } else {
-                        showSnack(context, "02", "Please Add a Note");
-                      }
-                    },
-                  )
-                ],
+                ),
               ),
             ),
           ),

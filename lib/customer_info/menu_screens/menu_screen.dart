@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:saturn/auth/login/login_page.dart';
 import 'package:saturn/config/routing/routing.dart';
-import 'package:saturn/custom_widgets/alert_dialog.dart';
+import 'package:saturn/custom_widgets/dialogs/alert_dialog.dart';
 import 'package:saturn/custom_widgets/custom_menu_widget.dart';
 import 'package:saturn/customer_info/find_roommates/account/account_screen.dart';
 import 'package:saturn/customer_info/menu_screens/payment/activate_account.dart';

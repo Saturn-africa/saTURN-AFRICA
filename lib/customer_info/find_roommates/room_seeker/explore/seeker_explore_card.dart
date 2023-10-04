@@ -2,38 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:saturn/custom_widgets/custom_button.dart';
 import 'package:saturn/custom_widgets/custom_container.dart';
 import 'package:saturn/custom_widgets/custom_white_button.dart';
+import 'package:saturn/custom_widgets/room_seeker/seeker_house_types.dart';
 import 'package:saturn/custom_widgets/view_details_custom.dart';
 import 'package:saturn/customer_info/find_roommates/room_seeker/explore/view_detail/view_detail.dart';
 import 'package:saturn/helper_widgets/colors.dart';
 import 'package:saturn/helper_widgets/text_style.dart';
-import 'package:saturn/models/owner_details.dart';
+import 'package:saturn/models/room_seeker_model/seeker_cards.dart';
 
 class SeekerExploreCards extends StatelessWidget {
-  const SeekerExploreCards({super.key});
+  const SeekerExploreCards({super.key, required this.seeker});
+  final Data seeker;
 
   @override
   Widget build(BuildContext context) {
     String seekerText = "Looking For A Room To Stay";
-    OwnerDetails owner = OwnerDetails(
-        status: "Room Seeker",
-        personalInfo: PersonalInfo(
-            username: "John Igwe",
-            gender: "Male",
-            ageRange: "18-30",
-            religiousInclination: "Christian"),
-        roommatePref: RoommatePref(
-            ageRange: "18-30",
-            religiousInclination: "Muslim",
-            sexualInclination: "Heterosexual",
-            primaryLanguage: "English",
-            gender: "Female"),
-        houseInfo: HouseInfo(
-            location1: "Dammico",
-            location2: "abule-oja",
-            location3: "bariga, yaba",
-            houseType: "self-contain",
-            restroomType: "indoor restroom",
-            amount: "20000"));
     Size size = MediaQuery.of(context).size;
     return SingleChildScrollView(
       child: Padding(
@@ -81,7 +63,9 @@ class SeekerExploreCards extends StatelessWidget {
                             ),
                             const SizedBox(height: 10),
                             Text(
-                              owner.personalInfo!.username ?? "",
+                              seeker.user != null
+                                  ? seeker.user!.username ?? "Unknown"
+                                  : "Unknown",
                               style: ownerCardTitleStyle,
                             )
                           ],
@@ -101,17 +85,15 @@ class SeekerExploreCards extends StatelessWidget {
                           children: [
                             ColumnCustomWidget(
                                 title: "Age Range",
-                                text: owner.personalInfo!.ageRange ?? ""),
+                                text: seeker.ageRange ?? "Not specified"),
                             SizedBox(width: size.width * 0.1),
                             ColumnCustomWidget(
                                 title: "Religion",
-                                text:
-                                    owner.personalInfo!.religiousInclination ??
-                                        ""),
+                                text: seeker.religion ?? "Not specified"),
                             SizedBox(width: size.width * 0.1),
                             ColumnCustomWidget(
                                 title: "Gender",
-                                text: owner.personalInfo!.gender ?? ""),
+                                text: seeker.gender ?? "Not specified"),
                           ],
                         ),
                       )
@@ -127,20 +109,31 @@ class SeekerExploreCards extends StatelessWidget {
                         scrollDirection: Axis.horizontal,
                         child: Row(
                           children: [
-                            CustomCardContainer(
-                                text:
-                                    owner.roommatePref!.religiousInclination ??
-                                        ""),
+                            seeker.religionOfRoommate == null
+                                ? Container(child: null)
+                                : CustomCardContainer(
+                                    text: seeker.religionOfRoommate!),
                             const SizedBox(width: 10),
-                            CustomCardContainer(
-                                text: owner.roommatePref!.ageRange ==
-                                        owner.personalInfo!.ageRange
-                                    ? "Same Age Range"
-                                    : owner.roommatePref!.ageRange ?? ""),
+                            seeker.ageRangeOfRoommate == null
+                                ? Container(child: null)
+                                : CustomCardContainer(
+                                    text: seeker.ageRangeOfRoommate ==
+                                            seeker.ageRange
+                                        ? "Same Age Range"
+                                        : seeker.ageRangeOfRoommate!),
                             const SizedBox(width: 10),
-                            CustomCardContainer(
-                                text:
-                                    owner.roommatePref!.sexualInclination ?? "")
+                            seeker.sexualInclinationOfRoommate == null
+                                ? Container(child: null)
+                                : CustomCardContainer(
+                                    text: seeker.sexualInclinationOfRoommate!),
+                            seeker.religionOfRoommate == null &&
+                                    seeker.ageRangeOfRoommate == null &&
+                                    seeker.sexualInclinationOfRoommate == null
+                                ? Center(
+                                    child: Text(
+                                        "No Specified Roommate Preferences.",
+                                        style: amenityText))
+                                : Container(child: null)
                           ],
                         ),
                       )
@@ -156,17 +149,32 @@ class SeekerExploreCards extends StatelessWidget {
                         scrollDirection: Axis.horizontal,
                         child: Row(
                           children: [
-                            CustomCardContainer(
-                                text: owner.houseInfo!.houseType ?? ""),
+                            seeker.houseType == null ||
+                                    seeker.houseType!.isEmpty
+                                ? Container()
+                                : Row(
+                                    children:
+                                        getHouseTypeList(seeker.houseType!),
+                                  ),
                             const SizedBox(width: 10),
-                            CustomCardContainer(
-                                text: owner.houseInfo!.houseType ?? ""),
+                            seeker.restRoomType == null
+                                ? Container(child: null)
+                                : CustomCardContainer(
+                                    text: seeker.restRoomType),
                             const SizedBox(width: 10),
-                            CustomCardContainer(
-                                text: owner.houseInfo!.restroomType ?? ""),
-                            const SizedBox(width: 10),
-                            CustomCardContainer(
-                                text: owner.houseInfo!.amount ?? "")
+                            seeker.apartmentPrice == null
+                                ? Container(child: null)
+                                : CustomCardContainer(
+                                    text: seeker.apartmentPrice),
+                            seeker.restRoomType == null &&
+                                        seeker.apartmentPrice == null &&
+                                        seeker.houseType == null ||
+                                    seeker.houseType!.isEmpty
+                                ? Center(
+                                    child: Text(
+                                        "No Specified House Preferences.",
+                                        style: amenityText))
+                                : Container(child: null)
                           ],
                         ),
                       )
@@ -182,14 +190,23 @@ class SeekerExploreCards extends StatelessWidget {
                         scrollDirection: Axis.horizontal,
                         child: Row(
                           children: [
-                            CustomCardContainer(
-                                text: owner.houseInfo!.location1 ?? ""),
-                            const SizedBox(width: 10),
-                            CustomCardContainer(
-                                text: owner.houseInfo!.location2 ?? ""),
-                            const SizedBox(width: 10),
-                            CustomCardContainer(
-                                text: owner.houseInfo!.location3),
+                            seeker.apartmentLocation == null
+                                ? Container()
+                                : CustomCardContainer(
+                                    text: seeker.apartmentLocation),
+                            // const SizedBox(width: 10),
+                            // CustomCardContainer(
+                            //     text: owner.houseInfo!.location2 ?? ""),
+                            // const SizedBox(width: 10),
+                            // CustomCardContainer(
+                            //     text: owner.houseInfo!.location3),
+                            seeker.apartmentLocation == null
+                                ? Center(
+                                    child: Text(
+                                        "No Specified Location of interest.",
+                                        textAlign: TextAlign.center,
+                                        style: amenityText))
+                                : Container(child: null)
                           ],
                         ),
                       )
@@ -206,7 +223,7 @@ class SeekerExploreCards extends StatelessWidget {
                                   MaterialPageRoute(
                                       fullscreenDialog: true,
                                       builder: ((context) =>
-                                          const ViewDetailSeekerPage())));
+                                          ViewDetailSeekerPage(data: seeker))));
                             },
                             child: Text(
                               "View Details",

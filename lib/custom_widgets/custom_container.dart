@@ -8,7 +8,7 @@ class CustomCardContainer extends StatelessWidget {
     required this.text,
   }) : super(key: key);
 
-  final String text;
+  final dynamic text;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class CustomCardContainer extends StatelessWidget {
         color: amenityBg,
       ),
       child: Text(
-        text,
+        text.toString(),
         style: amenityText,
       ),
     );

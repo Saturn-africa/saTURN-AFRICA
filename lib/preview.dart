@@ -3,10 +3,13 @@ import 'package:saturn/auth/login/login_page.dart';
 import 'package:saturn/auth/registration/create_details.dart';
 import 'package:saturn/config/routing/routing.dart';
 import 'package:saturn/custom_widgets/custom_button.dart';
+import 'package:saturn/customer_info/find_roommates/room_owner/home_main.dart';
 import 'package:saturn/customer_info/find_roommates/room_seeker/home_main_seeker.dart';
 import 'package:saturn/helper_widgets/colors.dart';
 import 'package:saturn/helper_widgets/text_constants.dart';
 import 'package:saturn/helper_widgets/text_style.dart';
+import 'package:saturn/models/account/response_model/user_details.dart';
+import 'package:saturn/service/storage/secure_storage/user_details.dart';
 import 'package:saturn/service/storage/shared_preferences/user_details.dart';
 
 class PreviewScreen extends StatelessWidget {
@@ -53,13 +56,25 @@ class PreviewScreen extends StatelessWidget {
                     style: buttonStyle.copyWith(fontSize: 20)),
                 onPressed: () async {
                   bool? status = await UserPreferences.getLoginStatus();
+                  String? refreshToken =
+                      await UserSecureStorage().getRefreshToken();
                   bool firstTime = await UserPreferences.getFirstTimeStatus();
-                  if (firstTime && context.mounted) {
+                  if (refreshToken == null && context.mounted) {
+                    RoutingService.pushAndRemoveAllRoute(
+                        context, const LoginPage());
+                  } else if (firstTime && context.mounted) {
                     RoutingService.pushReplacementRouting(
                         context, const CreateAccount());
                   } else if (status && context.mounted) {
-                    RoutingService.pushReplacementRouting(
-                        context, const SeekerMainHome());
+                    UserDetailsModel user =
+                        await UserSecureStorage().getUpdatedUserData();
+                    if (context.mounted) {
+                      RoutingService.pushReplacementRouting(
+                          context,
+                          user.data!.role!.toLowerCase() == "room owner"
+                              ? const OwnerMainHome()
+                              : const SeekerMainHome());
+                    }
                   } else if (!status && context.mounted) {
                     RoutingService.pushReplacementRouting(
                         context, const LoginPage());

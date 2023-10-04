@@ -10,7 +10,7 @@ class CustomSnackbar {
         //   right: 10,
         // ),
         behavior: SnackBarBehavior.floating,
-        duration: const Duration(seconds: 3),
+        duration: const Duration(seconds: 5),
         padding: const EdgeInsets.all(10),
         elevation: 0.15,
         backgroundColor: white,

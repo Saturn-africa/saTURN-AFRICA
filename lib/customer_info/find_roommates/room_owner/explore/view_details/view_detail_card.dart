@@ -3,11 +3,11 @@ import 'package:saturn/custom_widgets/custom_button.dart';
 import 'package:saturn/custom_widgets/view_details_custom.dart';
 import 'package:saturn/helper_widgets/colors.dart';
 import 'package:saturn/helper_widgets/text_style.dart';
-import 'package:saturn/models/owner_details.dart';
+import 'package:saturn/models/room_owner_model/owner_cards.dart';
 
 class ViewDetailCard extends StatelessWidget {
   const ViewDetailCard({super.key, required this.owner});
-  final OwnerDetails owner;
+  final Data owner;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class ViewDetailCard extends StatelessWidget {
     return SingleChildScrollView(
       child: Padding(
         padding: EdgeInsets.symmetric(
-            vertical: size.height * 0.02, horizontal: size.width * 0.02),
+            vertical: size.height * 0.02, horizontal: size.width * 0.03),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -43,11 +43,13 @@ class ViewDetailCard extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(owner.personalInfo!.username ?? "",
+                          Text(
+                              owner.user != null
+                                  ? owner.user!.username ?? "Unknown"
+                                  : "Unknown",
                               style: dropdownTextStyle.copyWith(color: purple)),
                           const SizedBox(height: 15),
-                          Text(owner.personalInfo!.gender ?? "",
-                              style: ownerCardTextStyle),
+                          Text(owner.gender ?? "", style: ownerCardTextStyle),
                         ],
                       ),
                     ],
@@ -63,41 +65,41 @@ class ViewDetailCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           ColumnCustomOwner(
-                              title: "Status", text: owner.status ?? ""),
+                              title: "Status",
+                              text: owner.user != null
+                                  ? owner.user!.isVerified!
+                                      ? "Verified"
+                                      : "Not verified"
+                                  : "Not verified"),
                           ColumnCustomOwner(
                               title: "Religious Inclination",
-                              text: owner.personalInfo!.religiousInclination ??
-                                  ""),
+                              text: owner.religion ?? ""),
                           ColumnCustomOwner(
                               title: "Cleaning",
-                              text: owner.lifestyleInfo!.cleaning ?? ""),
+                              text: owner.cleaningLevelOfRoommate ?? ""),
                           ColumnCustomOwner(
-                              title: "Language",
-                              text: owner.personalInfo!.primaryLanguage ?? ""),
+                              title: "Language", text: owner.language ?? ""),
                           ColumnCustomOwner(
                               title: "Alcohol",
-                              text: owner.lifestyleInfo!.drinkStatus ?? ""),
+                              text: owner.drinkingLevelOfRoommate ?? ""),
                         ],
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           ColumnCustomOwner(
-                              title: "Gender",
-                              text: owner.personalInfo!.gender ?? ""),
+                              title: "Gender", text: owner.gender ?? ""),
                           ColumnCustomOwner(
                               title: "Sexual Inclination",
-                              text:
-                                  owner.personalInfo!.sexualInclination ?? ""),
+                              text: owner.sexualInclination ?? ""),
                           ColumnCustomOwner(
                               title: "Pets",
-                              text: owner.lifestyleInfo!.petTolerance ?? ""),
+                              text: owner.petToleranceLevelOfRoommate ?? ""),
                           ColumnCustomOwner(
                               title: "Education Level",
-                              text: owner.lifestyleInfo!.educationLevel ?? ""),
+                              text: owner.educationalLevelOfRoommate ?? ""),
                           ColumnCustomOwner(
-                              title: "Age Range",
-                              text: owner.personalInfo!.ageRange ?? ""),
+                              title: "Age Range", text: owner.ageRange ?? ""),
                         ],
                       )
                     ],
@@ -113,17 +115,16 @@ class ViewDetailCard extends StatelessWidget {
                         children: [
                           ColumnCustomOwner(
                               title: "Religious Inclination",
-                              text: owner.roommatePref!.religiousInclination ??
-                                  ""),
+                              text: owner.religionOfRoommate ?? ""),
                           ColumnCustomOwner(
                               title: "Cleaning Habit",
-                              text: owner.roommatePref!.cleaning ?? ""),
+                              text: owner.cleaningLevelOfRoommate ?? ""),
                           ColumnCustomOwner(
                               title: "Language",
-                              text: owner.roommatePref!.primaryLanguage ?? ""),
+                              text: owner.languageOfRoommate ?? ""),
                           ColumnCustomOwner(
                               title: "Alcohol Drinking Habit",
-                              text: owner.roommatePref!.drinkStatus ?? ""),
+                              text: owner.drinkingLevelOfRoommate ?? ""),
                         ],
                       ),
                       Column(
@@ -131,20 +132,19 @@ class ViewDetailCard extends StatelessWidget {
                         children: [
                           ColumnCustomOwner(
                               title: "Gender",
-                              text: owner.roommatePref!.gender ?? ""),
+                              text: owner.genderOfRoommate ?? ""),
                           ColumnCustomOwner(
                               title: "Sexual Inclination",
-                              text:
-                                  owner.roommatePref!.sexualInclination ?? ""),
+                              text: owner.sexualInclinationOfRoommate ?? ""),
                           ColumnCustomOwner(
                               title: "Pets",
-                              text: owner.roommatePref!.petTolerance ?? ""),
+                              text: owner.petToleranceLevelOfRoommate ?? ""),
                           ColumnCustomOwner(
                               title: "Education Level",
-                              text: owner.roommatePref!.educationLevel ?? ""),
+                              text: owner.educationalLevelOfRoommate ?? ""),
                           ColumnCustomOwner(
                               title: "Age Range",
-                              text: owner.roommatePref!.ageRange ?? ""),
+                              text: owner.ageRangeOfRoommate ?? ""),
                         ],
                       )
                     ],
@@ -160,17 +160,21 @@ class ViewDetailCard extends StatelessWidget {
                         children: [
                           ColumnCustomOwner(
                               title: "Current No of Occupants",
-                              text: owner.houseInfo!.numberOfPeople ?? ""),
+                              text: owner.houseOccupants != null
+                                  ? owner.houseOccupants.toString()
+                                  : ""),
                           ColumnCustomOwner(
                               title: "Duration for Room Sharing",
                               text:
-                                  "${owner.houseInfo!.minimumDuration ?? ''} year to ${owner.houseInfo!.maximumDuration ?? ''} year"),
+                                  "${owner.mininumSharingDuration != null ? owner.mininumSharingDuration.toString() : ''}  to ${owner.maximumSharingDuration != null ? owner.maximumSharingDuration.toString() : ''}"),
                           ColumnCustomOwner(
                               title: "No of Rooms",
-                              text: owner.houseInfo!.numberOfPeople ?? ""),
+                              text: owner.numberOfRooms != null
+                                  ? owner.numberOfRooms.toString()
+                                  : ""),
                           ColumnCustomOwner(
                               title: "Type of Kitchen",
-                              text: owner.houseInfo!.kitchenType ?? ""),
+                              text: owner.kitchenType ?? ""),
                         ],
                       ),
                       Column(
@@ -178,16 +182,16 @@ class ViewDetailCard extends StatelessWidget {
                         children: [
                           ColumnCustomOwner(
                               title: "Amount",
-                              text: "NGN ${owner.houseInfo!.amount ?? ''}"),
+                              text: "NGN ${owner.apartmentPrice ?? ''}"),
                           ColumnCustomOwner(
                               title: "Type of House",
-                              text: owner.houseInfo!.houseType ?? ""),
+                              text: owner.houseType ?? ""),
                           ColumnCustomOwner(
                               title: "No of Restrooms",
-                              text: owner.houseInfo!.noOfRestrooms ?? ""),
+                              text: owner.numberOfRestrooms ?? ""),
                           ColumnCustomOwner(
                               title: "Type of Restroom",
-                              text: owner.houseInfo!.restroomType ?? ""),
+                              text: owner.restRoomType ?? ""),
                         ],
                       )
                     ],
@@ -195,7 +199,8 @@ class ViewDetailCard extends StatelessWidget {
                   const CustomDetailHeader(title: "House Amenities"),
                   const SizedBox(height: 15),
                   AmenitiesCustom(
-                    amenities: owner.houseAmenities!,
+                    amenities:
+                        owner.homeAmenities == null ? [] : owner.homeAmenities!,
                   ),
                   const SizedBox(height: 15),
                   const CustomDetailHeader(title: "Location"),
@@ -205,7 +210,7 @@ class ViewDetailCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          owner.houseInfo!.location1 ?? "",
+                          owner.apartmentLocation ?? "",
                           style: ownerCardTextStyle,
                         ),
                         const SizedBox(height: 10),
@@ -221,7 +226,7 @@ class ViewDetailCard extends StatelessWidget {
                   const CustomDetailHeader(title: "Additional Note"),
                   const SizedBox(height: 10),
                   Text(
-                    owner.additionalInfo ?? "",
+                    owner.additionalInformation ?? "",
                     style: ownerCardSubtitleStyle,
                   )
                 ],

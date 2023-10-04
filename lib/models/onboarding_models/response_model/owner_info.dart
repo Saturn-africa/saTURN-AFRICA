@@ -44,7 +44,7 @@ class Data {
   String? cleaningLevelOfRoommate;
   int? apartmentPrice;
   String? apartmentLocation;
-  String? houseType;
+  dynamic houseType;
   int? houseOccupants;
   String? mininumSharingDuration;
   String? maximumSharingDuration;
@@ -117,7 +117,7 @@ class Data {
     cleaningLevelOfRoommate = json['cleaningLevelOfRoommate'] as String?;
     apartmentPrice = json['apartmentPrice'] as int?;
     apartmentLocation = json['apartmentLocation'] as String?;
-    houseType = json['houseType'] as String?;
+    houseType = json['houseType'] as dynamic;
     houseOccupants = json['houseOccupants'] as int?;
     mininumSharingDuration = json['mininumSharingDuration'] as String?;
     maximumSharingDuration = json['maximumSharingDuration'] as String?;

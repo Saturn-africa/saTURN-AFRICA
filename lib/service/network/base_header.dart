@@ -22,19 +22,29 @@ class BaseHeaders {
     };
   }
 
+  Map<String, String> imageHeader(auth) {
+    return {
+      "accept": "*/*",
+      "Content-Type": "multipart/form-data",
+      "Authorization": "Bearer $auth",
+    };
+  }
+
   Future getAuthToken(context) async {
     String? token = await storage.getToken();
     String? refreshToken = await storage.getRefreshToken();
     if (token != null) {
-      print(token);
+      print("access token ===== >>> $token");
       return token;
     } else if (token == null && refreshToken != null) {
       var json = await NetworkService()
           .getRequest(BaseURL().refresh, authHeader(refreshToken), context);
       RefreshTokenResponse response = RefreshTokenResponse.fromJson(json);
-      await storage.setToken(response.data!.data!.accessToken ?? "");
-      print(response.data!.data!.accessToken);
-      return response.data!.data!.accessToken;
+      await storage.setToken(response.data!.accessToken ?? "");
+      await storage.setRefreshToken(response.data!.refreshToken ?? "",
+          isFirst: false);
+      print("refreshed token ===>>> ${response.data!.accessToken}");
+      return response.data!.accessToken;
     } else {
       await UserPreferences.setLoginStatus(false);
       RoutingService.pushAndRemoveAllRoute(context, const LoginPage());

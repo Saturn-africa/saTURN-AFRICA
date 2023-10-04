@@ -1,8 +1,10 @@
+import 'package:saturn/models/account/response_model/user_details.dart';
 import 'package:saturn/models/onboarding_models/request_model/owner_info.dart';
 import 'package:saturn/models/onboarding_models/response_model/owner_info.dart';
 import 'package:saturn/service/network/base_header.dart';
 import 'package:saturn/service/network/base_service.dart';
 import 'package:saturn/service/network/base_url.dart';
+import 'package:saturn/service/storage/secure_storage/user_details.dart';
 
 class OnboardingRepository extends NetworkService with BaseURL, BaseHeaders {
   Future ownerGetRequest(context) async {
@@ -27,7 +29,7 @@ class OnboardingRepository extends NetworkService with BaseURL, BaseHeaders {
       Map<String, String> header_ = authHeader(auth);
       print(userSeeker);
       var json = await getNoResponseRequest(userSeeker, header_, context);
-      if (json == "200" || json == "201") {
+      if (json == 200 || json == 201) {
         return true;
       } else {
         return false;

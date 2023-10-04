@@ -120,7 +120,7 @@ class HomeSeekerInfoTexts {
   String minimumText = "Minimum";
   String maximumText = "Maximum";
   String skipButton = "SKIP";
-  String nextButton = "SUBMIT";
+  String nextButton = "Save";
 }
 
 class SeekerAdditionalInfoTexts {

@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:saturn/Customer_Info/find_roommates/Room_Seeker/additional_info_seeker.dart';
+import 'package:saturn/helper_widgets/progress_bar.dart';
 import 'package:saturn/helper_widgets/response_snack.dart';
-import 'package:saturn/providers/customer_info_provider.dart';
+import 'package:saturn/models/account/request_model/house_info_seeker.dart';
+import 'package:saturn/providers/custom_provider/house_data_provider.dart';
 import 'package:saturn/custom_widgets/custom_button.dart';
 import 'package:saturn/custom_widgets/custom_duration_field.dart';
 import 'package:saturn/custom_widgets/custom_input.dart';
 import 'package:saturn/custom_widgets/custom_list_tile.dart';
 import 'package:saturn/custom_widgets/custom_text.dart';
-import 'package:saturn/custom_widgets/custom_white_button.dart';
 import 'package:saturn/helper_widgets/colors.dart';
 import 'package:saturn/helper_widgets/text_constants.dart';
 import 'package:saturn/helper_widgets/text_style.dart';
 
 class HouseSeekerInfoPage extends StatefulWidget {
-  const HouseSeekerInfoPage({this.isProfile = true, super.key});
-  final bool isProfile;
+  const HouseSeekerInfoPage({super.key});
 
   @override
   State<HouseSeekerInfoPage> createState() => _HouseSeekerInfoPageState();
@@ -30,11 +29,12 @@ class _HouseSeekerInfoPageState extends State<HouseSeekerInfoPage> {
   dynamic selectedMininum;
   dynamic selectedMaximum;
   HomeSeekerInfoTexts texts = HomeSeekerInfoTexts();
-  bool isChecked1 = false;
-  bool isChecked2 = false;
-  bool isChecked3 = false;
-  bool isChecked4 = false;
-  bool isChecked5 = false;
+
+  @override
+  void initState() {
+    Provider.of<HouseDataProvider>(context, listen: false).clearData();
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -51,7 +51,7 @@ class _HouseSeekerInfoPageState extends State<HouseSeekerInfoPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        elevation: 0.5,
+        elevation: 0,
         title: Text(texts.appBarText, style: appBarTextStyle),
         leading: IconButton(
             icon: const Icon(
@@ -62,248 +62,159 @@ class _HouseSeekerInfoPageState extends State<HouseSeekerInfoPage> {
               Navigator.pop(context, true);
             }),
       ),
-      body: SingleChildScrollView(
-        child: Form(
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          key: _formKey,
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-                vertical: size.height * 0.02, horizontal: size.width * 0.04),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                CustomInputField(
-                  size: size,
-                  hintText: texts.budgetHint,
-                  text: texts.budgetText,
-                  keyboardType: TextInputType.number,
-                  controller: budgetController,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return texts.budgetError;
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 15),
-                CustomInputField(
-                  size: size,
-                  text: texts.location1Text,
-                  hintText: texts.locationHint,
-                  keyboardType: TextInputType.name,
-                  controller: location1Controller,
-                  validator: (value) {
-                    if (value!.isEmpty &&
-                        location2Controller.text.trim().isEmpty &&
-                        location3Controller.text.trim().isEmpty) {
-                      return texts.locationError;
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 15),
-                CustomInputField(
-                  size: size,
-                  isCompulsory: false,
-                  text: texts.location2Text,
-                  hintText: texts.locationHint,
-                  keyboardType: TextInputType.name,
-                  controller: location2Controller,
-                ),
-                const SizedBox(height: 15),
-                CustomInputField(
-                  size: size,
-                  isCompulsory: false,
-                  text: texts.location3Text,
-                  hintText: texts.locationHint,
-                  keyboardType: TextInputType.name,
-                  controller: location3Controller,
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                CustomTextWidget(text1: texts.houseTypeText, text2: "*"),
-                const SizedBox(
-                  height: 10,
-                ),
-                CustomListTile(
+      body: Consumer<HouseDataProvider>(
+        builder: (_, data, __) => SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Form(
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            key: _formKey,
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                  vertical: size.height * 0.02, horizontal: size.width * 0.04),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CustomInputField(
                     size: size,
-                    isBold: false,
-                    onChanged: (val) {
+                    hintText: texts.budgetHint,
+                    text: texts.budgetText,
+                    keyboardType: TextInputType.number,
+                    controller: budgetController,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return texts.budgetError;
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(height: 15),
+                  CustomInputField(
+                    size: size,
+                    text: texts.location1Text,
+                    hintText: texts.locationHint,
+                    keyboardType: TextInputType.name,
+                    controller: location1Controller,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return texts.locationError;
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(height: 15),
+                  CustomInputField(
+                      size: size,
+                      text: texts.location2Text,
+                      hintText: texts.locationHint,
+                      keyboardType: TextInputType.name,
+                      controller: location2Controller,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return texts.locationError;
+                        }
+                        return null;
+                      }),
+                  const SizedBox(height: 15),
+                  CustomInputField(
+                      size: size,
+                      text: texts.location3Text,
+                      hintText: texts.locationHint,
+                      keyboardType: TextInputType.name,
+                      controller: location3Controller,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return texts.locationError;
+                        }
+                        return null;
+                      }),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  CustomTextWidget(text1: texts.houseTypeText, text2: "*"),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  ListView.builder(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.vertical,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: data.houseType.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        if (data.selectedBool.length < data.houseType.length) {
+                          data.selectedType.add(false);
+                        }
+                        return CustomListTile(
+                            size: size,
+                            isBold: false,
+                            onChanged: (val) {
+                              data.onCheckboxClick(index, val!);
+                              if (data.selectedType[index]) {
+                                data.addHouseType(data.houseType[index]);
+                              } else {
+                                data.removeHouseType(data.houseType[index]);
+                              }
+                            },
+                            value: data.selectedType[index],
+                            text: data.houseType[index]);
+                      }),
+                  const SizedBox(height: 15),
+                  CustomTextWidget(text1: texts.shareHouseText, text2: " *"),
+                  const SizedBox(height: 10),
+                  CustomDuration(
+                    minimumText: texts.minimumText,
+                    maximumText: texts.maximumText,
+                    selectedMininum: selectedMininum,
+                    selectedMaximum: selectedMaximum,
+                    onChangedMinimum: (value) {
                       setState(() {
-                        isChecked1 = val!;
+                        selectedMininum = value;
                       });
                     },
-                    value: isChecked1,
-                    text: "Duplex"),
-                CustomListTile(
-                    size: size,
-                    isBold: false,
-                    onChanged: (val) {
+                    onChangedMaximum: (value) {
                       setState(() {
-                        isChecked2 = val!;
+                        selectedMaximum = value;
                       });
                     },
-                    value: isChecked2,
-                    text: "Self-Contain"),
-                CustomListTile(
-                    size: size,
-                    isBold: false,
-                    onChanged: (val) {
-                      setState(() {
-                        isChecked3 = val!;
-                      });
-                    },
-                    value: isChecked3,
-                    text: "Single Room"),
-                CustomListTile(
-                    size: size,
-                    isBold: false,
-                    onChanged: (val) {
-                      setState(() {
-                        isChecked4 = val!;
-                      });
-                    },
-                    value: isChecked4,
-                    text: "Two Bedroom Flat"),
-                CustomListTile(
-                    size: size,
-                    isBold: false,
-                    onChanged: (val) {
-                      setState(() {
-                        isChecked5 = val!;
-                      });
-                    },
-                    value: isChecked5,
-                    text: "Three Bedroom Flat"),
-                const SizedBox(height: 15),
-                CustomTextWidget(text1: texts.shareHouseText, text2: " *"),
-                const SizedBox(height: 10),
-                CustomDuration(
-                  minimumText: texts.minimumText,
-                  maximumText: texts.maximumText,
-                  selectedMininum: selectedMininum,
-                  selectedMaximum: selectedMaximum,
-                  onChangedMinimum: (value) {
-                    setState(() {
-                      selectedMininum = value;
-                    });
-                  },
-                  onChangedMaximum: (value) {
-                    setState(() {
-                      selectedMaximum = value;
-                    });
-                  },
-                ),
-                SizedBox(height: size.height * 0.07),
-                Container(
-                  child: !widget.isProfile
-                      ? Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            CustomWhiteButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: ((context) =>
-                                              const AdditionalInfoSeekerPage())));
-                                },
-                                child: Text(texts.skipButton,
-                                    style:
-                                        buttonStyle.copyWith(color: purple))),
-                            const SizedBox(height: 10),
-                            CustomButtonWidget(
-                              text: Text(
-                                texts.nextButton,
-                                style: buttonStyle,
-                              ),
-                              onPressed: () {
-                                if (_formKey.currentState!.validate() &&
-                                    selectedMaximum != null &&
-                                    selectedMininum != null &&
-                                    _countSelectedField(
-                                            isChecked1,
-                                            isChecked2,
-                                            isChecked3,
-                                            isChecked4,
-                                            isChecked5) >
-                                        3) {
-                                  context
-                                      .read<CustomerInfoProvider>()
-                                      .houseInfo(
-                                          budgetController.text.trim(),
-                                          location1Controller.text.trim(),
-                                          location2Controller.text.trim(),
-                                          location3Controller.text.trim(),
-                                          _houseTypeList(
-                                              isChecked1,
-                                              isChecked2,
-                                              isChecked3,
-                                              isChecked4,
-                                              isChecked5),
-                                          selectedMininum,
-                                          selectedMaximum);
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: ((context) =>
-                                              const AdditionalInfoSeekerPage())));
-                                } else {
-                                  showSnack(context, "02",
-                                      "Please fill the required fields");
-                                }
-                              },
-                            ),
-                          ],
-                        )
-                      : CustomButtonWidget(
-                          text: Text(
-                            "APPLY",
+                  ),
+                  const SizedBox(height: 30),
+                  CustomButtonWidget(
+                    text: data.isSaved
+                        ? loadingIndicator()
+                        : Text(
+                            texts.nextButton,
                             style: buttonStyle,
                           ),
-                          onPressed: () {
-                            if (_formKey.currentState!.validate() &&
-                                selectedMaximum != null &&
-                                selectedMininum != null &&
-                                _countSelectedField(isChecked1, isChecked2,
-                                        isChecked3, isChecked4, isChecked5) >
-                                    3) {
-                              Navigator.pop(context);
-                            } else {
-                              showSnack(context, "02",
-                                  "Please fill the required fields");
-                            }
-                          },
-                        ),
-                )
-              ],
+                    onPressed: () async {
+                      if (data.isSaved) {
+                        data.onSaveClick();
+                        return;
+                      }
+                      if (_formKey.currentState!.validate() &&
+                          selectedMaximum != null &&
+                          selectedMininum != null &&
+                          data.selectedHouseType.length >= 3) {
+                        data.onSaveClick();
+                        HouseInfoSeekerRequest body = HouseInfoSeekerRequest(
+                            houseBudget: budgetController.text.trim(),
+                            preferedLocation1: location1Controller.text.trim(),
+                            preferedLocation2: location2Controller.text.trim(),
+                            preferedLocation3: location3Controller.text.trim(),
+                            minimumSharingDuration: selectedMininum,
+                            maximumSharingDuration: selectedMaximum,
+                            houseType: data.selectedHouseType);
+                        await data.saveSeekerHouseInfo(context, body);
+                      } else {
+                        showSnack(
+                            context, "02", "Please fill the required fields");
+                      }
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
         ),
       ),
     );
-  }
-
-  List<String> _houseTypeList(
-      bool check1, bool check2, bool check3, bool check4, bool check5) {
-    List<String> houseType = [];
-    if (check1) houseType.add("Duplex");
-    if (check2) houseType.add("Self-Contain");
-    if (check3) houseType.add("Single Room");
-    if (check4) houseType.add("Two Bedroom Flat");
-    if (check5) houseType.add("Three Bedroom Flat");
-    return houseType;
-  }
-
-  int _countSelectedField(
-      bool check1, bool check2, bool check3, bool check4, bool check5) {
-    int count = 0;
-    if (check1) count++;
-    if (check2) count++;
-    if (check3) count++;
-    if (check4) count++;
-    if (check5) count++;
-    return count;
   }
 }

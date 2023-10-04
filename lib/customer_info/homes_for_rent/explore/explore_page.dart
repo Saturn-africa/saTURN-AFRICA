@@ -1,11 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:saturn/custom_widgets/drawer_widget.dart';
 import 'package:saturn/customer_info/homes_for_rent/explore/homes_explore_card.dart';
-import 'package:saturn/customer_info/homes_for_rent/filter_page.dart';
-import 'package:saturn/helper_widgets/colors.dart';
-import 'package:saturn/helper_widgets/text_style.dart';
 
 class HomesExplore extends StatefulWidget {
   const HomesExplore({super.key});

@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:saturn/custom_widgets/custom_button.dart';
+import 'package:saturn/custom_widgets/room_seeker/house_type_column.dart';
 import 'package:saturn/custom_widgets/view_details_custom.dart';
 import 'package:saturn/helper_widgets/colors.dart';
 import 'package:saturn/helper_widgets/text_style.dart';
-import 'package:saturn/models/owner_details.dart';
+import 'package:saturn/models/room_seeker_model/seeker_cards.dart';
 
 class ViewDetailSeekerCard extends StatelessWidget {
-  const ViewDetailSeekerCard({super.key, required this.owner});
-  final OwnerDetails owner;
+  const ViewDetailSeekerCard({super.key, required this.seeker});
+  final Data seeker;
 
   @override
   Widget build(BuildContext context) {
@@ -29,11 +30,13 @@ class ViewDetailSeekerCard extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(owner.personalInfo!.username ?? "",
+                  Text(
+                      seeker.user != null
+                          ? seeker.user!.username ?? "Unknown"
+                          : "Unknown",
                       style: dropdownTextStyle.copyWith(color: purple)),
                   const SizedBox(height: 15),
-                  Text(owner.personalInfo!.gender ?? "",
-                      style: ownerCardTextStyle),
+                  Text(seeker.gender ?? "", style: ownerCardTextStyle),
                 ],
               ),
             ],
@@ -48,38 +51,42 @@ class ViewDetailSeekerCard extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const ColumnCustomWidget(title: "Status", text: "Verified"),
+                  ColumnCustomWidget(
+                      title: "Status",
+                      text: seeker.user != null
+                          ? seeker.user!.isVerified!
+                              ? "Verified"
+                              : "Not verified"
+                          : "Not verified"),
                   ColumnCustomWidget(
                       title: "Religious Inclination",
-                      text: owner.personalInfo!.religiousInclination ?? ""),
+                      text: seeker.religion ?? ""),
                   ColumnCustomWidget(
                       title: "Cleaning",
-                      text: owner.lifestyleInfo!.cleaning ?? ""),
+                      text: seeker.cleaningLevelOfRoommate ?? ""),
                   ColumnCustomWidget(
-                      title: "Language",
-                      text: owner.personalInfo!.primaryLanguage ?? ""),
+                      title: "Language", text: seeker.language ?? ""),
                   ColumnCustomWidget(
                       title: "Alcohol",
-                      text: owner.lifestyleInfo!.drinkStatus ?? "")
+                      text: seeker.drinkingLevelOfRoommate ?? "")
                 ],
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   ColumnCustomWidget(
-                      title: "Gender", text: owner.personalInfo!.gender ?? ""),
+                      title: "Gender", text: seeker.gender ?? ""),
                   ColumnCustomWidget(
                       title: "Sexual Inclination",
-                      text: owner.personalInfo!.sexualInclination ?? ""),
+                      text: seeker.sexualInclination ?? ""),
                   ColumnCustomWidget(
                       title: "Pets",
-                      text: owner.lifestyleInfo!.petTolerance ?? ""),
+                      text: seeker.petToleranceLevelOfRoommate ?? ""),
                   ColumnCustomWidget(
                       title: "Education Level",
-                      text: owner.lifestyleInfo!.educationLevel ?? ""),
+                      text: seeker.educationalLevelOfRoommate ?? ""),
                   ColumnCustomWidget(
-                      title: "Age Range",
-                      text: owner.personalInfo!.ageRange ?? ""),
+                      title: "Age Range", text: seeker.ageRange ?? ""),
                 ],
               )
             ],
@@ -95,35 +102,33 @@ class ViewDetailSeekerCard extends StatelessWidget {
                 children: [
                   ColumnCustomWidget(
                       title: "Religious Inclination",
-                      text: owner.roommatePref!.religiousInclination ?? ""),
+                      text: seeker.religionOfRoommate ?? ""),
                   ColumnCustomWidget(
                       title: "Cleaning Habits",
-                      text: owner.roommatePref!.cleaning ?? ""),
+                      text: seeker.cleaningLevelOfRoommate ?? ""),
                   ColumnCustomWidget(
-                      title: "Language",
-                      text: owner.roommatePref!.primaryLanguage ?? ""),
+                      title: "Language", text: seeker.languageOfRoommate ?? ""),
                   ColumnCustomWidget(
                       title: "Alcohol Drinking Habit",
-                      text: owner.roommatePref!.drinkStatus ?? "")
+                      text: seeker.drinkingLevelOfRoommate ?? "")
                 ],
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   ColumnCustomWidget(
-                      title: "Gender", text: owner.roommatePref!.gender ?? ""),
+                      title: "Gender", text: seeker.genderOfRoommate ?? ""),
                   ColumnCustomWidget(
                       title: "Sexual Inclination",
-                      text: owner.roommatePref!.sexualInclination ?? ""),
+                      text: seeker.sexualInclinationOfRoommate ?? ""),
                   ColumnCustomWidget(
                       title: "Pets",
-                      text: owner.roommatePref!.petTolerance ?? ""),
+                      text: seeker.petToleranceLevelOfRoommate ?? ""),
                   ColumnCustomWidget(
                       title: "Education Level",
-                      text: owner.roommatePref!.educationLevel ?? ""),
+                      text: seeker.educationalLevelOfRoommate ?? ""),
                   ColumnCustomWidget(
-                      title: "Age Range",
-                      text: owner.roommatePref!.ageRange ?? "")
+                      title: "Age Range", text: seeker.ageRangeOfRoommate ?? "")
                 ],
               )
             ],
@@ -138,28 +143,40 @@ class ViewDetailSeekerCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   ColumnCustomWidget(
-                      title: "Budget", text: owner.houseInfo!.amount ?? ""),
+                      title: "Budget", text: seeker.apartmentPrice ?? ""),
                   ColumnCustomWidget(
                       title: "Location 1",
-                      text: owner.houseInfo!.location1 ?? ""),
+                      text: seeker.apartmentLocation ?? ""),
                   ColumnCustomWidget(
                       title: "Location 2",
-                      text: owner.houseInfo!.location2 ?? ""),
+                      text: seeker.apartmentLocation ?? ""),
                   ColumnCustomWidget(
-                      title: "Location",
-                      text: owner.houseInfo!.location3 ?? ""),
+                      title: "Location", text: seeker.apartmentLocation ?? ""),
                   ColumnCustomWidget(
                       title: "Duration For Room Sharing",
                       text:
-                          "${owner.houseInfo!.minimumDuration ?? 0} to ${owner.houseInfo!.minimumDuration ?? 0}"),
+                          "${seeker.mininumSharingDuration ?? 0} to ${seeker.maximumSharingDuration ?? 0}"),
                 ],
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ColumnCustomWidget(
-                      title: "Type of House",
-                      text: owner.houseInfo!.houseType ?? ""),
+                  SizedBox(
+                    width: size.width * 0.46,
+                    child: Text(
+                      "Type of House",
+                      style: ownerCardSubtitleStyle.copyWith(color: titleColor),
+                    ),
+                  ),
+                  seeker.houseType == null
+                      ? Container()
+                      : Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: getHouseTypeColumn(seeker.houseType!, size),
+                        )
+                  // ColumnCustomWidget(
+                  //     title: "Type of House",
+                  //     text: owner.houseInfo!.houseType ?? ""),
                 ],
               )
             ],
@@ -167,7 +184,7 @@ class ViewDetailSeekerCard extends StatelessWidget {
           const CustomDetailHeader(title: "Additional Note"),
           const SizedBox(height: 15),
           Text(
-            owner.additionalInfo ?? "",
+            seeker.additionalInformation ?? "",
             style: ownerCardSubtitleStyle,
           ),
           const SizedBox(height: 50),
